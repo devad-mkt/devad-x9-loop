@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devad Memory"
+  short_description: "Curate X9 durable session memory"
+  default_prompt: "Use $devad-memory to extract or update Devad X9 durable memory from Codex sessions."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex X9 Backup"
+  short_description: "Back up and restore Codex profile state for X9 recovery."
+  default_prompt: "Back up my Codex X9 profile state to GitHub and report PASS, PARTIAL, or BLOCKED."

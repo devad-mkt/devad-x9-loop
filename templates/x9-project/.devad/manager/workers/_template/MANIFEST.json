@@ -1,0 +1,23 @@
+{
+  "packet_schema": "X9-V5",
+  "task_id": "",
+  "registered_role": "WORKER",
+  "dispatch_id": "dsp-<uuid>",
+  "packet_sha256": "",
+  "lane": "",
+  "feature_id": "",
+  "subfeature_id": null,
+  "feature_root": ".devad/features/<feature-id>",
+  "run_id": "r-YYYYMMDD-NN",
+  "owner_input_id": "",
+  "owner_input_bundle": ".devad/manager/owner-input/<input-id>",
+  "required_attachments": [],
+  "worktree": "",
+  "base_branch": "",
+  "base_sha": "",
+  "allowed_files": [],
+  "forbidden_files": [],
+  "resource_claims": [],
+  "artifact_index": ".devad/features/<feature-id>/refs/ARTIFACTS.md",
+  "completion_receipt": "runs/<run-id>/COMPLETION_RECEIPT.json"
+}

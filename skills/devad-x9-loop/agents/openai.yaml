@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devad X9 Loop"
+  short_description: "Route X9 tasks with durable identity and receipts"
+  default_prompt: "Use $devad-x9-loop as Linx. Read compact loop state, validate task and dispatch identity, then route one bounded next action."

@@ -1,0 +1,14 @@
+{
+  "schema": "x9-loop-concurrency-benchmark-v1",
+  "baseline": {"CODING": 2, "READ_ONLY": 2, "RUNTIME_PROOF": 1, "DEPLOY": 1},
+  "promotion_to_three": {
+    "calendar_days": 3,
+    "dispatches": 10,
+    "lost_work": 0,
+    "identity_errors": 0,
+    "resource_conflicts": 0,
+    "critical_errors": 0,
+    "max_orchestration_retries": 1
+  },
+  "current_result": "NOT_ELIGIBLE_UNTIL_REAL_V5_RUNS"
+}

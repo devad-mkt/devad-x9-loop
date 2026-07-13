@@ -1,0 +1,10 @@
+{
+  "schema": "X9-V3",
+  "feature_id": "",
+  "title": "",
+  "status": "PLANNED_ONLY",
+  "active_lane": "",
+  "active_run_id": "",
+  "task_router": ".devad/features/<feature-id>/TASK.md",
+  "artifact_index": ".devad/features/<feature-id>/refs/ARTIFACTS.md"
+}

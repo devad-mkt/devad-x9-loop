@@ -1,0 +1,15 @@
+{
+  "date": "2026-07-13",
+  "scope": "local deterministic contract",
+  "checks": [
+    "title-role mismatch",
+    "dispatch deduplication",
+    "honest attempt report",
+    "changed-packet supersession",
+    "stale completion rejection",
+    "resource conflict scheduling",
+    "three-day promotion gate",
+    "Ultra return regression"
+  ],
+  "model_cost_claim": "NONE_DETERMINISTIC_ONLY"
+}

@@ -1,0 +1,17 @@
+{
+  "input_id": "",
+  "attachments": [
+    {
+      "id": "",
+      "original_name": "",
+      "stable_path": "",
+      "media_type": "",
+      "bytes": 0,
+      "sha256": "",
+      "required": true,
+      "sensitive": false,
+      "intended_meaning": "",
+      "delivery_modes": []
+    }
+  ]
+}

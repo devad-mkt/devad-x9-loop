@@ -1,0 +1,11 @@
+{
+  "schema": "x9-loop-task-graph-v1",
+  "updated_at": null,
+  "pool_limits": {"CODING": 2, "READ_ONLY": 2, "RUNTIME_PROOF": 1, "DEPLOY": 1},
+  "promotion": {
+    "coding_limit": 2,
+    "eligible": false,
+    "required": {"calendar_days": 3, "dispatches": 10, "max_orchestration_retries": 1}
+  },
+  "tasks": []
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devad X9 Manager (v5 redirect)"
+  short_description: "Redirect old X9 manager prompts to X9 Loop"
+  default_prompt: "Use $devad-x9-loop with the role requested by this legacy prompt."

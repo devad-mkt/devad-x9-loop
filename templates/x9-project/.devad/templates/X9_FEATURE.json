@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "feature_id": "feature-slug",
+  "title": "Feature title",
+  "release_state": "PLANNED_ONLY",
+  "implementation_branch": "UNKNOWN",
+  "active_worker_lanes": [],
+  "subfeatures": [],
+  "artifact_index": ".devad/features/feature-slug/refs/ARTIFACTS.md",
+  "updated_at": "UNKNOWN"
+}

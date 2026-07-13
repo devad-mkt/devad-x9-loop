@@ -1,0 +1,13 @@
+{
+  "schema": "x9-loop-worker-completion-v1",
+  "task_id": "",
+  "dispatch_id": "dsp-<uuid>",
+  "role": "WORKER",
+  "packet_sha256": "",
+  "receipt_owner_task_id": "",
+  "receipt_path": "",
+  "receipt_sha256": "",
+  "result": "PASS | PARTIAL | BLOCKED",
+  "event_id": "evt-<uuid>",
+  "created_at": ""
+}

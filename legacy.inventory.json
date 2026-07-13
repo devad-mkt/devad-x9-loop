@@ -1,0 +1,4555 @@
+{
+  "schema": "devad-x9-v3-inventory-v1",
+  "source": "devad-skills-set",
+  "items": [
+    {
+      "id": "v3-file-skill-5f6edeb9eea7",
+      "kind": "file",
+      "source": "skills/codex-token-budget/SKILL.md"
+    },
+    {
+      "id": "v3-heading-skill-b755f49503b1",
+      "kind": "heading",
+      "source": "skills/codex-token-budget/SKILL.md",
+      "anchor": "Codex Token Budget"
+    },
+    {
+      "id": "v3-heading-skill-73508ceb1ad0",
+      "kind": "heading",
+      "source": "skills/codex-token-budget/SKILL.md",
+      "anchor": "Source Of Truth"
+    },
+    {
+      "id": "v3-heading-skill-8ccfaa705e8c",
+      "kind": "heading",
+      "source": "skills/codex-token-budget/SKILL.md",
+      "anchor": "Fast Commands"
+    },
+    {
+      "id": "v3-heading-skill-08900db2b48d",
+      "kind": "heading",
+      "source": "skills/codex-token-budget/SKILL.md",
+      "anchor": "Audit Workflow"
+    },
+    {
+      "id": "v3-heading-skill-67419bc149e9",
+      "kind": "heading",
+      "source": "skills/codex-token-budget/SKILL.md",
+      "anchor": "Model Benchmark Mode"
+    },
+    {
+      "id": "v3-heading-skill-1c1fa6271002",
+      "kind": "heading",
+      "source": "skills/codex-token-budget/SKILL.md",
+      "anchor": "Manager Thread Rules"
+    },
+    {
+      "id": "v3-heading-skill-857f339b4d28",
+      "kind": "heading",
+      "source": "skills/codex-token-budget/SKILL.md",
+      "anchor": "Watch Mode"
+    },
+    {
+      "id": "v3-heading-skill-c3d2d1687f7d",
+      "kind": "heading",
+      "source": "skills/codex-token-budget/SKILL.md",
+      "anchor": "Stop And Ask Lines"
+    },
+    {
+      "id": "v3-heading-skill-37228db3db75",
+      "kind": "heading",
+      "source": "skills/codex-token-budget/SKILL.md",
+      "anchor": "Report Shape"
+    },
+    {
+      "id": "v3-heading-skill-d726c5974d25",
+      "kind": "heading",
+      "source": "skills/codex-token-budget/SKILL.md",
+      "anchor": "Findings"
+    },
+    {
+      "id": "v3-heading-skill-3399427b8cf8",
+      "kind": "heading",
+      "source": "skills/codex-token-budget/SKILL.md",
+      "anchor": "Quality-Preserving Fixes"
+    },
+    {
+      "id": "v3-heading-skill-7749f5ea66eb",
+      "kind": "heading",
+      "source": "skills/codex-token-budget/SKILL.md",
+      "anchor": "What Not To Do"
+    },
+    {
+      "id": "v3-file-openai-2644f12a7d0a",
+      "kind": "file",
+      "source": "skills/codex-x9-backup/agents/openai.yaml"
+    },
+    {
+      "id": "v3-file-backup-policy-8d49f1a28ec9",
+      "kind": "file",
+      "source": "skills/codex-x9-backup/references/backup-policy.md"
+    },
+    {
+      "id": "v3-heading-backup-policy-d997bfcdf929",
+      "kind": "heading",
+      "source": "skills/codex-x9-backup/references/backup-policy.md",
+      "anchor": "Codex X9 Backup Policy"
+    },
+    {
+      "id": "v3-heading-backup-policy-5188584efa3d",
+      "kind": "heading",
+      "source": "skills/codex-x9-backup/references/backup-policy.md",
+      "anchor": "Include"
+    },
+    {
+      "id": "v3-heading-backup-policy-ca4b51189fd3",
+      "kind": "heading",
+      "source": "skills/codex-x9-backup/references/backup-policy.md",
+      "anchor": "Exclude"
+    },
+    {
+      "id": "v3-heading-backup-policy-5d423134b267",
+      "kind": "heading",
+      "source": "skills/codex-x9-backup/references/backup-policy.md",
+      "anchor": "Git LFS"
+    },
+    {
+      "id": "v3-heading-backup-policy-3e36eb14d37f",
+      "kind": "heading",
+      "source": "skills/codex-x9-backup/references/backup-policy.md",
+      "anchor": "Secret Scan Gate"
+    },
+    {
+      "id": "v3-file-restore-checklist-88cc8194d117",
+      "kind": "file",
+      "source": "skills/codex-x9-backup/references/restore-checklist.md"
+    },
+    {
+      "id": "v3-heading-restore-checklist-2b8ee69ff676",
+      "kind": "heading",
+      "source": "skills/codex-x9-backup/references/restore-checklist.md",
+      "anchor": "Codex X9 Restore Checklist"
+    },
+    {
+      "id": "v3-heading-restore-checklist-5ae9641b1eda",
+      "kind": "heading",
+      "source": "skills/codex-x9-backup/references/restore-checklist.md",
+      "anchor": "Restore Dry Run"
+    },
+    {
+      "id": "v3-heading-restore-checklist-08afe67251af",
+      "kind": "heading",
+      "source": "skills/codex-x9-backup/references/restore-checklist.md",
+      "anchor": "Apply Restore"
+    },
+    {
+      "id": "v3-heading-restore-checklist-c887ce4d464f",
+      "kind": "heading",
+      "source": "skills/codex-x9-backup/references/restore-checklist.md",
+      "anchor": "Proof"
+    },
+    {
+      "id": "v3-script-backup-manifest-f7560415a779",
+      "kind": "script",
+      "source": "skills/codex-x9-backup/scripts/backup-manifest.py"
+    },
+    {
+      "id": "v3-script-redact-secrets-ca64a7e9f69d",
+      "kind": "script",
+      "source": "skills/codex-x9-backup/scripts/redact-secrets.py"
+    },
+    {
+      "id": "v3-script-restore-codex-x9-backup-89b7be899d17",
+      "kind": "script",
+      "source": "skills/codex-x9-backup/scripts/restore-codex-x9-backup.ps1"
+    },
+    {
+      "id": "v3-script-secret-scan-4801f302847f",
+      "kind": "script",
+      "source": "skills/codex-x9-backup/scripts/secret-scan.py"
+    },
+    {
+      "id": "v3-script-sync-codex-x9-backup-4737406b5ae3",
+      "kind": "script",
+      "source": "skills/codex-x9-backup/scripts/sync-codex-x9-backup.ps1"
+    },
+    {
+      "id": "v3-file-skill-01a86f1ae206",
+      "kind": "file",
+      "source": "skills/codex-x9-backup/SKILL.md"
+    },
+    {
+      "id": "v3-heading-skill-2b8cffc72f86",
+      "kind": "heading",
+      "source": "skills/codex-x9-backup/SKILL.md",
+      "anchor": "Codex X9 Backup"
+    },
+    {
+      "id": "v3-heading-skill-1788e3acfec1",
+      "kind": "heading",
+      "source": "skills/codex-x9-backup/SKILL.md",
+      "anchor": "Default Paths"
+    },
+    {
+      "id": "v3-heading-skill-7ae5887e9b56",
+      "kind": "heading",
+      "source": "skills/codex-x9-backup/SKILL.md",
+      "anchor": "Commands"
+    },
+    {
+      "id": "v3-heading-skill-a54bd233b03c",
+      "kind": "heading",
+      "source": "skills/codex-x9-backup/SKILL.md",
+      "anchor": "Rules"
+    },
+    {
+      "id": "v3-heading-skill-b0ce81180d5a",
+      "kind": "heading",
+      "source": "skills/codex-x9-backup/SKILL.md",
+      "anchor": "Status Labels"
+    },
+    {
+      "id": "v3-file-openai-e7dafe70a4f8",
+      "kind": "file",
+      "source": "skills/devad-memory/agents/openai.yaml"
+    },
+    {
+      "id": "v3-file-skill-aee052aa836d",
+      "kind": "file",
+      "source": "skills/devad-memory/SKILL.md"
+    },
+    {
+      "id": "v3-heading-skill-d0dd55b62e82",
+      "kind": "heading",
+      "source": "skills/devad-memory/SKILL.md",
+      "anchor": "Devad Memory"
+    },
+    {
+      "id": "v3-heading-skill-6461a4c71a17",
+      "kind": "heading",
+      "source": "skills/devad-memory/SKILL.md",
+      "anchor": "Authority"
+    },
+    {
+      "id": "v3-heading-skill-1cce594cd6cf",
+      "kind": "heading",
+      "source": "skills/devad-memory/SKILL.md",
+      "anchor": "Routing"
+    },
+    {
+      "id": "v3-heading-skill-dc98bbb4f35e",
+      "kind": "heading",
+      "source": "skills/devad-memory/SKILL.md",
+      "anchor": "Search Rules"
+    },
+    {
+      "id": "v3-heading-skill-acda3f4de429",
+      "kind": "heading",
+      "source": "skills/devad-memory/SKILL.md",
+      "anchor": "Session Structure"
+    },
+    {
+      "id": "v3-heading-skill-e38d5743ab02",
+      "kind": "heading",
+      "source": "skills/devad-memory/SKILL.md",
+      "anchor": "Content Rules"
+    },
+    {
+      "id": "v3-heading-skill-e5b07e7f234c",
+      "kind": "heading",
+      "source": "skills/devad-memory/SKILL.md",
+      "anchor": "Completion"
+    },
+    {
+      "id": "v3-file-openai-798af688374c",
+      "kind": "file",
+      "source": "skills/devad-x9/agents/openai.yaml"
+    },
+    {
+      "id": "v3-file-features-index-cc41a09a3db2",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/features/features.index.json"
+    },
+    {
+      "id": "v3-file-readme-3b9fb6f7ce12",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/features/README.md"
+    },
+    {
+      "id": "v3-heading-readme-3918e77bf206",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/features/README.md",
+      "anchor": "X9 Feature Map"
+    },
+    {
+      "id": "v3-file-readme-3a999369cb02",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/README.md"
+    },
+    {
+      "id": "v3-heading-readme-ccdedfad9d36",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/README.md",
+      "anchor": "Devad X9 Repo Memory"
+    },
+    {
+      "id": "v3-heading-readme-9f6829d4d39c",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/README.md",
+      "anchor": "Preserved History"
+    },
+    {
+      "id": "v3-heading-readme-6f1225f95aa0",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/README.md",
+      "anchor": "Sidecars"
+    },
+    {
+      "id": "v3-file-devad-architecture-d853216f033f",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-architecture.md"
+    },
+    {
+      "id": "v3-heading-devad-architecture-b6c954e3adc6",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-architecture.md",
+      "anchor": "Devad Architecture"
+    },
+    {
+      "id": "v3-heading-devad-architecture-dac44c88a850",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-architecture.md",
+      "anchor": "Rules"
+    },
+    {
+      "id": "v3-heading-devad-architecture-d6c9f45f72fc",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-architecture.md",
+      "anchor": "Bias"
+    },
+    {
+      "id": "v3-file-devad-backend-laravel-7cc62c635ecf",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-backend-laravel.md"
+    },
+    {
+      "id": "v3-heading-devad-backend-laravel-19b0ab060be3",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-backend-laravel.md",
+      "anchor": "Devad Backend Laravel"
+    },
+    {
+      "id": "v3-heading-devad-backend-laravel-5f1c9530e59f",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-backend-laravel.md",
+      "anchor": "Rules"
+    },
+    {
+      "id": "v3-heading-devad-backend-laravel-3c958f8b80ec",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-backend-laravel.md",
+      "anchor": "Proof"
+    },
+    {
+      "id": "v3-file-devad-dashboard-frontend-960cc178e722",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-dashboard-frontend.md"
+    },
+    {
+      "id": "v3-heading-devad-dashboard-frontend-66c857e057da",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-dashboard-frontend.md",
+      "anchor": "Devad Dashboard Frontend"
+    },
+    {
+      "id": "v3-heading-devad-dashboard-frontend-3d04cf4dfbcd",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-dashboard-frontend.md",
+      "anchor": "Source First"
+    },
+    {
+      "id": "v3-heading-devad-dashboard-frontend-c94eb54c4de5",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-dashboard-frontend.md",
+      "anchor": "UI Authority"
+    },
+    {
+      "id": "v3-heading-devad-dashboard-frontend-b6366d38100f",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-dashboard-frontend.md",
+      "anchor": "Proof"
+    },
+    {
+      "id": "v3-file-devad-deploy-dokploy-988f9d03d07a",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-deploy-dokploy.md"
+    },
+    {
+      "id": "v3-heading-devad-deploy-dokploy-1de45e6e7156",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-deploy-dokploy.md",
+      "anchor": "Devad Deploy Dokploy"
+    },
+    {
+      "id": "v3-heading-devad-deploy-dokploy-48fe9d3f3a22",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-deploy-dokploy.md",
+      "anchor": "Rules"
+    },
+    {
+      "id": "v3-heading-devad-deploy-dokploy-9e2911e5f2a0",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-deploy-dokploy.md",
+      "anchor": "Direct API Fast Path"
+    },
+    {
+      "id": "v3-heading-devad-deploy-dokploy-ae0fa55c247a",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-deploy-dokploy.md",
+      "anchor": "Proof"
+    },
+    {
+      "id": "v3-file-devad-headless-cli-sidecars-43361c7d0d94",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-headless-cli-sidecars.md"
+    },
+    {
+      "id": "v3-heading-devad-headless-cli-sidecars-07e78847387c",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-headless-cli-sidecars.md",
+      "anchor": "Devad Headless CLI Sidecars"
+    },
+    {
+      "id": "v3-heading-devad-headless-cli-sidecars-b573c1910c42",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-headless-cli-sidecars.md",
+      "anchor": "Rule"
+    },
+    {
+      "id": "v3-heading-devad-headless-cli-sidecars-d120c0ae4fcc",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-headless-cli-sidecars.md",
+      "anchor": "OpenCode Go Commands"
+    },
+    {
+      "id": "v3-heading-devad-headless-cli-sidecars-960b2c0c3fae",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-headless-cli-sidecars.md",
+      "anchor": "Readiness"
+    },
+    {
+      "id": "v3-heading-devad-headless-cli-sidecars-5e8be02a902e",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-headless-cli-sidecars.md",
+      "anchor": "Phase Shape"
+    },
+    {
+      "id": "v3-heading-devad-headless-cli-sidecars-3fc3393e340e",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-headless-cli-sidecars.md",
+      "anchor": "Safety"
+    },
+    {
+      "id": "v3-file-devad-marketing-theme-9b8744b4be23",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-marketing-theme.md"
+    },
+    {
+      "id": "v3-heading-devad-marketing-theme-78d72d0228f9",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-marketing-theme.md",
+      "anchor": "Devad Marketing Theme"
+    },
+    {
+      "id": "v3-heading-devad-marketing-theme-897da5dc4691",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-marketing-theme.md",
+      "anchor": "Role Map"
+    },
+    {
+      "id": "v3-heading-devad-marketing-theme-7af19d45fd0b",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-marketing-theme.md",
+      "anchor": "Rules"
+    },
+    {
+      "id": "v3-heading-devad-marketing-theme-d03c31adaf56",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-marketing-theme.md",
+      "anchor": "Proof"
+    },
+    {
+      "id": "v3-file-devad-pr-review-gate-e1bf9b307bf6",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-pr-review-gate.md"
+    },
+    {
+      "id": "v3-heading-devad-pr-review-gate-cf6fffe2c877",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-pr-review-gate.md",
+      "anchor": "Devad PR Review Gate"
+    },
+    {
+      "id": "v3-heading-devad-pr-review-gate-1a46f9c1dff0",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-pr-review-gate.md",
+      "anchor": "Review Focus"
+    },
+    {
+      "id": "v3-heading-devad-pr-review-gate-b4b4b6d070db",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-pr-review-gate.md",
+      "anchor": "Merge Policy"
+    },
+    {
+      "id": "v3-file-devad-public-frontend-a4e724699b50",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-public-frontend.md"
+    },
+    {
+      "id": "v3-heading-devad-public-frontend-925229ef5ee4",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-public-frontend.md",
+      "anchor": "Devad Public Frontend"
+    },
+    {
+      "id": "v3-heading-devad-public-frontend-77ca58a5b6d8",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-public-frontend.md",
+      "anchor": "Public Surface Rules"
+    },
+    {
+      "id": "v3-heading-devad-public-frontend-60797ed04ea2",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-public-frontend.md",
+      "anchor": "Proof"
+    },
+    {
+      "id": "v3-file-devad-safety-gates-f2d6747331a1",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-safety-gates.md"
+    },
+    {
+      "id": "v3-heading-devad-safety-gates-c9eb0b6027d7",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-safety-gates.md",
+      "anchor": "Devad Safety Gates"
+    },
+    {
+      "id": "v3-heading-devad-safety-gates-2f267e94a97a",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-safety-gates.md",
+      "anchor": "Hard Gates"
+    },
+    {
+      "id": "v3-heading-devad-safety-gates-40c01ad0e1f2",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-safety-gates.md",
+      "anchor": "Completion"
+    },
+    {
+      "id": "v3-file-devad-sidecar-models-4571b2376508",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-sidecar-models.md"
+    },
+    {
+      "id": "v3-heading-devad-sidecar-models-23c3592a8b57",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-sidecar-models.md",
+      "anchor": "Devad Sidecar Models"
+    },
+    {
+      "id": "v3-heading-devad-sidecar-models-77b7071678bf",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-sidecar-models.md",
+      "anchor": "Current Policy"
+    },
+    {
+      "id": "v3-heading-devad-sidecar-models-6479dd464847",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-sidecar-models.md",
+      "anchor": "Active Routes"
+    },
+    {
+      "id": "v3-heading-devad-sidecar-models-ac3e9df60808",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-sidecar-models.md",
+      "anchor": "Packet Rules"
+    },
+    {
+      "id": "v3-heading-devad-sidecar-models-3251440c065e",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-sidecar-models.md",
+      "anchor": "Retired Routes"
+    },
+    {
+      "id": "v3-heading-devad-sidecar-models-74300acf6c2d",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-sidecar-models.md",
+      "anchor": "Proof"
+    },
+    {
+      "id": "v3-file-devad-tools-readiness-60e2f778c290",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-tools-readiness.md"
+    },
+    {
+      "id": "v3-heading-devad-tools-readiness-1be176091244",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-tools-readiness.md",
+      "anchor": "Devad Tools Readiness"
+    },
+    {
+      "id": "v3-heading-devad-tools-readiness-7289849e5b62",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-tools-readiness.md",
+      "anchor": "Tool Truth"
+    },
+    {
+      "id": "v3-heading-devad-tools-readiness-0855bcf7aa30",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-tools-readiness.md",
+      "anchor": "Dependency Checks"
+    },
+    {
+      "id": "v3-heading-devad-tools-readiness-7f8fa839bf0b",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-tools-readiness.md",
+      "anchor": "Headless Sidecar Readiness"
+    },
+    {
+      "id": "v3-heading-devad-tools-readiness-ece1ec092e05",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/devad-tools-readiness.md",
+      "anchor": "Historical Notes"
+    },
+    {
+      "id": "v3-file-x9-acceptance-proof-a310284f5026",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-acceptance-proof.md"
+    },
+    {
+      "id": "v3-heading-x9-acceptance-proof-31cf702d809e",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-acceptance-proof.md",
+      "anchor": "X9 Acceptance And Visible Proof"
+    },
+    {
+      "id": "v3-heading-x9-acceptance-proof-0a41c01057b4",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-acceptance-proof.md",
+      "anchor": "Before Coding"
+    },
+    {
+      "id": "v3-heading-x9-acceptance-proof-d7da0f873248",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-acceptance-proof.md",
+      "anchor": "Proof Semantics"
+    },
+    {
+      "id": "v3-heading-x9-acceptance-proof-md-l41-468339f0cf16",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-acceptance-proof.md",
+      "anchor": ".devad Upload Requirement"
+    },
+    {
+      "id": "v3-heading-x9-acceptance-proof-60230b957e82",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-acceptance-proof.md",
+      "anchor": "Result Vocabulary"
+    },
+    {
+      "id": "v3-heading-x9-acceptance-proof-6799c525a1cf",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-acceptance-proof.md",
+      "anchor": "Optional Feature References"
+    },
+    {
+      "id": "v3-heading-x9-acceptance-proof-e7d547b8ae0e",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-acceptance-proof.md",
+      "anchor": "Final Proof Matrix"
+    },
+    {
+      "id": "v3-file-x9-branch-deploy-policy-7d6376c77fdf",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-branch-deploy-policy.md"
+    },
+    {
+      "id": "v3-heading-x9-branch-deploy-policy-9ba35b8b5f00",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-branch-deploy-policy.md",
+      "anchor": "X9 Branch And Deploy Truth"
+    },
+    {
+      "id": "v3-heading-x9-branch-deploy-policy-7d4ac3bfdbb0",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-branch-deploy-policy.md",
+      "anchor": "Hard Rules"
+    },
+    {
+      "id": "v3-heading-x9-branch-deploy-policy-a9714430886c",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-branch-deploy-policy.md",
+      "anchor": "Fresh Check"
+    },
+    {
+      "id": "v3-heading-x9-branch-deploy-policy-bf8ea4444ae3",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-branch-deploy-policy.md",
+      "anchor": "Bridge Classification"
+    },
+    {
+      "id": "v3-heading-x9-branch-deploy-policy-5d484691c081",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-branch-deploy-policy.md",
+      "anchor": "Decision"
+    },
+    {
+      "id": "v3-heading-x9-branch-deploy-policy-e7822247f893",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-branch-deploy-policy.md",
+      "anchor": "Deploy Closure Gate"
+    },
+    {
+      "id": "v3-heading-x9-branch-deploy-policy-d409a63f3e05",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-branch-deploy-policy.md",
+      "anchor": "Dirty Bridge Recovery"
+    },
+    {
+      "id": "v3-file-x9-manager-122e57b3015c",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-manager.md"
+    },
+    {
+      "id": "v3-heading-x9-manager-2ac90961aa40",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-manager.md",
+      "anchor": "X9 User-Managed Multi-Chat"
+    },
+    {
+      "id": "v3-heading-x9-manager-73edc7176cd6",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-manager.md",
+      "anchor": "Core Rule"
+    },
+    {
+      "id": "v3-heading-x9-manager-59bdcdaa4aba",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-manager.md",
+      "anchor": "Setup"
+    },
+    {
+      "id": "v3-heading-x9-manager-f489e67b3612",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-manager.md",
+      "anchor": "Isolation"
+    },
+    {
+      "id": "v3-heading-x9-manager-404a79c90e6d",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-manager.md",
+      "anchor": "Combining"
+    },
+    {
+      "id": "v3-heading-x9-manager-c001470ce477",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-manager.md",
+      "anchor": "Conflict Policy"
+    },
+    {
+      "id": "v3-heading-x9-manager-6dcbf86f238a",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-manager.md",
+      "anchor": "Worker Report Contract"
+    },
+    {
+      "id": "v3-heading-x9-manager-7641171c524f",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-manager.md",
+      "anchor": "Sidecars"
+    },
+    {
+      "id": "v3-file-x9-read-policy-a7ac71e218a4",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-read-policy.md"
+    },
+    {
+      "id": "v3-heading-x9-read-policy-82f276f895c5",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-read-policy.md",
+      "anchor": "X9 Read Policy"
+    },
+    {
+      "id": "v3-heading-x9-read-policy-6a5533bff57d",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-read-policy.md",
+      "anchor": "Read Once"
+    },
+    {
+      "id": "v3-heading-x9-read-policy-693e31f5b22c",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-read-policy.md",
+      "anchor": "Gated Surfaces"
+    },
+    {
+      "id": "v3-heading-x9-read-policy-7ced1ac4b582",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-read-policy.md",
+      "anchor": "Commit Discipline"
+    },
+    {
+      "id": "v3-heading-x9-read-policy-41ceffb2a058",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-read-policy.md",
+      "anchor": "Domain Pack Selector"
+    },
+    {
+      "id": "v3-heading-x9-read-policy-1a0574f07e23",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/rules/x9-read-policy.md",
+      "anchor": "Default"
+    },
+    {
+      "id": "v3-file-x9-deploy-bridge-sentinel-c597fbab2095",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_DEPLOY_BRIDGE_SENTINEL.md"
+    },
+    {
+      "id": "v3-heading-x9-deploy-bridge-sentinel-ab6aa8b9c317",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_DEPLOY_BRIDGE_SENTINEL.md",
+      "anchor": "Deploy Bridge Sentinel"
+    },
+    {
+      "id": "v3-file-x9-feature-f680ff567c92",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_FEATURE.json"
+    },
+    {
+      "id": "v3-file-x9-feature-handoff-b39c06d19210",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_FEATURE_HANDOFF.md"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-5c584708a048",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "X9 Feature Handoff"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-8e8216988631",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "TLDR"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-83466cf3051e",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "Acceptance Matrix"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-bdc7d5b01103",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "Files Changed"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-md-l32-d3115394f18a",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": ".devad Files Uploaded"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-27f6b6ba1e7b",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "X9 To v105 Bridge Map"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-efb504edb212",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "Verification"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-e619c3c28d9f",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "Not Done"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-0fd8a3dc73b5",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "Risks"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-09461b6d5b7b",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "Reviewer Checklist"
+    },
+    {
+      "id": "v3-file-x9-manager-start-prompt-eb233df812db",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_MANAGER_START_PROMPT.md"
+    },
+    {
+      "id": "v3-heading-x9-manager-start-prompt-371fb74eaa83",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_MANAGER_START_PROMPT.md",
+      "anchor": "X9 Manager Start Prompt"
+    },
+    {
+      "id": "v3-file-x9-worker-prompt-d4490a90c3c9",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_WORKER_PROMPT.md"
+    },
+    {
+      "id": "v3-heading-x9-worker-prompt-56c9dd9fb022",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/templates/X9_WORKER_PROMPT.md",
+      "anchor": "X9 Worker Prompt"
+    },
+    {
+      "id": "v3-file-how-to-use-aca24a25df78",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/dokploy/HOW-TO-USE.md"
+    },
+    {
+      "id": "v3-heading-how-to-use-3979705f5b6f",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "X9 Dokploy Direct API Guide"
+    },
+    {
+      "id": "v3-heading-how-to-use-c0628be0dab8",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Current Safe Facts"
+    },
+    {
+      "id": "v3-heading-how-to-use-3cf787abdc88",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Secret Source"
+    },
+    {
+      "id": "v3-heading-how-to-use-7296fcf34c70",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Absolute No"
+    },
+    {
+      "id": "v3-heading-how-to-use-ce7b143f1a3a",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Allowed Without Extra Approval"
+    },
+    {
+      "id": "v3-heading-how-to-use-b877a1e2b84c",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Deploy Rule"
+    },
+    {
+      "id": "v3-heading-how-to-use-9a219f41f0f1",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Read-Only Dry Test"
+    },
+    {
+      "id": "v3-heading-how-to-use-2ef877b50153",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Deployment Status Read"
+    },
+    {
+      "id": "v3-heading-how-to-use-ccaa39154baf",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Swagger Note"
+    },
+    {
+      "id": "v3-heading-how-to-use-feb8cf37f092",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "X9 Routing"
+    },
+    {
+      "id": "v3-file-how-to-use-f8f033fb35d8",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/opencode-cli/HOW-TO-USE.md"
+    },
+    {
+      "id": "v3-heading-how-to-use-de0ceff26c30",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/opencode-cli/HOW-TO-USE.md",
+      "anchor": "Devad OpenCode CLI Sidecar"
+    },
+    {
+      "id": "v3-heading-how-to-use-8c9311a424c3",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/opencode-cli/HOW-TO-USE.md",
+      "anchor": "Models"
+    },
+    {
+      "id": "v3-heading-how-to-use-71c7b380b98f",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/opencode-cli/HOW-TO-USE.md",
+      "anchor": "Run"
+    },
+    {
+      "id": "v3-heading-how-to-use-4a78a130c49c",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/opencode-cli/HOW-TO-USE.md",
+      "anchor": "Packet Rules"
+    },
+    {
+      "id": "v3-heading-how-to-use-0d917de6fad4",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/opencode-cli/HOW-TO-USE.md",
+      "anchor": "Failure Rule"
+    },
+    {
+      "id": "v3-script-run-opencode-cli-packet-11233da0a422",
+      "kind": "script",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/tooling/opencode-cli/run-opencode-cli-packet.ps1"
+    },
+    {
+      "id": "v3-file-x9-7ec7aaf4f865",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/X9.md"
+    },
+    {
+      "id": "v3-heading-x9-ddc6508f64b7",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/X9.md",
+      "anchor": "Devad X9 Project Router"
+    },
+    {
+      "id": "v3-heading-x9-aa43e711ba1b",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/X9.md",
+      "anchor": "Operating Model"
+    },
+    {
+      "id": "v3-heading-x9-30fa335c3d9d",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/X9.md",
+      "anchor": "Authority"
+    },
+    {
+      "id": "v3-heading-x9-5c65a05ab1b8",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/X9.md",
+      "anchor": "Commit Discipline"
+    },
+    {
+      "id": "v3-heading-x9-03536f34f312",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/X9.md",
+      "anchor": "Branch Source Policy"
+    },
+    {
+      "id": "v3-heading-x9-9b9832a99e50",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/X9.md",
+      "anchor": "Deploy Bridge Drift Guard"
+    },
+    {
+      "id": "v3-heading-x9-1ef9cdab6d73",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/X9.md",
+      "anchor": "Startup"
+    },
+    {
+      "id": "v3-heading-x9-84a8b188c071",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/X9.md",
+      "anchor": "Rule Router"
+    },
+    {
+      "id": "v3-heading-x9-e7273fb1dca9",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/X9.md",
+      "anchor": "Optional Feature Reference Packs"
+    },
+    {
+      "id": "v3-heading-x9-cd63436453a2",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/X9.md",
+      "anchor": "X9 Parallel Work Rule"
+    },
+    {
+      "id": "v3-heading-x9-2e85850a960a",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/X9.md",
+      "anchor": "Retired From X9"
+    },
+    {
+      "id": "v3-heading-x9-4fe12f5a8dd8",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/.devad/X9.md",
+      "anchor": "Output Contract"
+    },
+    {
+      "id": "v3-file-readme-7d7c82c1e8f9",
+      "kind": "file",
+      "source": "skills/devad-x9/assets/x9-repo-template/README.md"
+    },
+    {
+      "id": "v3-heading-readme-9b02705dc172",
+      "kind": "heading",
+      "source": "skills/devad-x9/assets/x9-repo-template/README.md",
+      "anchor": "Devad X9 Repo Template"
+    },
+    {
+      "id": "v3-file-destructive-action-guard-b0c8211f4b55",
+      "kind": "file",
+      "source": "skills/devad-x9/references/destructive-action-guard.md"
+    },
+    {
+      "id": "v3-heading-destructive-action-guard-f32214e2cbbb",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/destructive-action-guard.md",
+      "anchor": "Destructive Action Guard"
+    },
+    {
+      "id": "v3-heading-destructive-action-guard-a0b3af956098",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/destructive-action-guard.md",
+      "anchor": "Non-Negotiable Rule"
+    },
+    {
+      "id": "v3-heading-destructive-action-guard-1f7cd13c1844",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/destructive-action-guard.md",
+      "anchor": "Required Request"
+    },
+    {
+      "id": "v3-heading-destructive-action-guard-cde4b08374c2",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/destructive-action-guard.md",
+      "anchor": "Safe Preparation"
+    },
+    {
+      "id": "v3-heading-destructive-action-guard-33114eb49bad",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/destructive-action-guard.md",
+      "anchor": "Concurrent Change Lock"
+    },
+    {
+      "id": "v3-heading-destructive-action-guard-76cb50ca1cd9",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/destructive-action-guard.md",
+      "anchor": "Machine Guard"
+    },
+    {
+      "id": "v3-file-x9-shared-contract-140d742f40d9",
+      "kind": "file",
+      "source": "skills/devad-x9/references/x9-shared-contract.md"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-d42aec919721",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "X9 Shared Contract"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-59fa29eec8d5",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Authority"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-3e9ea49a394b",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Manager Role Boundary"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-ce8b3a499343",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Manager Pass Mutex"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-4707e24dd1b3",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Truth Lock"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-5f846d456dfc",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Local Work"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-6958b3b06d0c",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Worktree Discipline"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-06df9cfea389",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Exact Scope"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-d6cf5417d6e0",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Destructive Actions"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-2d5387b2f797",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Security Before Commit"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-1f4528649881",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Commit And Attestation"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-c4bdaccfc552",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Push And Deploy"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-md-l230-durable-973940aa2605",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Durable `.devad` Truth"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-c2bae5e8c899",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Proof And Claims"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-4850d2c008a8",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Compact Chat, Full Quality"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-e51a86aff0e0",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Manifest-First Durable Routing"
+    },
+    {
+      "id": "v3-heading-x9-shared-contract-3700a159d71a",
+      "kind": "heading",
+      "source": "skills/devad-x9/references/x9-shared-contract.md",
+      "anchor": "Owner Input Contract"
+    },
+    {
+      "id": "v3-file-skill-990f80a0121d",
+      "kind": "file",
+      "source": "skills/devad-x9/SKILL.md"
+    },
+    {
+      "id": "v3-heading-skill-b5afaee51629",
+      "kind": "heading",
+      "source": "skills/devad-x9/SKILL.md",
+      "anchor": "Devad X9 v2"
+    },
+    {
+      "id": "v3-heading-skill-b6faff362a3b",
+      "kind": "heading",
+      "source": "skills/devad-x9/SKILL.md",
+      "anchor": "Load First"
+    },
+    {
+      "id": "v3-heading-skill-1c77dd9f34ae",
+      "kind": "heading",
+      "source": "skills/devad-x9/SKILL.md",
+      "anchor": "Role"
+    },
+    {
+      "id": "v3-heading-skill-d97e981da511",
+      "kind": "heading",
+      "source": "skills/devad-x9/SKILL.md",
+      "anchor": "Startup"
+    },
+    {
+      "id": "v3-heading-skill-d07cdb7f0d1d",
+      "kind": "heading",
+      "source": "skills/devad-x9/SKILL.md",
+      "anchor": "Worker Loop"
+    },
+    {
+      "id": "v3-heading-skill-fb7535d69b6d",
+      "kind": "heading",
+      "source": "skills/devad-x9/SKILL.md",
+      "anchor": "Project Rules"
+    },
+    {
+      "id": "v3-heading-skill-c6567ee0009b",
+      "kind": "heading",
+      "source": "skills/devad-x9/SKILL.md",
+      "anchor": "Worker Packets"
+    },
+    {
+      "id": "v3-heading-skill-edc8de2e1675",
+      "kind": "heading",
+      "source": "skills/devad-x9/SKILL.md",
+      "anchor": "Manager Shortcut"
+    },
+    {
+      "id": "v3-heading-skill-3cd8bb20a4ec",
+      "kind": "heading",
+      "source": "skills/devad-x9/SKILL.md",
+      "anchor": "Retired Routes"
+    },
+    {
+      "id": "v3-heading-skill-d8b8dc2abfb0",
+      "kind": "heading",
+      "source": "skills/devad-x9/SKILL.md",
+      "anchor": "Completion"
+    },
+    {
+      "id": "v3-file-openai-f66e8c8e371f",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/agents/openai.yaml"
+    },
+    {
+      "id": "v3-file-answered-decisions-policy-91b8b3cbb35e",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/answered-decisions-policy.md"
+    },
+    {
+      "id": "v3-heading-answered-decisions-policy-f9bc29944041",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/answered-decisions-policy.md",
+      "anchor": "Answered Decisions Policy"
+    },
+    {
+      "id": "v3-heading-answered-decisions-policy-436cf890c16f",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/answered-decisions-policy.md",
+      "anchor": "Purpose"
+    },
+    {
+      "id": "v3-heading-answered-decisions-policy-bec317ad3328",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/answered-decisions-policy.md",
+      "anchor": "Location"
+    },
+    {
+      "id": "v3-heading-answered-decisions-policy-79e6315b9fb1",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/answered-decisions-policy.md",
+      "anchor": "Required Read Rule"
+    },
+    {
+      "id": "v3-heading-answered-decisions-policy-05172c405b7d",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/answered-decisions-policy.md",
+      "anchor": "Template"
+    },
+    {
+      "id": "v3-heading-answered-decisions-policy-bc5dcdd62719",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/answered-decisions-policy.md",
+      "anchor": "Answered Decisions"
+    },
+    {
+      "id": "v3-heading-answered-decisions-policy-46b237bcecbe",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/answered-decisions-policy.md",
+      "anchor": "Status Values"
+    },
+    {
+      "id": "v3-heading-answered-decisions-policy-2865b942c4bc",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/answered-decisions-policy.md",
+      "anchor": "Write Rule"
+    },
+    {
+      "id": "v3-heading-answered-decisions-policy-ce7e02393a33",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/answered-decisions-policy.md",
+      "anchor": "Stop Labels"
+    },
+    {
+      "id": "v3-file-central-facts-policy-d41f62043481",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/central-facts-policy.md"
+    },
+    {
+      "id": "v3-heading-central-facts-policy-0be58923dc01",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/central-facts-policy.md",
+      "anchor": "Central Facts Policy"
+    },
+    {
+      "id": "v3-heading-central-facts-policy-40cc2d71bbf2",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/central-facts-policy.md",
+      "anchor": "Central Facts Template"
+    },
+    {
+      "id": "v3-heading-central-facts-policy-e90187f6862a",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/central-facts-policy.md",
+      "anchor": "Central Facts"
+    },
+    {
+      "id": "v3-heading-central-facts-policy-4a7d82575b6a",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/central-facts-policy.md",
+      "anchor": "Mission Lock Template"
+    },
+    {
+      "id": "v3-heading-central-facts-policy-39932038748b",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/central-facts-policy.md",
+      "anchor": "Mission Lock"
+    },
+    {
+      "id": "v3-heading-central-facts-policy-c10eaace2046",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/central-facts-policy.md",
+      "anchor": "Dream And Distill"
+    },
+    {
+      "id": "v3-file-collaborative-linx-handover-02b6d1a06fca",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/collaborative-linx-handover.md"
+    },
+    {
+      "id": "v3-heading-collaborative-linx-handover-d461a5df86c2",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/collaborative-linx-handover.md",
+      "anchor": "Collaborative Linx Handover"
+    },
+    {
+      "id": "v3-heading-collaborative-linx-handover-3c789c405d0e",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/collaborative-linx-handover.md",
+      "anchor": "Phase 1: Freeze And Inventory"
+    },
+    {
+      "id": "v3-heading-collaborative-linx-handover-b87860ac1960",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/collaborative-linx-handover.md",
+      "anchor": "Phase 2: Build Owner Scope"
+    },
+    {
+      "id": "v3-heading-collaborative-linx-handover-15ef544d850d",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/collaborative-linx-handover.md",
+      "anchor": "Phase 3: New Linx Plans Only"
+    },
+    {
+      "id": "v3-heading-collaborative-linx-handover-9e7e362d5e11",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/collaborative-linx-handover.md",
+      "anchor": "Phase 4: Old Linx Final Review"
+    },
+    {
+      "id": "v3-heading-collaborative-linx-handover-9b28a054791a",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/collaborative-linx-handover.md",
+      "anchor": "Phase 5: Transfer And Monitor"
+    },
+    {
+      "id": "v3-heading-collaborative-linx-handover-1c4e692d1659",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/collaborative-linx-handover.md",
+      "anchor": "Required Transition State"
+    },
+    {
+      "id": "v3-file-commit-security-docs-gate-0c839b4e5f9d",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/commit-security-docs-gate.md"
+    },
+    {
+      "id": "v3-heading-commit-security-docs-gate-eb7f82db6c9a",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/commit-security-docs-gate.md",
+      "anchor": "Commit Security And Docs Gate"
+    },
+    {
+      "id": "v3-heading-commit-security-docs-gate-2c5f7234e4dc",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/commit-security-docs-gate.md",
+      "anchor": "Handoff Wake Reality"
+    },
+    {
+      "id": "v3-heading-commit-security-docs-gate-132864286197",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/commit-security-docs-gate.md",
+      "anchor": "Required Status Fields"
+    },
+    {
+      "id": "v3-file-handoff-pickup-policy-a8787dea006a",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/handoff-pickup-policy.md"
+    },
+    {
+      "id": "v3-heading-handoff-pickup-policy-43c1eefe032e",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/handoff-pickup-policy.md",
+      "anchor": "Handoff Pickup Policy"
+    },
+    {
+      "id": "v3-heading-handoff-pickup-policy-6d501b7ce3cd",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/handoff-pickup-policy.md",
+      "anchor": "Rule"
+    },
+    {
+      "id": "v3-heading-handoff-pickup-policy-7db0c185a3a4",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/handoff-pickup-policy.md",
+      "anchor": "Manager Pickup"
+    },
+    {
+      "id": "v3-heading-handoff-pickup-policy-6ab02d29775e",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/handoff-pickup-policy.md",
+      "anchor": "Why This Replaces Most Heartbeats"
+    },
+    {
+      "id": "v3-heading-handoff-pickup-policy-eaf6c413387f",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/handoff-pickup-policy.md",
+      "anchor": "Worker Handoff Requirements"
+    },
+    {
+      "id": "v3-heading-handoff-pickup-policy-277687e7600f",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/handoff-pickup-policy.md",
+      "anchor": "Latest"
+    },
+    {
+      "id": "v3-heading-handoff-pickup-policy-3247e7c50236",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/handoff-pickup-policy.md",
+      "anchor": "Changed Files"
+    },
+    {
+      "id": "v3-heading-handoff-pickup-policy-3f5d4d25513e",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/handoff-pickup-policy.md",
+      "anchor": "Verification"
+    },
+    {
+      "id": "v3-heading-handoff-pickup-policy-ad35f042c6af",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/handoff-pickup-policy.md",
+      "anchor": "Blockers"
+    },
+    {
+      "id": "v3-heading-handoff-pickup-policy-0f2b81b34ac3",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/handoff-pickup-policy.md",
+      "anchor": "Risks"
+    },
+    {
+      "id": "v3-heading-handoff-pickup-policy-f077d2280101",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/handoff-pickup-policy.md",
+      "anchor": "Manager Decisions"
+    },
+    {
+      "id": "v3-file-heartbeat-policy-863a474101cb",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/heartbeat-policy.md"
+    },
+    {
+      "id": "v3-heading-heartbeat-policy-57ab5e15a245",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/heartbeat-policy.md",
+      "anchor": "Heartbeat Policy"
+    },
+    {
+      "id": "v3-heading-heartbeat-policy-e873994782c2",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/heartbeat-policy.md",
+      "anchor": "Default"
+    },
+    {
+      "id": "v3-heading-heartbeat-policy-9847eee82b15",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/heartbeat-policy.md",
+      "anchor": "Limits"
+    },
+    {
+      "id": "v3-heading-heartbeat-policy-b3e779419f3d",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/heartbeat-policy.md",
+      "anchor": "Durable Continuation Gate"
+    },
+    {
+      "id": "v3-heading-heartbeat-policy-2d40591472bb",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/heartbeat-policy.md",
+      "anchor": "Handoff Pickup Monitor"
+    },
+    {
+      "id": "v3-heading-heartbeat-policy-cbc74267dca1",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/heartbeat-policy.md",
+      "anchor": "Owner-Wait Heartbeat"
+    },
+    {
+      "id": "v3-heading-heartbeat-policy-md-l161-heartbeat-ce3a5349eebf",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/heartbeat-policy.md",
+      "anchor": "HEARTBEAT.md"
+    },
+    {
+      "id": "v3-heading-heartbeat-policy-4ad98b79f806",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/heartbeat-policy.md",
+      "anchor": "Manager Heartbeat"
+    },
+    {
+      "id": "v3-heading-heartbeat-policy-56de9bc045f6",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/heartbeat-policy.md",
+      "anchor": "Scope"
+    },
+    {
+      "id": "v3-heading-heartbeat-policy-ffa1c2bc07ab",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/heartbeat-policy.md",
+      "anchor": "Rules"
+    },
+    {
+      "id": "v3-heading-heartbeat-policy-931554701d98",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/heartbeat-policy.md",
+      "anchor": "Stale Heartbeat Detection"
+    },
+    {
+      "id": "v3-file-local-work-ledger-policy-261d0c0da351",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/local-work-ledger-policy.md"
+    },
+    {
+      "id": "v3-heading-local-work-ledger-policy-5a2a094a529b",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/local-work-ledger-policy.md",
+      "anchor": "Local Work Ledger Policy"
+    },
+    {
+      "id": "v3-heading-local-work-ledger-policy-7a0dca27fd87",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/local-work-ledger-policy.md",
+      "anchor": "Purpose"
+    },
+    {
+      "id": "v3-heading-local-work-ledger-policy-b035fc787723",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/local-work-ledger-policy.md",
+      "anchor": "Location"
+    },
+    {
+      "id": "v3-heading-local-work-ledger-policy-df1ff6cba621",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/local-work-ledger-policy.md",
+      "anchor": "Release States"
+    },
+    {
+      "id": "v3-heading-local-work-ledger-policy-f03cac77ee8e",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/local-work-ledger-policy.md",
+      "anchor": "Required Current Block"
+    },
+    {
+      "id": "v3-heading-local-work-ledger-policy-ea30c6d9baad",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/local-work-ledger-policy.md",
+      "anchor": "Hard Gates"
+    },
+    {
+      "id": "v3-heading-local-work-ledger-policy-aec69634c91d",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/local-work-ledger-policy.md",
+      "anchor": "Manager Pass Rule"
+    },
+    {
+      "id": "v3-heading-local-work-ledger-policy-caf6ac2a46e8",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/local-work-ledger-policy.md",
+      "anchor": "Do Not Delete"
+    },
+    {
+      "id": "v3-file-loop-field-notes-1004fc66a6c7",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-62c63c1930e6",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "Loop Field Notes For X9 Manager"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-b0a73aad1d65",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "Source Cleanup"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-2ef626d3cc11",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "Corrected Rule List"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-7c5dd751566b",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "What This Means For X9"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-24bd6b77c465",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "Weak Spots In Our Current Loop"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-74f10f17a055",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "Upgraded X9 Loop"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-md-l91-1-bdf77940a606",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "1. Truth Lock"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-md-l96-2-top-manage-95a0b2395c7a",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "2. Top Manager `.md` Plan"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-md-l105-3-437256c5292d",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "3. Planner Packet"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-md-l124-4-8fb50838eb62",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "4. Contract"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-md-l140-5-f9c279b9dcd8",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "5. Generator Work"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-md-l145-6-d111a80372fc",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "6. Evaluator Review"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-md-l160-7-c49e1773d7f4",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "7. Sidecar Challenge Before Blocker"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-md-l173-8-e63d037f7740",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "8. Manager Pickup"
+    },
+    {
+      "id": "v3-heading-block-fc1a48e283b6",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "9. Restart / Continue / Block"
+    },
+    {
+      "id": "v3-heading-cleanup-candidate-3c2420ab93fa",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "10. Watchdog / Cleanup Candidate"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-md-l225-11-4bd9cfd0a3d5",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "11. Harness Prune"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-373f1bf6c7cf",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "Trace Reading"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-3d9b129802a4",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "Trace Note: <lane>"
+    },
+    {
+      "id": "v3-heading-loop-field-notes-4dec5aa7e8a5",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/loop-field-notes.md",
+      "anchor": "Caveman Chat Compatibility"
+    },
+    {
+      "id": "v3-file-manager-handover-policy-b69aa888ef4b",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/manager-handover-policy.md"
+    },
+    {
+      "id": "v3-heading-manager-handover-policy-94383d93405f",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/manager-handover-policy.md",
+      "anchor": "Manager Handover Policy"
+    },
+    {
+      "id": "v3-heading-manager-handover-policy-03a29b4967b8",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/manager-handover-policy.md",
+      "anchor": "Triggers"
+    },
+    {
+      "id": "v3-heading-manager-handover-policy-1d98b50e3e4d",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/manager-handover-policy.md",
+      "anchor": "Required Artifact"
+    },
+    {
+      "id": "v3-heading-manager-handover-policy-2fd7e6768432",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/manager-handover-policy.md",
+      "anchor": "Durable Memory Layer"
+    },
+    {
+      "id": "v3-heading-manager-handover-policy-7c43895ea31d",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/manager-handover-policy.md",
+      "anchor": "Fresh Manager Start Prompt"
+    },
+    {
+      "id": "v3-heading-manager-handover-policy-125ae96218c4",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/manager-handover-policy.md",
+      "anchor": "Completion Rule"
+    },
+    {
+      "id": "v3-file-manager-pass-algorithm-1858b0863c03",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/manager-pass-algorithm.md"
+    },
+    {
+      "id": "v3-heading-manager-pass-algorithm-43e4d5f6ef46",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/manager-pass-algorithm.md",
+      "anchor": "Manager Pass Algorithm"
+    },
+    {
+      "id": "v3-heading-manager-pass-algorithm-731eb2761218",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/manager-pass-algorithm.md",
+      "anchor": "Steps"
+    },
+    {
+      "id": "v3-heading-manager-pass-algorithm-23ed2ec3f7d5",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/manager-pass-algorithm.md",
+      "anchor": "Status Rules"
+    },
+    {
+      "id": "v3-heading-manager-pass-algorithm-2c072af1bdc9",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/manager-pass-algorithm.md",
+      "anchor": "Merge Discipline"
+    },
+    {
+      "id": "v3-file-model-policy-v2-strict-6dc334312702",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/model-policy-v2-strict.md"
+    },
+    {
+      "id": "v3-heading-model-policy-v2-strict-690257743db5",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy-v2-strict.md",
+      "anchor": "X9 Model Policy"
+    },
+    {
+      "id": "v3-heading-model-policy-v2-strict-8b9d66389ddc",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy-v2-strict.md",
+      "anchor": "Required Setting"
+    },
+    {
+      "id": "v3-heading-model-policy-v2-strict-521452d1c5e1",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy-v2-strict.md",
+      "anchor": "Thread Tool Rule"
+    },
+    {
+      "id": "v3-heading-model-policy-v2-strict-e865c4ba4a42",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy-v2-strict.md",
+      "anchor": "Stop Rule"
+    },
+    {
+      "id": "v3-file-model-policy-v3-63bd0319a6d3",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/model-policy-v3.md"
+    },
+    {
+      "id": "v3-heading-model-policy-v3-md-l1-x9-model-polic-0d51e97b1796",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy-v3.md",
+      "anchor": "X9 Model Policy v3.1"
+    },
+    {
+      "id": "v3-heading-model-policy-v3-f824bda98e48",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy-v3.md",
+      "anchor": "Binding Profiles"
+    },
+    {
+      "id": "v3-heading-model-policy-v3-55fc7a851fc6",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy-v3.md",
+      "anchor": "Linx Task Class Gate"
+    },
+    {
+      "id": "v3-heading-model-policy-v3-543a8a4876e6",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy-v3.md",
+      "anchor": "Enforcement Gate"
+    },
+    {
+      "id": "v3-heading-model-policy-v3-ff458a70dc1a",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy-v3.md",
+      "anchor": "Very-Hard Thinx Gate"
+    },
+    {
+      "id": "v3-heading-model-policy-v3-b79cc0a35d35",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy-v3.md",
+      "anchor": "Promotion Gate"
+    },
+    {
+      "id": "v3-heading-model-policy-v3-38ad9d3580ca",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy-v3.md",
+      "anchor": "One-Task Rule"
+    },
+    {
+      "id": "v3-heading-model-policy-v3-b78fddc85315",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy-v3.md",
+      "anchor": "Benchmark Override"
+    },
+    {
+      "id": "v3-file-model-policy-3bc24f0995be",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/model-policy.md"
+    },
+    {
+      "id": "v3-heading-model-policy-f8a44fa37b9f",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy.md",
+      "anchor": "X9 Model Policy"
+    },
+    {
+      "id": "v3-heading-model-policy-b0a7c0f82689",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy.md",
+      "anchor": "Pilot Routing"
+    },
+    {
+      "id": "v3-heading-model-policy-6644c9c39bdd",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy.md",
+      "anchor": "Inactive v2 Strict Matrix"
+    },
+    {
+      "id": "v3-heading-model-policy-71bfec068e1a",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy.md",
+      "anchor": "Inactive v2 Thread Tool Rule"
+    },
+    {
+      "id": "v3-heading-model-policy-b68de81e3db0",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/model-policy.md",
+      "anchor": "Inactive v2 Stop Rule"
+    },
+    {
+      "id": "v3-file-non-chat-top-manager-2f090777b73f",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/non-chat-top-manager.md"
+    },
+    {
+      "id": "v3-heading-non-chat-top-manager-fc90aa9cdb18",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/non-chat-top-manager.md",
+      "anchor": "Thinx (Top Manager)"
+    },
+    {
+      "id": "v3-heading-non-chat-top-manager-7aabf4938930",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/non-chat-top-manager.md",
+      "anchor": "Role Stack"
+    },
+    {
+      "id": "v3-heading-non-chat-top-manager-e252c3a42df2",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/non-chat-top-manager.md",
+      "anchor": "Allowed Inputs"
+    },
+    {
+      "id": "v3-heading-non-chat-top-manager-2200c09bb684",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/non-chat-top-manager.md",
+      "anchor": "Allowed Outputs"
+    },
+    {
+      "id": "v3-heading-non-chat-top-manager-20894d2098e7",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/non-chat-top-manager.md",
+      "anchor": "Verified Read Gate"
+    },
+    {
+      "id": "v3-heading-non-chat-top-manager-ea094626dfb8",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/non-chat-top-manager.md",
+      "anchor": "Sub Manager Bridge"
+    },
+    {
+      "id": "v3-heading-non-chat-top-manager-06b2bf15b891",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/non-chat-top-manager.md",
+      "anchor": "Worker, CHUNK, And SIDE"
+    },
+    {
+      "id": "v3-heading-non-chat-top-manager-040a181059e5",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/non-chat-top-manager.md",
+      "anchor": "Focus Budget"
+    },
+    {
+      "id": "v3-heading-non-chat-top-manager-881e186bc0f2",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/non-chat-top-manager.md",
+      "anchor": "Circuit Breakers"
+    },
+    {
+      "id": "v3-heading-non-chat-top-manager-635a0209449c",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/non-chat-top-manager.md",
+      "anchor": "Cleanup Rule"
+    },
+    {
+      "id": "v3-heading-non-chat-top-manager-1cc038c063b7",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/non-chat-top-manager.md",
+      "anchor": "Minimal Top Manager Pass"
+    },
+    {
+      "id": "v3-file-orchestrator-state-model-c1ed838d1911",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/orchestrator-state-model.md"
+    },
+    {
+      "id": "v3-heading-orchestrator-state-model-728aa3f90965",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/orchestrator-state-model.md",
+      "anchor": "Orchestrator State Model"
+    },
+    {
+      "id": "v3-heading-orchestrator-state-model-04861ef4da37",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/orchestrator-state-model.md",
+      "anchor": "State Locations"
+    },
+    {
+      "id": "v3-heading-orchestrator-state-model-a4e54b751753",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/orchestrator-state-model.md",
+      "anchor": "Recommended Tree"
+    },
+    {
+      "id": "v3-heading-orchestrator-state-model-1126f9b97acf",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/orchestrator-state-model.md",
+      "anchor": "Chat-Only State"
+    },
+    {
+      "id": "v3-heading-orchestrator-state-model-7846d8f89371",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/orchestrator-state-model.md",
+      "anchor": "Top Non-Chat State"
+    },
+    {
+      "id": "v3-heading-orchestrator-state-model-f91659b710b1",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/orchestrator-state-model.md",
+      "anchor": "Handover State"
+    },
+    {
+      "id": "v3-heading-orchestrator-state-model-403704ce5581",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/orchestrator-state-model.md",
+      "anchor": "Refresh Rule"
+    },
+    {
+      "id": "v3-file-owner-context-and-attachments-0e801be894ed",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/owner-context-and-attachments.md"
+    },
+    {
+      "id": "v3-heading-owner-context-and-attachments-eca5c6b3e5ca",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-context-and-attachments.md",
+      "anchor": "Owner Context And Attachments"
+    },
+    {
+      "id": "v3-heading-owner-context-and-attachments-13843df402e9",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-context-and-attachments.md",
+      "anchor": "Core Rule"
+    },
+    {
+      "id": "v3-heading-owner-context-and-attachments-b5ebda3d9fed",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-context-and-attachments.md",
+      "anchor": "Bundle"
+    },
+    {
+      "id": "v3-heading-owner-context-and-attachments-a4d086cc7df8",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-context-and-attachments.md",
+      "anchor": "Attachments"
+    },
+    {
+      "id": "v3-heading-owner-context-and-attachments-ae88240f73cc",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-context-and-attachments.md",
+      "anchor": "Routing"
+    },
+    {
+      "id": "v3-heading-owner-context-and-attachments-4d1b9194f068",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-context-and-attachments.md",
+      "anchor": "Receipt Gate"
+    },
+    {
+      "id": "v3-heading-owner-context-and-attachments-579198e17d1b",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-context-and-attachments.md",
+      "anchor": "Delta Messages"
+    },
+    {
+      "id": "v3-heading-owner-context-and-attachments-bf6417399b21",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-context-and-attachments.md",
+      "anchor": "Role Duties"
+    },
+    {
+      "id": "v3-file-owner-wait-and-handoff-monitor-75d8ec8e6055",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/owner-wait-and-handoff-monitor.md"
+    },
+    {
+      "id": "v3-heading-owner-wait-and-handoff-monitor-5a6cab245c48",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-wait-and-handoff-monitor.md",
+      "anchor": "Owner Wait And Handoff Monitor"
+    },
+    {
+      "id": "v3-heading-owner-wait-and-handoff-monitor-1ce835c1adc9",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-wait-and-handoff-monitor.md",
+      "anchor": "Handoff Monitor Reality"
+    },
+    {
+      "id": "v3-heading-owner-wait-and-handoff-monitor-3296b8820820",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-wait-and-handoff-monitor.md",
+      "anchor": "Required Final States"
+    },
+    {
+      "id": "v3-heading-owner-wait-and-handoff-monitor-4533571c1e3d",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-wait-and-handoff-monitor.md",
+      "anchor": "One-Hour Owner Wait Window"
+    },
+    {
+      "id": "v3-heading-owner-wait-and-handoff-monitor-d6f14d98983e",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-wait-and-handoff-monitor.md",
+      "anchor": "Owner Wait"
+    },
+    {
+      "id": "v3-heading-owner-wait-and-handoff-monitor-b10f2c89521a",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-wait-and-handoff-monitor.md",
+      "anchor": "Options"
+    },
+    {
+      "id": "v3-heading-owner-wait-and-handoff-monitor-3c35feeb67a7",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-wait-and-handoff-monitor.md",
+      "anchor": "After Deadline Rule"
+    },
+    {
+      "id": "v3-heading-owner-wait-and-handoff-monitor-e8f80d8fe93d",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-wait-and-handoff-monitor.md",
+      "anchor": "After One Hour"
+    },
+    {
+      "id": "v3-heading-owner-wait-and-handoff-monitor-e6ce5948ea4f",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/owner-wait-and-handoff-monitor.md",
+      "anchor": "Worker Orders During Wait"
+    },
+    {
+      "id": "v3-file-reader-helper-and-read-receipt-3962da66b2be",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/reader-helper-and-read-receipt.md"
+    },
+    {
+      "id": "v3-heading-reader-helper-and-read-receipt-2af7f78ad649",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/reader-helper-and-read-receipt.md",
+      "anchor": "Reader Helper And Verified Read Receipt"
+    },
+    {
+      "id": "v3-heading-reader-helper-and-read-receipt-5f10621479db",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/reader-helper-and-read-receipt.md",
+      "anchor": "Ownership"
+    },
+    {
+      "id": "v3-heading-reader-helper-and-read-receipt-4abf3fd581d5",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/reader-helper-and-read-receipt.md",
+      "anchor": "Model"
+    },
+    {
+      "id": "v3-heading-reader-helper-and-read-receipt-5f4408e46303",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/reader-helper-and-read-receipt.md",
+      "anchor": "Hidden Subagent Protocol"
+    },
+    {
+      "id": "v3-heading-reader-helper-and-read-receipt-74af3a68f1f4",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/reader-helper-and-read-receipt.md",
+      "anchor": "Linx Request"
+    },
+    {
+      "id": "v3-heading-reader-helper-and-read-receipt-f6d79780e93a",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/reader-helper-and-read-receipt.md",
+      "anchor": "Reader Digest"
+    },
+    {
+      "id": "v3-heading-reader-helper-and-read-receipt-f668d2604e10",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/reader-helper-and-read-receipt.md",
+      "anchor": "Thinx Receipt"
+    },
+    {
+      "id": "v3-heading-reader-helper-and-read-receipt-6fe0804fcb80",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/reader-helper-and-read-receipt.md",
+      "anchor": "Focus And Compaction"
+    },
+    {
+      "id": "v3-file-sidecar-challenge-worker-e75240106fff",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-94658964d5bd",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "SIDE Challenge Reviewer"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-aace4b8a60af",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "Core Rule"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-40dde7629f65",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "When To Use"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-6dfffd5c4748",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "Routes"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-44d076edf40b",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "Packet Location"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-b44b6e8a78e4",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "Packet Shape"
+    },
+    {
+      "id": "v3-heading-topic-5be43bf97f77",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "SIDE Challenge Packet: <lane/topic>"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-3257ffc9655a",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "Goal"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-f89466b39d42",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "Repo Truth"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-476458cece9c",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "Current Claim Or Blocker"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-937929a29cf2",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "Verified Facts"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-b75d0ed5777e",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "What Codex Tried"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-833cd6dc0ea5",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "Constraints"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-613847b5a7c9",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "Required Output"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-1e37c291b454",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "Manager Decision"
+    },
+    {
+      "id": "v3-heading-topic-985c0e7d0ff2",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "SIDE Decision: <lane/topic>"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-9e96a14a0c3a",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "Before Claiming Blocked"
+    },
+    {
+      "id": "v3-heading-sidecar-challenge-worker-c75337079bfd",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/sidecar-challenge-worker.md",
+      "anchor": "Safety"
+    },
+    {
+      "id": "v3-file-status-and-deploy-gates-755862751753",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/status-and-deploy-gates.md"
+    },
+    {
+      "id": "v3-heading-status-and-deploy-gates-6b2aa5cc546f",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/status-and-deploy-gates.md",
+      "anchor": "Current Status And Deploy Gates"
+    },
+    {
+      "id": "v3-heading-status-and-deploy-gates-51fe7f79039c",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/status-and-deploy-gates.md",
+      "anchor": "Current Status Is Authority"
+    },
+    {
+      "id": "v3-heading-status-and-deploy-gates-3352c77223b7",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/status-and-deploy-gates.md",
+      "anchor": "Required Current Block"
+    },
+    {
+      "id": "v3-heading-status-and-deploy-gates-beb2881f50fd",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/status-and-deploy-gates.md",
+      "anchor": "Gate Meanings"
+    },
+    {
+      "id": "v3-heading-status-and-deploy-gates-a20e08828410",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/status-and-deploy-gates.md",
+      "anchor": "Hard Deploy Rule"
+    },
+    {
+      "id": "v3-heading-status-and-deploy-gates-73dc89af8aed",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/status-and-deploy-gates.md",
+      "anchor": "Deploy Gate: <lane>"
+    },
+    {
+      "id": "v3-heading-status-and-deploy-gates-6cac77006f90",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/status-and-deploy-gates.md",
+      "anchor": "Push Gate"
+    },
+    {
+      "id": "v3-heading-status-and-deploy-gates-75a6c3e79fe5",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/status-and-deploy-gates.md",
+      "anchor": "Outbound Fetch Security Gate"
+    },
+    {
+      "id": "v3-heading-status-and-deploy-gates-7b4228034f8a",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/status-and-deploy-gates.md",
+      "anchor": "Heartbeat Gate"
+    },
+    {
+      "id": "v3-file-tool-lessons-policy-2072cbff2ea9",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/tool-lessons-policy.md"
+    },
+    {
+      "id": "v3-heading-tool-lessons-policy-f2fbbc4a95bf",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/tool-lessons-policy.md",
+      "anchor": "Tool Lessons Policy"
+    },
+    {
+      "id": "v3-heading-tool-lessons-policy-9da848578965",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/tool-lessons-policy.md",
+      "anchor": "Purpose"
+    },
+    {
+      "id": "v3-heading-tool-lessons-policy-01e55d1ca59f",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/tool-lessons-policy.md",
+      "anchor": "Location"
+    },
+    {
+      "id": "v3-heading-tool-lessons-policy-a301fd4c2b5e",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/tool-lessons-policy.md",
+      "anchor": "Required Read Rule"
+    },
+    {
+      "id": "v3-heading-tool-lessons-policy-86e402e2fd02",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/tool-lessons-policy.md",
+      "anchor": "Template"
+    },
+    {
+      "id": "v3-heading-tool-lessons-policy-40678cb267d1",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/tool-lessons-policy.md",
+      "anchor": "Tool Lessons"
+    },
+    {
+      "id": "v3-heading-tool-lessons-policy-5fc1bc222df5",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/tool-lessons-policy.md",
+      "anchor": "Chrome Auth Proof Rule"
+    },
+    {
+      "id": "v3-heading-tool-lessons-policy-e3b217fa739c",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/tool-lessons-policy.md",
+      "anchor": "OpenCode SIDE Rule"
+    },
+    {
+      "id": "v3-heading-tool-lessons-policy-c949687a86c3",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/tool-lessons-policy.md",
+      "anchor": "Stop Labels"
+    },
+    {
+      "id": "v3-file-truth-lock-protocol-1b5e2b6ef490",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/truth-lock-protocol.md"
+    },
+    {
+      "id": "v3-heading-truth-lock-protocol-eacf724d3356",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/truth-lock-protocol.md",
+      "anchor": "Truth Lock Protocol"
+    },
+    {
+      "id": "v3-heading-truth-lock-protocol-30fb5420b374",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/truth-lock-protocol.md",
+      "anchor": "Refresh When"
+    },
+    {
+      "id": "v3-heading-truth-lock-protocol-dcc21b37d483",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/truth-lock-protocol.md",
+      "anchor": "Template"
+    },
+    {
+      "id": "v3-heading-truth-lock-protocol-4f21e27acb2f",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/truth-lock-protocol.md",
+      "anchor": "X9 Truth Lock"
+    },
+    {
+      "id": "v3-heading-truth-lock-protocol-84bb69ec26d0",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/truth-lock-protocol.md",
+      "anchor": "Repo Truth"
+    },
+    {
+      "id": "v3-heading-truth-lock-protocol-74fe5d8a563d",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/truth-lock-protocol.md",
+      "anchor": "Active Mission"
+    },
+    {
+      "id": "v3-heading-truth-lock-protocol-69a3c86d78ce",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/truth-lock-protocol.md",
+      "anchor": "Workers"
+    },
+    {
+      "id": "v3-heading-truth-lock-protocol-808048f15645",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/truth-lock-protocol.md",
+      "anchor": "Shared Files"
+    },
+    {
+      "id": "v3-heading-truth-lock-protocol-c3d8e2824e98",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/truth-lock-protocol.md",
+      "anchor": "Proof State"
+    },
+    {
+      "id": "v3-heading-truth-lock-protocol-c7ef0689e806",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/truth-lock-protocol.md",
+      "anchor": "Stale Checks"
+    },
+    {
+      "id": "v3-heading-truth-lock-protocol-6f187a163341",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/truth-lock-protocol.md",
+      "anchor": "Next Approved Action"
+    },
+    {
+      "id": "v3-heading-truth-lock-protocol-e1d392179029",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/truth-lock-protocol.md",
+      "anchor": "Stale Detection"
+    },
+    {
+      "id": "v3-file-worker-packet-template-9fe5c64cae5b",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-4b2dd3633eda",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Worker Packet Template"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-89b8667afc63",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Folder Shape"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-598c0e0dfa5d",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Required Central Facts"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-b2a6fc7aa712",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Required Owner Context"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-198d74e50fb2",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "PERMISSION_MODE"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-md-l104-manif-4bd2a37dba55",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "MANIFEST.md"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-0865ca01d6e3",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Worker Manifest: <lane>"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-fe04d54821d5",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Purpose"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-08751a24c81f",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Source Evidence"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-35736d6d8d37",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Allowed Files"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-1ee10337f00d",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Forbidden Files"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-5c84c42d4bc6",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Stop Conditions"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-md-l164-statu-506b5ca6774f",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "STATUS.md"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-d65c34818479",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Worker Status: <lane>"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-md-l203-deplo-517c882be5a9",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "DEPLOY_GATE.md"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-676daaad7580",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Deploy Gate: <lane>"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-md-l227-task-3d6fe3044a18",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "TASK.md"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-54e14c668242",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Worker Task: <lane>"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-df70004e8283",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Objective"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-d3cb63791f1c",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Execution Order"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-ea728ec909a8",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Proof Required"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-df1c5d70fc10",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Report Format"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-md-l301-contr-93be6cb763f5",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "CONTRACT.md"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-f84f324d90fd",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Worker Contract: <lane>"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-bbcadbd5d324",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Scope"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-075fc0a2de1e",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Non-Goals"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-1c26d0844c07",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Acceptance Criteria"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-a2f8f53b3332",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Budget"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-bf8a0ce03c40",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Subjective Rubric"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-c989b7c01efd",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Stop Conditions"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-b98434026066",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Restart Rule"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-5e3aed5a5d1d",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "CHUNK Rules"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-c9469121bac6",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "SIDE Rules"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-md-l390-ledge-40718a7cef36",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "LEDGER.md"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-484b5bb1ba43",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Worker Ledger: <lane>"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-md-l399-hando-25fdbde92b97",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "HANDOFFS.md"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-352fbe840511",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Worker Handoffs: <lane>"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-dfa826c6512b",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Latest"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-a1f2c71fda30",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Changed Files"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-43a5a7d0440c",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Verification"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-478bbfa2bcbb",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Blockers"
+    },
+    {
+      "id": "v3-heading-worker-packet-template-8fc0a73ed51a",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-packet-template.md",
+      "anchor": "Worker Start Prompt"
+    },
+    {
+      "id": "v3-file-worker-sidecar-context-bridge-d45436886944",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/worker-sidecar-context-bridge.md"
+    },
+    {
+      "id": "v3-heading-worker-sidecar-context-bridge-122dd9c3bc81",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-sidecar-context-bridge.md",
+      "anchor": "Worker Sidecar Context Bridge"
+    },
+    {
+      "id": "v3-heading-worker-sidecar-context-bridge-2ac240b24162",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-sidecar-context-bridge.md",
+      "anchor": "Flow"
+    },
+    {
+      "id": "v3-heading-worker-sidecar-context-bridge-dee7e0e92848",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-sidecar-context-bridge.md",
+      "anchor": "PLAN_CHALLENGE"
+    },
+    {
+      "id": "v3-heading-worker-sidecar-context-bridge-9178196a6222",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-sidecar-context-bridge.md",
+      "anchor": "BLOCKER_CHALLENGE"
+    },
+    {
+      "id": "v3-heading-worker-sidecar-context-bridge-a395db4260c8",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-sidecar-context-bridge.md",
+      "anchor": "Bounded Use"
+    },
+    {
+      "id": "v3-heading-worker-sidecar-context-bridge-md-l69-a846ccbe7bbb",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-sidecar-context-bridge.md",
+      "anchor": "Required SIDE_INPUT.md"
+    },
+    {
+      "id": "v3-heading-worker-sidecar-context-bridge-md-l80-9d1784c06cc3",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/worker-sidecar-context-bridge.md",
+      "anchor": "Required SIDE_REVIEWS.md"
+    },
+    {
+      "id": "v3-file-x7-lessons-cf6f609999a4",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/references/x7-lessons.md"
+    },
+    {
+      "id": "v3-heading-x7-lessons-c61594d91c55",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/x7-lessons.md",
+      "anchor": "X7 Lessons"
+    },
+    {
+      "id": "v3-heading-x7-lessons-522e0f402836",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/x7-lessons.md",
+      "anchor": "Keep"
+    },
+    {
+      "id": "v3-heading-x7-lessons-1a9e8183854e",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/x7-lessons.md",
+      "anchor": "Reject"
+    },
+    {
+      "id": "v3-heading-x7-lessons-cabfc0ca7585",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/references/x7-lessons.md",
+      "anchor": "Porting Rule"
+    },
+    {
+      "id": "v3-script-bootstrap-manager-state-436f552a0c7e",
+      "kind": "script",
+      "source": "skills/devad-x9-manager/scripts/bootstrap_manager_state.py"
+    },
+    {
+      "id": "v3-script-build-feature-catalog-ea81cf85ae12",
+      "kind": "script",
+      "source": "skills/devad-x9-manager/scripts/build_feature_catalog.py"
+    },
+    {
+      "id": "v3-script-build-local-work-ledger-2cb828836c30",
+      "kind": "script",
+      "source": "skills/devad-x9-manager/scripts/build_local_work_ledger.py"
+    },
+    {
+      "id": "v3-script-check-x9-manager-state-54243560ea33",
+      "kind": "script",
+      "source": "skills/devad-x9-manager/scripts/check_x9_manager_state.py"
+    },
+    {
+      "id": "v3-script-collect-worker-handoffs-b48f42d3d883",
+      "kind": "script",
+      "source": "skills/devad-x9-manager/scripts/collect_worker_handoffs.py"
+    },
+    {
+      "id": "v3-script-validate-feature-layout-1e6442577409",
+      "kind": "script",
+      "source": "skills/devad-x9-manager/scripts/validate_feature_layout.py"
+    },
+    {
+      "id": "v3-script-validate-linx-handover-89e6295bae4f",
+      "kind": "script",
+      "source": "skills/devad-x9-manager/scripts/validate_linx_handover.py"
+    },
+    {
+      "id": "v3-script-validate-owner-context-60a2da8784de",
+      "kind": "script",
+      "source": "skills/devad-x9-manager/scripts/validate_owner_context.py"
+    },
+    {
+      "id": "v3-script-validate-thinx-read-receipt-a5f118dfdce4",
+      "kind": "script",
+      "source": "skills/devad-x9-manager/scripts/validate_thinx_read_receipt.py"
+    },
+    {
+      "id": "v3-script-validate-worker-packet-01519d080c37",
+      "kind": "script",
+      "source": "skills/devad-x9-manager/scripts/validate_worker_packet.py"
+    },
+    {
+      "id": "v3-file-skill-b84151d0991a",
+      "kind": "file",
+      "source": "skills/devad-x9-manager/SKILL.md"
+    },
+    {
+      "id": "v3-heading-skill-b38f104ac5a4",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/SKILL.md",
+      "anchor": "Devad X9 Manager v2"
+    },
+    {
+      "id": "v3-heading-skill-3046cb31c537",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/SKILL.md",
+      "anchor": "Load First"
+    },
+    {
+      "id": "v3-heading-skill-f0c760f60668",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/SKILL.md",
+      "anchor": "Select One Role"
+    },
+    {
+      "id": "v3-heading-skill-cd4cccc628ee",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/SKILL.md",
+      "anchor": "Start Every Manager Pass"
+    },
+    {
+      "id": "v3-heading-skill-f4fd790f0861",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/SKILL.md",
+      "anchor": "Thinx (Top Manager)"
+    },
+    {
+      "id": "v3-heading-skill-f67ad78155f1",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/SKILL.md",
+      "anchor": "Linx (Sub Manager)"
+    },
+    {
+      "id": "v3-heading-skill-38799ac9a7bb",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/SKILL.md",
+      "anchor": "Worker Routing"
+    },
+    {
+      "id": "v3-heading-skill-54e5d408d6dd",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/SKILL.md",
+      "anchor": "Blockers And Sidecars"
+    },
+    {
+      "id": "v3-heading-skill-b234f12e5ea7",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/SKILL.md",
+      "anchor": "Handover"
+    },
+    {
+      "id": "v3-heading-skill-bbdf523a31d0",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/SKILL.md",
+      "anchor": "Required Scripts"
+    },
+    {
+      "id": "v3-heading-skill-4d46cad9c2e0",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/SKILL.md",
+      "anchor": "Stop Conditions"
+    },
+    {
+      "id": "v3-heading-skill-f4a8e749b105",
+      "kind": "heading",
+      "source": "skills/devad-x9-manager/SKILL.md",
+      "anchor": "Output"
+    },
+    {
+      "id": "v3-script-build-source-manifest-000c9909f922",
+      "kind": "script",
+      "source": "scripts/build_source_manifest.py"
+    },
+    {
+      "id": "v3-script-install-suite-6476398fa1fd",
+      "kind": "script",
+      "source": "scripts/install-suite.ps1"
+    },
+    {
+      "id": "v3-script-model-router-5d93415ffb12",
+      "kind": "script",
+      "source": "scripts/model_router.py"
+    },
+    {
+      "id": "v3-script-validate-owner-context-1e67a7c26156",
+      "kind": "script",
+      "source": "scripts/validate_owner_context.py"
+    },
+    {
+      "id": "v3-script-validate-suite-f134ba64df52",
+      "kind": "script",
+      "source": "scripts/validate_suite.py"
+    },
+    {
+      "id": "v3-template-commit-template-8ac5a4943c79",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/docs/commits/COMMIT_TEMPLATE.md"
+    },
+    {
+      "id": "v3-heading-commit-template-8b99ab8f4713",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/docs/commits/COMMIT_TEMPLATE.md",
+      "anchor": "Commit Attestation"
+    },
+    {
+      "id": "v3-template-readme-2a6769f3797f",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/docs/commits/README.md"
+    },
+    {
+      "id": "v3-heading-readme-3505caa17e4d",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/docs/commits/README.md",
+      "anchor": "Commit Attestations"
+    },
+    {
+      "id": "v3-template-feature-78de75a391c9",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/features/_template/FEATURE.json"
+    },
+    {
+      "id": "v3-template-manifest-79a87d833bd5",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/features/_template/MANIFEST.md"
+    },
+    {
+      "id": "v3-heading-manifest-e246e0d125fa",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/features/_template/MANIFEST.md",
+      "anchor": "Feature Manifest"
+    },
+    {
+      "id": "v3-template-artifacts-72f2edad99d4",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/features/_template/refs/ARTIFACTS.md"
+    },
+    {
+      "id": "v3-heading-artifacts-0710dad33a76",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/features/_template/refs/ARTIFACTS.md",
+      "anchor": "Artifact Index"
+    },
+    {
+      "id": "v3-template-contract-6b30c85adb68",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/features/_template/spec/CONTRACT.md"
+    },
+    {
+      "id": "v3-heading-contract-dcef271915c5",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/features/_template/spec/CONTRACT.md",
+      "anchor": "Feature Contract"
+    },
+    {
+      "id": "v3-template-plan-39719f4d946e",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/features/_template/spec/PLAN.md"
+    },
+    {
+      "id": "v3-heading-plan-51c6d27d52eb",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/features/_template/spec/PLAN.md",
+      "anchor": "Current Feature Plan"
+    },
+    {
+      "id": "v3-template-tasks-6e701738f15c",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/features/_template/spec/TASKS.md"
+    },
+    {
+      "id": "v3-heading-tasks-9500963c194a",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/features/_template/spec/TASKS.md",
+      "anchor": "Feature Tasks"
+    },
+    {
+      "id": "v3-template-readme-d7573c73f8a8",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/features/_template/subfeatures/README.md"
+    },
+    {
+      "id": "v3-heading-readme-06f148c86710",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/features/_template/subfeatures/README.md",
+      "anchor": "Subfeatures"
+    },
+    {
+      "id": "v3-template-task-936bb6ac925a",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/features/_template/TASK.md"
+    },
+    {
+      "id": "v3-heading-task-20a00f10c186",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/features/_template/TASK.md",
+      "anchor": "Feature Task Router"
+    },
+    {
+      "id": "v3-heading-task-ad9cf944cbab",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/features/_template/TASK.md",
+      "anchor": "Current"
+    },
+    {
+      "id": "v3-heading-task-9ad8f5c64ab7",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/features/_template/TASK.md",
+      "anchor": "Read Routes"
+    },
+    {
+      "id": "v3-template-features-index-61c860e0e767",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/features/features.index.json"
+    },
+    {
+      "id": "v3-template-readme-140568b0e1cb",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/features/README.md"
+    },
+    {
+      "id": "v3-heading-readme-62ca5e1ae8fe",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/features/README.md",
+      "anchor": "X9 Feature Map"
+    },
+    {
+      "id": "v3-template-answered-decisions-7d48ef0c1bde",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/ANSWERED_DECISIONS.md"
+    },
+    {
+      "id": "v3-heading-answered-decisions-e6619f238fea",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/ANSWERED_DECISIONS.md",
+      "anchor": "Answered Decisions"
+    },
+    {
+      "id": "v3-template-central-facts-12815b61aff7",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/CENTRAL_FACTS.md"
+    },
+    {
+      "id": "v3-heading-central-facts-104264c49efd",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/CENTRAL_FACTS.md",
+      "anchor": "Central Facts"
+    },
+    {
+      "id": "v3-template-current-68f0ae3bfae6",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/CURRENT.md"
+    },
+    {
+      "id": "v3-heading-current-628c17d86da0",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/CURRENT.md",
+      "anchor": "Current Manager Truth"
+    },
+    {
+      "id": "v3-template-handoff-index-8a116bbcaf6c",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/HANDOFF_INDEX.md"
+    },
+    {
+      "id": "v3-heading-handoff-index-7d303b910493",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/HANDOFF_INDEX.md",
+      "anchor": "Handoff Index"
+    },
+    {
+      "id": "v3-template-linx-handover-state-7694f3895edd",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/LINX_HANDOVER_STATE.md"
+    },
+    {
+      "id": "v3-heading-linx-handover-state-b9a0ed302f07",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/LINX_HANDOVER_STATE.md",
+      "anchor": "Linx Handover State"
+    },
+    {
+      "id": "v3-heading-linx-handover-state-0ba5008b90b1",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/LINX_HANDOVER_STATE.md",
+      "anchor": "HANDOVER_INVENTORY_REQUEST"
+    },
+    {
+      "id": "v3-heading-linx-handover-state-91885ca7a77a",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/LINX_HANDOVER_STATE.md",
+      "anchor": "OWNER_SCOPE_MATRIX"
+    },
+    {
+      "id": "v3-heading-linx-handover-state-c411cc2c8289",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/LINX_HANDOVER_STATE.md",
+      "anchor": "NEW_LINX_PLAN"
+    },
+    {
+      "id": "v3-heading-linx-handover-state-80449917226e",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/LINX_HANDOVER_STATE.md",
+      "anchor": "OLD_LINX_FINAL_REVIEW"
+    },
+    {
+      "id": "v3-heading-linx-handover-state-2bc3a0ca14d4",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/LINX_HANDOVER_STATE.md",
+      "anchor": "LINX_ACTIVATION_OK"
+    },
+    {
+      "id": "v3-heading-linx-handover-state-e5daac92aea1",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/LINX_HANDOVER_STATE.md",
+      "anchor": "Heartbeat"
+    },
+    {
+      "id": "v3-template-local-work-ledger-b91f18bcfc30",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/LOCAL_WORK_LEDGER.md"
+    },
+    {
+      "id": "v3-heading-local-work-ledger-98c291869d95",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/LOCAL_WORK_LEDGER.md",
+      "anchor": "Local Work Ledger"
+    },
+    {
+      "id": "v3-template-manager-pass-lock-7fb0567ce9d9",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/MANAGER_PASS_LOCK.md"
+    },
+    {
+      "id": "v3-heading-manager-pass-lock-69617b29c7f0",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/MANAGER_PASS_LOCK.md",
+      "anchor": "Manager Pass Lock"
+    },
+    {
+      "id": "v3-template-mission-lock-0a3dcc4645e3",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/MISSION_LOCK.md"
+    },
+    {
+      "id": "v3-heading-mission-lock-8dad174c72d5",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/MISSION_LOCK.md",
+      "anchor": "Mission Lock"
+    },
+    {
+      "id": "v3-template-model-policy-6bfd80461be1",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/MODEL_POLICY.md"
+    },
+    {
+      "id": "v3-heading-model-policy-55db0f3eb773",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/MODEL_POLICY.md",
+      "anchor": "Project Model Policy"
+    },
+    {
+      "id": "v3-template-model-state-c321408a8f31",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/MODEL_STATE.md"
+    },
+    {
+      "id": "v3-heading-model-state-8cf189574776",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/MODEL_STATE.md",
+      "anchor": "Model State"
+    },
+    {
+      "id": "v3-template-attachments-cf62d0d3324a",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/owner-input/_template/ATTACHMENTS.json"
+    },
+    {
+      "id": "v3-template-context-receipt-4811e3466889",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/owner-input/_template/CONTEXT_RECEIPT.md"
+    },
+    {
+      "id": "v3-heading-context-receipt-f1766a9bf0d7",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/owner-input/_template/CONTEXT_RECEIPT.md",
+      "anchor": "Owner Context Receipt"
+    },
+    {
+      "id": "v3-template-owner-request-8b3031d36309",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/owner-input/_template/OWNER_REQUEST.md"
+    },
+    {
+      "id": "v3-heading-owner-request-5031da326c90",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/owner-input/_template/OWNER_REQUEST.md",
+      "anchor": "Owner Request"
+    },
+    {
+      "id": "v3-heading-owner-request-6ce7d344892f",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/owner-input/_template/OWNER_REQUEST.md",
+      "anchor": "Exact Owner Message"
+    },
+    {
+      "id": "v3-heading-owner-request-08c87e6f7e46",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/owner-input/_template/OWNER_REQUEST.md",
+      "anchor": "Atomic Requirements"
+    },
+    {
+      "id": "v3-heading-owner-request-8249f57e3f09",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/owner-input/_template/OWNER_REQUEST.md",
+      "anchor": "Corrections And Exclusions"
+    },
+    {
+      "id": "v3-heading-owner-request-091b0be1e00a",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/owner-input/_template/OWNER_REQUEST.md",
+      "anchor": "Required Attachments"
+    },
+    {
+      "id": "v3-template-visual-context-fa1694e84ff4",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/owner-input/_template/VISUAL_CONTEXT.md"
+    },
+    {
+      "id": "v3-heading-visual-context-35b86c90defc",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/owner-input/_template/VISUAL_CONTEXT.md",
+      "anchor": "Visual Context"
+    },
+    {
+      "id": "v3-heading-visual-context-3b1a96154cca",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/owner-input/_template/VISUAL_CONTEXT.md",
+      "anchor": "Owner Meaning"
+    },
+    {
+      "id": "v3-template-index-3105f83f09ea",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/owner-input/INDEX.md"
+    },
+    {
+      "id": "v3-heading-index-840b6370c1f4",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/owner-input/INDEX.md",
+      "anchor": "Owner Input Index"
+    },
+    {
+      "id": "v3-template-tool-lessons-de62fbacde95",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/TOOL_LESSONS.md"
+    },
+    {
+      "id": "v3-heading-tool-lessons-9bfbb2a91295",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/TOOL_LESSONS.md",
+      "anchor": "Tool Lessons"
+    },
+    {
+      "id": "v3-template-handoffs-261be36cc28f",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/workers/_template/HANDOFFS.md"
+    },
+    {
+      "id": "v3-heading-handoffs-1bc4d2f8da02",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/workers/_template/HANDOFFS.md",
+      "anchor": "Current Worker Handoff"
+    },
+    {
+      "id": "v3-template-manifest-1a3d44a3afe1",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/workers/_template/MANIFEST.json"
+    },
+    {
+      "id": "v3-template-router-e02102dcfb4e",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/workers/_template/ROUTER.md"
+    },
+    {
+      "id": "v3-heading-router-8b1e5b991e99",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/workers/_template/ROUTER.md",
+      "anchor": "Worker Lane Router"
+    },
+    {
+      "id": "v3-template-commits-df03368545fc",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/COMMITS.md"
+    },
+    {
+      "id": "v3-heading-commits-db414c12a3a7",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/COMMITS.md",
+      "anchor": "Run Commits"
+    },
+    {
+      "id": "v3-template-decisions-c49afb661254",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/DECISIONS.md"
+    },
+    {
+      "id": "v3-heading-decisions-7613639a591e",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/DECISIONS.md",
+      "anchor": "Run Decisions"
+    },
+    {
+      "id": "v3-template-plan-8e59a23ac2f4",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/PLAN.md"
+    },
+    {
+      "id": "v3-heading-plan-7d0a96f7a27c",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/PLAN.md",
+      "anchor": "Run Plan"
+    },
+    {
+      "id": "v3-template-proof-7d572fc812b6",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/PROOF.md"
+    },
+    {
+      "id": "v3-heading-proof-575a3e8e2c02",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/PROOF.md",
+      "anchor": "Run Proof"
+    },
+    {
+      "id": "v3-template-security-c712a32863bb",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/SECURITY.md"
+    },
+    {
+      "id": "v3-heading-security-a1114e967e80",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/SECURITY.md",
+      "anchor": "Run Security"
+    },
+    {
+      "id": "v3-template-side-input-03ba37e4b798",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/SIDE_INPUT.md"
+    },
+    {
+      "id": "v3-heading-side-input-b23f241b581c",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/SIDE_INPUT.md",
+      "anchor": "Worker Sidecar Input"
+    },
+    {
+      "id": "v3-template-side-reviews-8cee5a687cff",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/SIDE_REVIEWS.md"
+    },
+    {
+      "id": "v3-heading-side-reviews-13ae961f1d9f",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/SIDE_REVIEWS.md",
+      "anchor": "Worker Sidecar Reviews"
+    },
+    {
+      "id": "v3-heading-side-reviews-31ec72e86322",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/SIDE_REVIEWS.md",
+      "anchor": "Worker Verification"
+    },
+    {
+      "id": "v3-heading-side-reviews-cbea324b044b",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/SIDE_REVIEWS.md",
+      "anchor": "Final Worker Decision"
+    },
+    {
+      "id": "v3-template-worklog-c98027f2f9fd",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/WORKLOG.md"
+    },
+    {
+      "id": "v3-heading-worklog-69d094c5c17e",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/workers/_template/runs/_template/WORKLOG.md",
+      "anchor": "Run Worklog"
+    },
+    {
+      "id": "v3-template-status-a916c7dd783f",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/workers/_template/STATUS.md"
+    },
+    {
+      "id": "v3-heading-status-a74e820dafef",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/workers/_template/STATUS.md",
+      "anchor": "Worker Status"
+    },
+    {
+      "id": "v3-template-worktree-registry-5744130f48ff",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/manager/WORKTREE_REGISTRY.md"
+    },
+    {
+      "id": "v3-heading-worktree-registry-104ef583fd34",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/manager/WORKTREE_REGISTRY.md",
+      "anchor": "Worktree Registry"
+    },
+    {
+      "id": "v3-template-chat-catalog-62b75629bb5c",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/memory/CHAT-CATALOG.md"
+    },
+    {
+      "id": "v3-heading-chat-catalog-3d15374d76a9",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/memory/CHAT-CATALOG.md",
+      "anchor": "Chat Catalog"
+    },
+    {
+      "id": "v3-template-project-names-87a4b4e74823",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/memory/projects/PROJECT-NAMES.md"
+    },
+    {
+      "id": "v3-heading-project-names-6cb7c2d51014",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/memory/projects/PROJECT-NAMES.md",
+      "anchor": "Project Names"
+    },
+    {
+      "id": "v3-template-readme-b754aa5cd96a",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/README.md"
+    },
+    {
+      "id": "v3-heading-readme-9fafb4a185e3",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/README.md",
+      "anchor": "Devad X9 Repo Memory"
+    },
+    {
+      "id": "v3-heading-readme-d8020eed5a25",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/README.md",
+      "anchor": "Preserved History"
+    },
+    {
+      "id": "v3-heading-readme-9f364aa6dcd8",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/README.md",
+      "anchor": "Sidecars"
+    },
+    {
+      "id": "v3-template-router-68a4155d270b",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/ROUTER.md"
+    },
+    {
+      "id": "v3-heading-router-93641cc9e3a8",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/ROUTER.md",
+      "anchor": "X9 Project Router"
+    },
+    {
+      "id": "v3-heading-router-6bdf285830c9",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/ROUTER.md",
+      "anchor": "Current Route"
+    },
+    {
+      "id": "v3-heading-router-8604d2e6b7d5",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/ROUTER.md",
+      "anchor": "Rules"
+    },
+    {
+      "id": "v3-template-devad-architecture-d65c34b13763",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/devad-architecture.md"
+    },
+    {
+      "id": "v3-heading-devad-architecture-bf4870804135",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-architecture.md",
+      "anchor": "Devad Architecture"
+    },
+    {
+      "id": "v3-heading-devad-architecture-29aa201f67f5",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-architecture.md",
+      "anchor": "Rules"
+    },
+    {
+      "id": "v3-heading-devad-architecture-8adbbebcc74d",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-architecture.md",
+      "anchor": "Bias"
+    },
+    {
+      "id": "v3-template-devad-backend-laravel-e0b00d367511",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/devad-backend-laravel.md"
+    },
+    {
+      "id": "v3-heading-devad-backend-laravel-f197ffd0432c",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-backend-laravel.md",
+      "anchor": "Devad Backend Laravel"
+    },
+    {
+      "id": "v3-heading-devad-backend-laravel-27543617dd13",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-backend-laravel.md",
+      "anchor": "Rules"
+    },
+    {
+      "id": "v3-heading-devad-backend-laravel-562d30a09309",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-backend-laravel.md",
+      "anchor": "Proof"
+    },
+    {
+      "id": "v3-template-devad-dashboard-frontend-e9664517388d",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/devad-dashboard-frontend.md"
+    },
+    {
+      "id": "v3-heading-devad-dashboard-frontend-c5d5086ed716",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-dashboard-frontend.md",
+      "anchor": "Devad Dashboard Frontend"
+    },
+    {
+      "id": "v3-heading-devad-dashboard-frontend-8127ba9e1bb5",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-dashboard-frontend.md",
+      "anchor": "Source First"
+    },
+    {
+      "id": "v3-heading-devad-dashboard-frontend-f54c7ba68810",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-dashboard-frontend.md",
+      "anchor": "UI Authority"
+    },
+    {
+      "id": "v3-heading-devad-dashboard-frontend-cbf6e265caf9",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-dashboard-frontend.md",
+      "anchor": "Proof"
+    },
+    {
+      "id": "v3-template-devad-deploy-dokploy-d92cbe43c74f",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/devad-deploy-dokploy.md"
+    },
+    {
+      "id": "v3-heading-devad-deploy-dokploy-6960b4f53c61",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-deploy-dokploy.md",
+      "anchor": "Devad Deploy Dokploy"
+    },
+    {
+      "id": "v3-heading-devad-deploy-dokploy-4d2556e50b17",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-deploy-dokploy.md",
+      "anchor": "Rules"
+    },
+    {
+      "id": "v3-heading-devad-deploy-dokploy-efbf6750820f",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-deploy-dokploy.md",
+      "anchor": "Direct API Fast Path"
+    },
+    {
+      "id": "v3-heading-devad-deploy-dokploy-cdb843ecd06c",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-deploy-dokploy.md",
+      "anchor": "Proof"
+    },
+    {
+      "id": "v3-template-devad-headless-cli-sidecars-01487c061f43",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/devad-headless-cli-sidecars.md"
+    },
+    {
+      "id": "v3-heading-devad-headless-cli-sidecars-4859156ca435",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-headless-cli-sidecars.md",
+      "anchor": "Devad Headless CLI Sidecars"
+    },
+    {
+      "id": "v3-heading-devad-headless-cli-sidecars-4863737760ef",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-headless-cli-sidecars.md",
+      "anchor": "Rule"
+    },
+    {
+      "id": "v3-heading-devad-headless-cli-sidecars-671623b9fb43",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-headless-cli-sidecars.md",
+      "anchor": "OpenCode Go Commands"
+    },
+    {
+      "id": "v3-heading-devad-headless-cli-sidecars-7dc5b498c136",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-headless-cli-sidecars.md",
+      "anchor": "Readiness"
+    },
+    {
+      "id": "v3-heading-devad-headless-cli-sidecars-300b62bcebd9",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-headless-cli-sidecars.md",
+      "anchor": "Phase Shape"
+    },
+    {
+      "id": "v3-heading-devad-headless-cli-sidecars-45f51bbe621d",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-headless-cli-sidecars.md",
+      "anchor": "Safety"
+    },
+    {
+      "id": "v3-template-devad-marketing-theme-d9ae4b0f22be",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/devad-marketing-theme.md"
+    },
+    {
+      "id": "v3-heading-devad-marketing-theme-72196aecd2ea",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-marketing-theme.md",
+      "anchor": "Devad Marketing Theme"
+    },
+    {
+      "id": "v3-heading-devad-marketing-theme-89e44d0bae4d",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-marketing-theme.md",
+      "anchor": "Role Map"
+    },
+    {
+      "id": "v3-heading-devad-marketing-theme-2cf94251a5d8",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-marketing-theme.md",
+      "anchor": "Rules"
+    },
+    {
+      "id": "v3-heading-devad-marketing-theme-4d72c0ac3e97",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-marketing-theme.md",
+      "anchor": "Proof"
+    },
+    {
+      "id": "v3-template-devad-pr-review-gate-a692dc70846f",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/devad-pr-review-gate.md"
+    },
+    {
+      "id": "v3-heading-devad-pr-review-gate-ea828427e1df",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-pr-review-gate.md",
+      "anchor": "Devad PR Review Gate"
+    },
+    {
+      "id": "v3-heading-devad-pr-review-gate-fe4bf2583fef",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-pr-review-gate.md",
+      "anchor": "Review Focus"
+    },
+    {
+      "id": "v3-heading-devad-pr-review-gate-eb6dafd6d7cd",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-pr-review-gate.md",
+      "anchor": "Merge Policy"
+    },
+    {
+      "id": "v3-template-devad-public-frontend-244f0c83cddb",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/devad-public-frontend.md"
+    },
+    {
+      "id": "v3-heading-devad-public-frontend-d59ca92cb8f0",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-public-frontend.md",
+      "anchor": "Devad Public Frontend"
+    },
+    {
+      "id": "v3-heading-devad-public-frontend-776ccfa1c09e",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-public-frontend.md",
+      "anchor": "Public Surface Rules"
+    },
+    {
+      "id": "v3-heading-devad-public-frontend-0c77c5130a7d",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-public-frontend.md",
+      "anchor": "Proof"
+    },
+    {
+      "id": "v3-template-devad-safety-gates-c76c9e64e039",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/devad-safety-gates.md"
+    },
+    {
+      "id": "v3-heading-devad-safety-gates-b40168c08ff5",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-safety-gates.md",
+      "anchor": "Devad Safety Gates"
+    },
+    {
+      "id": "v3-heading-devad-safety-gates-ea10982dda9c",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-safety-gates.md",
+      "anchor": "Hard Gates"
+    },
+    {
+      "id": "v3-heading-devad-safety-gates-b737c9bb1bb0",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-safety-gates.md",
+      "anchor": "Completion"
+    },
+    {
+      "id": "v3-template-devad-sidecar-models-506c40f0178b",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/devad-sidecar-models.md"
+    },
+    {
+      "id": "v3-heading-devad-sidecar-models-4993852213de",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-sidecar-models.md",
+      "anchor": "Devad Sidecar Models"
+    },
+    {
+      "id": "v3-heading-devad-sidecar-models-8caf8220f349",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-sidecar-models.md",
+      "anchor": "Current Policy"
+    },
+    {
+      "id": "v3-heading-devad-sidecar-models-dbf70089285d",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-sidecar-models.md",
+      "anchor": "Active Routes"
+    },
+    {
+      "id": "v3-heading-devad-sidecar-models-ab40638ce2cf",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-sidecar-models.md",
+      "anchor": "Packet Rules"
+    },
+    {
+      "id": "v3-heading-devad-sidecar-models-739de52831a9",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-sidecar-models.md",
+      "anchor": "Retired Routes"
+    },
+    {
+      "id": "v3-heading-devad-sidecar-models-a98731ac80ec",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-sidecar-models.md",
+      "anchor": "Proof"
+    },
+    {
+      "id": "v3-template-devad-tools-readiness-bfc5e421546d",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/devad-tools-readiness.md"
+    },
+    {
+      "id": "v3-heading-devad-tools-readiness-9334e727bc48",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-tools-readiness.md",
+      "anchor": "Devad Tools Readiness"
+    },
+    {
+      "id": "v3-heading-devad-tools-readiness-d46a991535e6",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-tools-readiness.md",
+      "anchor": "Tool Truth"
+    },
+    {
+      "id": "v3-heading-devad-tools-readiness-e0a9ec913728",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-tools-readiness.md",
+      "anchor": "Dependency Checks"
+    },
+    {
+      "id": "v3-heading-devad-tools-readiness-52b82a27f21b",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-tools-readiness.md",
+      "anchor": "Headless Sidecar Readiness"
+    },
+    {
+      "id": "v3-heading-devad-tools-readiness-fbe6c87cb51b",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/devad-tools-readiness.md",
+      "anchor": "Historical Notes"
+    },
+    {
+      "id": "v3-template-x9-acceptance-proof-812f614b062d",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/x9-acceptance-proof.md"
+    },
+    {
+      "id": "v3-heading-x9-acceptance-proof-a39044a89c1a",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-acceptance-proof.md",
+      "anchor": "X9 Acceptance And Visible Proof"
+    },
+    {
+      "id": "v3-heading-x9-acceptance-proof-bcc1606e2ac7",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-acceptance-proof.md",
+      "anchor": "Before Coding"
+    },
+    {
+      "id": "v3-heading-x9-acceptance-proof-ea27dae94a02",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-acceptance-proof.md",
+      "anchor": "Proof Semantics"
+    },
+    {
+      "id": "v3-heading-x9-acceptance-proof-md-l41-83630eb780f6",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-acceptance-proof.md",
+      "anchor": ".devad Upload Requirement"
+    },
+    {
+      "id": "v3-heading-x9-acceptance-proof-02e5c247329a",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-acceptance-proof.md",
+      "anchor": "Result Vocabulary"
+    },
+    {
+      "id": "v3-heading-x9-acceptance-proof-e29af7ba0e58",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-acceptance-proof.md",
+      "anchor": "Optional Feature References"
+    },
+    {
+      "id": "v3-heading-x9-acceptance-proof-302887802cc6",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-acceptance-proof.md",
+      "anchor": "Final Proof Matrix"
+    },
+    {
+      "id": "v3-template-x9-branch-deploy-policy-0c42f580119b",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/x9-branch-deploy-policy.md"
+    },
+    {
+      "id": "v3-heading-x9-branch-deploy-policy-0e0934bec6c1",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-branch-deploy-policy.md",
+      "anchor": "X9 Branch And Deploy Truth"
+    },
+    {
+      "id": "v3-heading-x9-branch-deploy-policy-762c4f5f7ba8",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-branch-deploy-policy.md",
+      "anchor": "Hard Rules"
+    },
+    {
+      "id": "v3-heading-x9-branch-deploy-policy-ff5a6e856a12",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-branch-deploy-policy.md",
+      "anchor": "Fresh Check"
+    },
+    {
+      "id": "v3-heading-x9-branch-deploy-policy-0d1a125d9232",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-branch-deploy-policy.md",
+      "anchor": "Bridge Classification"
+    },
+    {
+      "id": "v3-heading-x9-branch-deploy-policy-d4e2ae00b8ed",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-branch-deploy-policy.md",
+      "anchor": "Decision"
+    },
+    {
+      "id": "v3-heading-x9-branch-deploy-policy-822f7ef28d96",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-branch-deploy-policy.md",
+      "anchor": "Deploy Closure Gate"
+    },
+    {
+      "id": "v3-heading-x9-branch-deploy-policy-f462eb24bc2d",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-branch-deploy-policy.md",
+      "anchor": "Dirty Bridge Recovery"
+    },
+    {
+      "id": "v3-template-x9-manager-2242cd07c993",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/x9-manager.md"
+    },
+    {
+      "id": "v3-heading-x9-manager-6f7d75207677",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-manager.md",
+      "anchor": "X9 User-Managed Multi-Chat"
+    },
+    {
+      "id": "v3-heading-x9-manager-cf2b57c3f0be",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-manager.md",
+      "anchor": "Core Rule"
+    },
+    {
+      "id": "v3-heading-x9-manager-289c64bbfdbf",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-manager.md",
+      "anchor": "Setup"
+    },
+    {
+      "id": "v3-heading-x9-manager-3851c23b4edc",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-manager.md",
+      "anchor": "Isolation"
+    },
+    {
+      "id": "v3-heading-x9-manager-06af5ba4d14b",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-manager.md",
+      "anchor": "Combining"
+    },
+    {
+      "id": "v3-heading-x9-manager-3f51e5250024",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-manager.md",
+      "anchor": "Conflict Policy"
+    },
+    {
+      "id": "v3-heading-x9-manager-876bfb0c14fb",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-manager.md",
+      "anchor": "Worker Report Contract"
+    },
+    {
+      "id": "v3-heading-x9-manager-3b7f78f44918",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-manager.md",
+      "anchor": "Sidecars"
+    },
+    {
+      "id": "v3-template-x9-read-policy-28291a5eacd6",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/rules/x9-read-policy.md"
+    },
+    {
+      "id": "v3-heading-x9-read-policy-255762c42937",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-read-policy.md",
+      "anchor": "X9 Read Policy"
+    },
+    {
+      "id": "v3-heading-x9-read-policy-98bfb307ee10",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-read-policy.md",
+      "anchor": "Read Once"
+    },
+    {
+      "id": "v3-heading-x9-read-policy-b62541df7bf7",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-read-policy.md",
+      "anchor": "Gated Surfaces"
+    },
+    {
+      "id": "v3-heading-x9-read-policy-52c6de870091",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-read-policy.md",
+      "anchor": "Commit Discipline"
+    },
+    {
+      "id": "v3-heading-x9-read-policy-1a85cb91c3b0",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-read-policy.md",
+      "anchor": "Domain Pack Selector"
+    },
+    {
+      "id": "v3-heading-x9-read-policy-8d40f178f06f",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/rules/x9-read-policy.md",
+      "anchor": "Default"
+    },
+    {
+      "id": "v3-template-x9-deploy-bridge-sentinel-f054d70f56e9",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/templates/X9_DEPLOY_BRIDGE_SENTINEL.md"
+    },
+    {
+      "id": "v3-heading-x9-deploy-bridge-sentinel-cf6bff18e52e",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/templates/X9_DEPLOY_BRIDGE_SENTINEL.md",
+      "anchor": "Deploy Bridge Sentinel"
+    },
+    {
+      "id": "v3-template-x9-feature-d2a732f5bfcc",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/templates/X9_FEATURE.json"
+    },
+    {
+      "id": "v3-template-x9-feature-handoff-b79cdee569bd",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/templates/X9_FEATURE_HANDOFF.md"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-59c8910eb688",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "X9 Feature Handoff"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-86bcdf879b0b",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "TLDR"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-c47946d4d554",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "Acceptance Matrix"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-262b8fc1c7fd",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "Files Changed"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-md-l32-4da3dc627a36",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": ".devad Files Uploaded"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-ed27c4a5bb82",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "X9 To v105 Bridge Map"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-a567f6c7450d",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "Verification"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-838b3ddf35f8",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "Not Done"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-3f00597094ed",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "Risks"
+    },
+    {
+      "id": "v3-heading-x9-feature-handoff-52e1d004465d",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/templates/X9_FEATURE_HANDOFF.md",
+      "anchor": "Reviewer Checklist"
+    },
+    {
+      "id": "v3-template-x9-manager-start-prompt-cea3b80c37d9",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/templates/X9_MANAGER_START_PROMPT.md"
+    },
+    {
+      "id": "v3-heading-x9-manager-start-prompt-3aa9e978e9b9",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/templates/X9_MANAGER_START_PROMPT.md",
+      "anchor": "X9 Manager Start Prompt"
+    },
+    {
+      "id": "v3-template-x9-worker-prompt-0612570476ee",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/templates/X9_WORKER_PROMPT.md"
+    },
+    {
+      "id": "v3-heading-x9-worker-prompt-008337af0cb1",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/templates/X9_WORKER_PROMPT.md",
+      "anchor": "X9 Worker Prompt"
+    },
+    {
+      "id": "v3-template-how-to-use-36820e6f45c8",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/tooling/dokploy/HOW-TO-USE.md"
+    },
+    {
+      "id": "v3-heading-how-to-use-a33056dd2730",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "X9 Dokploy Direct API Guide"
+    },
+    {
+      "id": "v3-heading-how-to-use-e6041cb7453c",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Current Safe Facts"
+    },
+    {
+      "id": "v3-heading-how-to-use-68577a50bc97",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Secret Source"
+    },
+    {
+      "id": "v3-heading-how-to-use-ab8ddf9fefbc",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Absolute No"
+    },
+    {
+      "id": "v3-heading-how-to-use-515211d6b45e",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Allowed Without Extra Approval"
+    },
+    {
+      "id": "v3-heading-how-to-use-39dd4584b921",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Deploy Rule"
+    },
+    {
+      "id": "v3-heading-how-to-use-8dc50c742ef4",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Read-Only Dry Test"
+    },
+    {
+      "id": "v3-heading-how-to-use-2fe79998d78b",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Deployment Status Read"
+    },
+    {
+      "id": "v3-heading-how-to-use-646fbe62b4e3",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "Swagger Note"
+    },
+    {
+      "id": "v3-heading-how-to-use-8fcab19b5225",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/dokploy/HOW-TO-USE.md",
+      "anchor": "X9 Routing"
+    },
+    {
+      "id": "v3-template-how-to-use-49df365502ea",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/tooling/opencode-cli/HOW-TO-USE.md"
+    },
+    {
+      "id": "v3-heading-how-to-use-c17b58307640",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/opencode-cli/HOW-TO-USE.md",
+      "anchor": "Devad OpenCode CLI Sidecar"
+    },
+    {
+      "id": "v3-heading-how-to-use-61bb0c22278e",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/opencode-cli/HOW-TO-USE.md",
+      "anchor": "Models"
+    },
+    {
+      "id": "v3-heading-how-to-use-e2c1130359a2",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/opencode-cli/HOW-TO-USE.md",
+      "anchor": "Run"
+    },
+    {
+      "id": "v3-heading-how-to-use-0858e01fc613",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/opencode-cli/HOW-TO-USE.md",
+      "anchor": "Packet Rules"
+    },
+    {
+      "id": "v3-heading-how-to-use-89543b2e3c41",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/tooling/opencode-cli/HOW-TO-USE.md",
+      "anchor": "Failure Rule"
+    },
+    {
+      "id": "v3-template-run-opencode-cli-packet-ed5565a34eab",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/tooling/opencode-cli/run-opencode-cli-packet.ps1"
+    },
+    {
+      "id": "v3-template-x9-7b7f1f11578b",
+      "kind": "template",
+      "source": "templates/x9-project/.devad/X9.md"
+    },
+    {
+      "id": "v3-heading-x9-64d2cbb9c8ae",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/X9.md",
+      "anchor": "Devad X9 Project Router"
+    },
+    {
+      "id": "v3-heading-x9-7768b723fc3f",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/X9.md",
+      "anchor": "Operating Model"
+    },
+    {
+      "id": "v3-heading-x9-f97fef24985d",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/X9.md",
+      "anchor": "Authority"
+    },
+    {
+      "id": "v3-heading-x9-ab52571f4e3c",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/X9.md",
+      "anchor": "Commit Discipline"
+    },
+    {
+      "id": "v3-heading-x9-bc9264a379fa",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/X9.md",
+      "anchor": "Branch Source Policy"
+    },
+    {
+      "id": "v3-heading-x9-10901c3338bf",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/X9.md",
+      "anchor": "Deploy Bridge Drift Guard"
+    },
+    {
+      "id": "v3-heading-x9-35061d3f6ab6",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/X9.md",
+      "anchor": "Startup"
+    },
+    {
+      "id": "v3-heading-x9-274d6ba4c206",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/X9.md",
+      "anchor": "Rule Router"
+    },
+    {
+      "id": "v3-heading-x9-9b8b48aad028",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/X9.md",
+      "anchor": "Optional Feature Reference Packs"
+    },
+    {
+      "id": "v3-heading-x9-73d9dc53eb07",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/X9.md",
+      "anchor": "X9 Parallel Work Rule"
+    },
+    {
+      "id": "v3-heading-x9-afad9cc05464",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/X9.md",
+      "anchor": "Retired From X9"
+    },
+    {
+      "id": "v3-heading-x9-4b26c754082e",
+      "kind": "heading",
+      "source": "templates/x9-project/.devad/X9.md",
+      "anchor": "Output Contract"
+    },
+    {
+      "id": "v3-template-readme-a7d59f28c6e5",
+      "kind": "template",
+      "source": "templates/x9-project/README.md"
+    },
+    {
+      "id": "v3-heading-readme-29b26d0b16ed",
+      "kind": "heading",
+      "source": "templates/x9-project/README.md",
+      "anchor": "Devad X9 Repo Template"
+    },
+    {
+      "id": "v3-invariant-truth-and-mission-locks",
+      "kind": "invariant",
+      "source": "v3-invariant:truth-and-mission-locks"
+    },
+    {
+      "id": "v3-invariant-manager-pass-mutex",
+      "kind": "invariant",
+      "source": "v3-invariant:manager-pass-mutex"
+    },
+    {
+      "id": "v3-invariant-local-work-ledger-and-release-states",
+      "kind": "invariant",
+      "source": "v3-invariant:local-work-ledger-and-release-states"
+    },
+    {
+      "id": "v3-invariant-worktree-preservation-and-exact-scope",
+      "kind": "invariant",
+      "source": "v3-invariant:worktree-preservation-and-exact-scope"
+    },
+    {
+      "id": "v3-invariant-security-before-commit",
+      "kind": "invariant",
+      "source": "v3-invariant:security-before-commit"
+    },
+    {
+      "id": "v3-invariant-c1-source-plus-c2-attestation",
+      "kind": "invariant",
+      "source": "v3-invariant:c1-source-plus-c2-attestation"
+    },
+    {
+      "id": "v3-invariant-separate-push-deploy-live-proof-gates",
+      "kind": "invariant",
+      "source": "v3-invariant:separate-push-deploy-live-proof-gates"
+    },
+    {
+      "id": "v3-invariant-destructive-action-guard",
+      "kind": "invariant",
+      "source": "v3-invariant:destructive-action-guard"
+    },
+    {
+      "id": "v3-invariant-owner-message-and-attachment-hashes",
+      "kind": "invariant",
+      "source": "v3-invariant:owner-message-and-attachment-hashes"
+    },
+    {
+      "id": "v3-invariant-thinx-verified-read-receipts",
+      "kind": "invariant",
+      "source": "v3-invariant:thinx-verified-read-receipts"
+    },
+    {
+      "id": "v3-invariant-answered-decisions-and-tool-lessons",
+      "kind": "invariant",
+      "source": "v3-invariant:answered-decisions-and-tool-lessons"
+    },
+    {
+      "id": "v3-invariant-compact-status-handoffs-detailed-runs",
+      "kind": "invariant",
+      "source": "v3-invariant:compact-status-handoffs-detailed-runs"
+    },
+    {
+      "id": "v3-invariant-feature-catalog-and-manifest-routing",
+      "kind": "invariant",
+      "source": "v3-invariant:feature-catalog-and-manifest-routing"
+    },
+    {
+      "id": "v3-invariant-linx-collaborative-handover",
+      "kind": "invariant",
+      "source": "v3-invariant:linx-collaborative-handover"
+    },
+    {
+      "id": "v3-invariant-glm-kimi-bounded-reader-challenge",
+      "kind": "invariant",
+      "source": "v3-invariant:glm-kimi-bounded-reader-challenge"
+    },
+    {
+      "id": "v3-invariant-model-benchmark-and-ultra-return",
+      "kind": "invariant",
+      "source": "v3-invariant:model-benchmark-and-ultra-return"
+    },
+    {
+      "id": "v3-invariant-backup-secret-scan-memory-token-diagnostics",
+      "kind": "invariant",
+      "source": "v3-invariant:backup-secret-scan-memory-token-diagnostics"
+    }
+  ]
+}

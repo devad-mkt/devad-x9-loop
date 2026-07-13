@@ -1,0 +1,17 @@
+{
+  "schema": "devad-x9-loop-kit-v5",
+  "date": "2026-07-13",
+  "skills": [
+    {"name": "devad-x9", "role": "repository safety and Worker execution"},
+    {"name": "devad-x9-loop", "role": "Linx, Thinx and deterministic task loop"},
+    {"name": "devad-x9-manager", "role": "temporary v3 compatibility redirect"},
+    {"name": "codex-x9-backup", "role": "profile backup and restore"},
+    {"name": "codex-token-budget", "role": "usage audit and model benchmark"},
+    {"name": "devad-memory", "role": "durable historical memory"}
+  ],
+  "project_template": "templates/x9-project/.devad",
+  "feature_registry": "features.registry.json",
+  "benchmark": "benchmarks/model-routing",
+  "rollback_snapshot": "archives/pre-v5-2026-07-13",
+  "source_manifest": "SOURCE_MANIFEST.sha256"
+}

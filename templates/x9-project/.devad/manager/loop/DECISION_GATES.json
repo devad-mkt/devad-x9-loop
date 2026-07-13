@@ -1,0 +1,16 @@
+{
+  "schema": "x9-loop-decision-gates-v1",
+  "updated_at": null,
+  "gates": [
+    {
+      "id": "disable-old-19-minute-automation",
+      "status": "PENDING_OWNER_VERIFICATION",
+      "scope": "X9 Loop activation"
+    },
+    {
+      "id": "manager-pass-lock-free",
+      "status": "PENDING_RUNTIME_VERIFICATION",
+      "scope": "X9 Loop activation"
+    }
+  ]
+}

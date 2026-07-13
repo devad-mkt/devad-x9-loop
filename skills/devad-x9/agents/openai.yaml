@@ -1,0 +1,7 @@
+interface:
+  display_name: "Devad X9"
+  short_description: "Run bounded X9 repository work with proof gates"
+  default_prompt: "Use $devad-x9 to execute one bounded X9 Worker task from current .devad truth with security, proof, and commit gates."
+
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,15 @@
+{
+  "schema": "x9-loop-pass-capsule-v1",
+  "updated_at": null,
+  "status": "BOOTSTRAP_REQUIRED",
+  "owner_input_id": null,
+  "mission": null,
+  "manager_state": {"repo": null, "branch": null, "head": null},
+  "implementation": {"repo": null, "branch": null, "head": null},
+  "deployment": {"repo": null, "branch": null, "head": null},
+  "active_task_ids": [],
+  "verified_facts": [],
+  "local_work": "UNKNOWN",
+  "next_action": "Build current state before routing",
+  "must_not": ["route from chat history", "move or delete worktrees"]
+}
