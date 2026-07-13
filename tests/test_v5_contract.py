@@ -186,6 +186,64 @@ class IdentityAndDeliveryTests(unittest.TestCase):
         self.assertFalse(self.loop.can_promote_coding_pool(bad))
 
 
+class CallbackPickupPolicyTests(unittest.TestCase):
+    def test_callback_is_primary_and_recurring_pickup_is_forbidden(self):
+        skill = (SKILLS / "devad-x9-loop" / "SKILL.md").read_text(encoding="utf-8")
+        heartbeat = (
+            SKILLS / "devad-x9-loop" / "references" / "heartbeat-policy.md"
+        ).read_text(encoding="utf-8")
+        pickup = (
+            SKILLS / "devad-x9-loop" / "references" / "handoff-pickup-policy.md"
+        ).read_text(encoding="utf-8")
+        for text in (skill, heartbeat, pickup):
+            self.assertIn("EVENT_READY", text)
+            self.assertIn("same registered Linx task", text)
+            self.assertIn("Recurring 15/19-minute pickup is forbidden", text)
+        self.assertIn("PAUSE_NOT_DELETE", heartbeat)
+
+    def test_callback_contract_has_identity_receipt_and_bounded_delivery(self):
+        callback = (
+            SKILLS / "devad-x9-loop" / "references" / "direct-event-callback.md"
+        ).read_text(encoding="utf-8")
+        for field in (
+            "LINX_TASK_ID",
+            "SOURCE_TASK_ID",
+            "SOURCE_ROLE",
+            "DISPATCH_ID",
+            "PACKET_SHA256",
+            "EVENT_TYPE",
+            "RECEIPT_PATH",
+            "RECEIPT_SHA256",
+        ):
+            self.assertIn(field, callback)
+        self.assertIn("at most three", callback.lower())
+        self.assertIn("MANAGER_WAKE_FAILED", callback)
+        self.assertIn("release", callback.lower())
+        self.assertIn("MANAGER_PASS_LOCK", callback)
+
+    def test_active_recurring_heartbeat_is_reported_and_template_uses_callback(self):
+        checker = (
+            SKILLS / "devad-x9-loop" / "scripts" / "check_x9_manager_state.py"
+        ).read_text(encoding="utf-8")
+        state = (
+            ROOT / "templates/x9-project/.devad/manager/LINX_HANDOVER_STATE.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("recurring heartbeat active", checker)
+        self.assertIn("DIRECT_EVENT_CALLBACK", state)
+        self.assertIn("**Recurring pickup:** FORBIDDEN", state)
+        self.assertNotIn("**Cadence:** 19 minutes", state)
+
+    def test_linx_executes_known_safe_next_action_instead_of_reporting_it(self):
+        skill = (SKILLS / "devad-x9-loop" / "SKILL.md").read_text(encoding="utf-8")
+        algorithm = (
+            SKILLS / "devad-x9-loop" / "references" / "manager-pass-algorithm.md"
+        ).read_text(encoding="utf-8")
+        for text in (skill, algorithm):
+            self.assertIn("NEXT_ONLY_FORBIDDEN", text)
+            self.assertIn("Preparation and validation do not consume", text)
+            self.assertIn("no owner decision", text)
+
+
 class MigrationSafetyTests(unittest.TestCase):
     def test_dry_run_does_not_write(self):
         script = ROOT / "scripts" / "migrate_project.py"

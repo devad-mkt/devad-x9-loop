@@ -29,11 +29,17 @@ The append-only ledger records creation, attempts, acknowledgement, receipt,
 supersession, and circuit-breaker events. Rewriting ledger lines is forbidden.
 Packet mutation always creates a new dispatch.
 
-## Event Completion
+## Event Completion And Pickup
 
 Worker completion is accepted only when task ID, dispatch ID, role `WORKER`,
-packet SHA-256, and Worker-owned receipt match. Record the accepted immutable
-event ID in `EVENT_CURSOR.json` before routing dependent work.
+packet SHA-256, and Worker-owned receipt match. Thinx decisions use the same
+identity checks with role `THINX`. Record the accepted immutable event ID in
+`EVENT_CURSOR.json` before routing dependent work.
+
+After durable state is written, Worker or Thinx sends one `EVENT_READY`
+callback to the same registered Linx task. Linx validates the exact receipt
+before acting. Recurring 15/19-minute pickup is forbidden. Direct delivery is
+bounded to three attempts; failure writes `MANAGER_WAKE_FAILED`.
 
 ## Scheduling
 

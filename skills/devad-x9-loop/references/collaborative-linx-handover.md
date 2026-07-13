@@ -85,7 +85,7 @@ is omitted, accepted scope is lost, rejected/paused scope is restarted, a
 branch/worktree is wrong, or the plan invents acceptance. A contradiction that
 requires judgment goes to the locked Thinx; the tired Linx does not decide it.
 
-## Phase 5: Transfer And Monitor
+## Phase 5: Transfer And Direct Continuation
 
 Only after final review PASS, the old Linx writes:
 
@@ -97,22 +97,34 @@ Then it releases the lock, sets execution authority to the new Linx, sends one
 start message containing the activation token, and retires. The old Linx must
 not run another manager pass.
 
-The new Linx refreshes current truth, acquires the lock, and starts the first
-approved action. When the owner requested it, the new Linx creates one
-change-detecting heartbeat targeted to its own thread at **19 minutes**. The
-heartbeat requires the activation token, uses `SKIP_ACTIVE_MANAGER_PASS`, reads
-hash/index deltas first, and never targets the old Linx.
+The new Linx refreshes current truth, acquires the lock, and starts one approved
+action. Before dispatching Worker or Thinx, it records exact callback identity
+and releases the lock. After durable work is written, the receiver sends:
 
-Use a maximum of 76 wakes and 24 hours per heartbeat version. If active Workers
-still exist near expiry, the new Linx may renew for another 24 hours only after
-fresh truth, lock, worker, and scope checks. Stop on completion, owner change,
-review failure, hard decision, stale scope, or two overlapping passes.
+```text
+EVENT_READY
+LINX_TASK_ID: <new Linx task id>
+SOURCE_TASK_ID: <registered source task id>
+SOURCE_ROLE: WORKER | THINX
+DISPATCH_ID: <dispatch id>
+PACKET_SHA256: <packet hash>
+EVENT_TYPE: PLAN_READY | HANDOFF_READY | DECISION_READY | BLOCKED | FAILED
+RECEIPT_PATH: <durable receipt path>
+RECEIPT_SHA256: <receipt hash>
+```
+
+The callback targets the same registered Linx task. It starts one new manager
+pass after identity and receipt validation.
+
+Recurring 15/19-minute pickup is forbidden. Do not create or renew a recurring
+heartbeat after activation. An owner-requested one-shot fallback is allowed
+only for a delayed owner decision or an external condition that cannot callback.
 
 ## Required Transition State
 
 Maintain `.devad/manager/LINX_HANDOVER_STATE.md`. Activation is invalid unless
 it records every named phase, Worker coverage, hashes, one execution authority,
-and the exact heartbeat target. Validate before activation:
+and the exact direct callback target. Validate before activation:
 
 ```powershell
 python scripts/validate_linx_handover.py --state <repo>/.devad/manager/LINX_HANDOVER_STATE.md

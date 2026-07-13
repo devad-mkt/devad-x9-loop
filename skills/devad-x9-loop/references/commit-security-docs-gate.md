@@ -9,12 +9,11 @@ not maintain a second copy of those rules here.
 
 ## Handoff Wake Reality
 
-`STATUS.md` and `HANDOFFS.md` are passive files. They do not wake a Codex task.
-A Sub Manager wakes only from a user message, a bounded automation/monitor, or
-a manual pickup pass.
-
-If auto-pickup is requested, use a bounded change-detecting monitor that runs
-`collect_worker_handoffs.py`. It must stop when there is no actionable delta.
+`STATUS.md` and `HANDOFFS.md` are passive files. After writing the exact
+receipt, Worker or Thinx sends one identity-checked `EVENT_READY` callback to
+the same registered Linx task. Recurring 15/19-minute pickup is forbidden.
+Callback delivery is bounded to three attempts; failure writes
+`MANAGER_WAKE_FAILED` and requires manual pickup.
 
 ## Required Status Fields
 

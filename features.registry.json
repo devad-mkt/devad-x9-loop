@@ -8882,6 +8882,35 @@
       "required_test": "tests/test_registry_coverage.py::RegistryCoverageTests",
       "replacement": "Deterministic file/event loop",
       "reason": "Rejected for token burn, ambiguity, unsafe authority, or lost-work risk."
+    },
+    {
+      "id": "loop-direct-event-callback",
+      "kind": "feature",
+      "owner": "devad-x9-loop",
+      "source": "skills/devad-x9-loop/references/direct-event-callback.md",
+      "status": "NEW",
+      "purpose": "Wake the same Linx task from identity-checked Worker or Thinx receipts without recurring polling",
+      "required_test": "tests/test_v5_contract.py::CallbackPickupPolicyTests"
+    },
+    {
+      "id": "loop-safe-next-action-duty",
+      "kind": "feature",
+      "owner": "devad-x9-loop",
+      "source": "skills/devad-x9-loop/SKILL.md",
+      "status": "NEW",
+      "purpose": "Require Linx to execute a known safe next action instead of only reporting it",
+      "required_test": "tests/test_v5_contract.py::CallbackPickupPolicyTests"
+    },
+    {
+      "id": "retired-recurring-linx-pickup",
+      "kind": "mechanism",
+      "owner": "devad-x9-loop",
+      "source": "v3-heartbeat-policy",
+      "status": "RETIRED",
+      "purpose": "Recurring 15 or 19 minute Linx pickup",
+      "required_test": "tests/test_v5_contract.py::CallbackPickupPolicyTests",
+      "replacement": "Verified direct EVENT_READY callback with owner-requested one-shot fallback",
+      "reason": "No-change polling burns tokens, delays pickup, and can overlap owner passes."
     }
   ]
 }

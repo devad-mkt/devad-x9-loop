@@ -41,7 +41,7 @@ Top Manager may read only durable repo-local files:
 .devad/manager/QUEUE.md
 .devad/manager/HANDOFF_INDEX.md
 .devad/manager/OWNER_WAIT.md
-.devad/manager/HANDOFF_MONITOR.md
+.devad/manager/loop/EVENT_CURSOR.json
 .devad/manager/DECISIONS.md
 .devad/manager/RISKS.md
 .devad/manager/LIMITS.md
@@ -85,7 +85,7 @@ APPROVE_WORKER_CONTINUE:<lane>:<slice>
 APPROVE_EVALUATOR_REVIEW:<lane>
 APPROVE_SIDECAR_CHALLENGE:<lane>:<topic>
 SOFT_BLOCKER_ROUTE:<lane>:<top|side|read_only|smaller_proof>
-START_HANDOFF_MONITOR:<scope>:<cadence>:<max_wakes>
+ARM_DIRECT_CALLBACK:<target_task_id>:<dispatch_id>:<packet_sha256>
 OWNER_WAIT_START:<deadline>:<default_verdict>
 OWNER_WAIT_EXPIRED:<decision>
 SUB_MANAGER_HANDOVER:<reason>
@@ -181,7 +181,7 @@ Stop the loop and record the exact reason when:
 - a worker lacks `STATUS.md` or `HANDOFFS.md`,
 - old `HANDOFFS.md` text says PASS but current `STATUS.md` does not,
 - `OWNER_WAIT.md` is active and the deadline has not passed,
-- handoff pickup is expected but `HANDOFF_MONITOR.md` is off,
+- callback pickup is expected but exact target/dispatch/receipt identity is missing,
 - a blocker is soft and no Top Manager, SIDE, or safe read-only fallback was
   attempted,
 - current `STATUS.md` has a commit SHA without `Security precommit: PASS`,
@@ -228,3 +228,12 @@ If any step needs chat history, stop with:
 Blocked: MISSING_MD:<lane>:<fact>
 Next: Sub Manager writes the missing fact to .devad
 ```
+
+
+## Direct Decision Callback
+
+After Thinx writes the exact decision and verified-read receipt, it sends one
+`EVENT_READY` message to the same registered Linx task using
+`SOURCE_ROLE: THINX` and `EVENT_TYPE: DECISION_READY`. The callback includes
+dispatch ID, packet hash, receipt path, and receipt SHA-256. Recurring
+15/19-minute pickup is forbidden. Thinx never creates another Linx or monitor.

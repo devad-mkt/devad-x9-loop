@@ -40,10 +40,10 @@
 **Plan SHA-256:** NONE
 **Old Linx retired:** NO
 
-## Heartbeat
+## Continuation
 
-**Target:** NONE
-**Cadence:** 19 minutes
-**Max wakes:** 76
-**Expires:** NONE
+**Callback target:** NONE
+**Mode:** DIRECT_EVENT_CALLBACK
+**Recurring pickup:** FORBIDDEN
+**One-shot fallback:** OWNER_REQUEST_ONLY
 **Pass lock:** SKIP_ACTIVE_MANAGER_PASS

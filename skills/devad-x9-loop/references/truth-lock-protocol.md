@@ -1,6 +1,6 @@
 # Truth Lock Protocol
 
-A truth lock re-anchors a long-running manager chat. It prevents old heartbeats, stale handoffs, and worker claims from replacing current repo truth.
+A truth lock re-anchors a long-running manager chat. It prevents stale callbacks, legacy heartbeats, stale handoffs, and worker claims from replacing current repo truth.
 
 ## Refresh When
 
@@ -10,7 +10,7 @@ Refresh `.devad/manager/TRUTH_LOCK.md`:
 - after any new user direction,
 - before sending worker corrections,
 - before merge, port, drop, or deploy recommendations,
-- before creating or refreshing heartbeat automation,
+- before arming a direct callback or owner-requested one-shot fallback,
 - after compaction, resume, branch switch, commit, push, or base SHA change.
 
 ## Template
@@ -47,7 +47,7 @@ Refresh `.devad/manager/TRUTH_LOCK.md`:
 | Local work ledger | PASS | PARTIAL | BLOCKED | missing |
 | Deploy gate | PASS | BLOCKED | missing | skipped |
 | Owner wait | OFF | ACTIVE | EXPIRED | missing |
-| Handoff monitor | OFF | ACTIVE | EXPIRED | missing |
+| Callback identity | PASS | MISSING | FAILED |
 
 ## Active Mission
 
@@ -76,7 +76,7 @@ Refresh `.devad/manager/TRUTH_LOCK.md`:
 
 ## Stale Checks
 
-- Newest user request conflicts with heartbeat: yes/no
+- Newest user request conflicts with callback scope: yes/no
 - CENTRAL_FACTS.md missing/stale/too long: yes/no
 - MISSION_LOCK.md conflicts with repo/branch/HEAD/deploy/finish line: yes/no
 - Worker packet older than worker branch HEAD: yes/no
@@ -87,7 +87,7 @@ Refresh `.devad/manager/TRUTH_LOCK.md`:
 - Commit security precheck missing: yes/no
 - Post-commit doc missing: yes/no
 - Owner wait active before worker order: yes/no
-- Handoff pickup expected but monitor off: yes/no
+- Callback pickup expected but exact identity/receipt is missing: yes/no
 - Old handoff PASS conflicts with current STATUS.md: yes/no
 - Deploy/push gate missing for claimed action: yes/no
 - Secrets risk present: yes/no
@@ -104,7 +104,7 @@ Refresh `.devad/manager/TRUTH_LOCK.md`:
 | A recorded branch/HEAD pair differs from its own current Git evidence | `STALE_ACTIVE` |
 | `CENTRAL_FACTS.md` missing, stale, vague, or too long | `MISSING_CENTRAL_FACTS` or `STALE_CENTRAL_FACTS` |
 | `MISSION_LOCK.md` conflicts with branch, HEAD, target SHA, deploy branch, or finish line | `MISSION_LOCK_MISMATCH` |
-| Heartbeat expired, version-mismatched, or conflicts with newest user message | `BLOCKED_STALE_HEARTBEAT` |
+| Callback identity is stale, mismatched, or conflicts with newest owner message | `BLOCKED_STALE_CALLBACK` |
 | Worker base SHA differs from current manager HEAD without approval | `BASE_DRIFT` |
 | Worker changed forbidden or unclaimed files | `WORKER_DRIFTING` |
 | `LOCAL_WORK_LEDGER.md` missing/stale while git is dirty | `MISSING_LOCAL_WORK_LEDGER` or `STALE_LOCAL_WORK_LEDGER` |
@@ -112,6 +112,6 @@ Refresh `.devad/manager/TRUTH_LOCK.md`:
 | Worker says PASS without manager verification | `CLAIMED_PASS` |
 | Worker lacks current status block | `MISSING_CURRENT_STATUS` |
 | Deploy/push/live claim lacks gate | `BLOCKED_GATE_MISSING` |
-| Worker handoff pickup expected but no monitor | `NO_AUTO_WAKE` |
+| Worker handoff pickup expected but callback identity is missing | `MANAGER_WAKE_NOT_ARMED` |
 | Owner wait active | `OWNER_WAIT_ACTIVE` |
 | Manager cannot state original goal and current user override | `MANAGER_DRIFTING` |

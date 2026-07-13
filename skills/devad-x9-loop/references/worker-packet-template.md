@@ -109,6 +109,12 @@ tracking ref does not override a fresher timestamped manager live-remote fact.
 **Packet schema:** `X9-V2`
 **Status:** PLANNED | ACTIVE | PARTIAL | BLOCKED | CLAIMED_PASS | VERIFIED_PASS | REJECTED | ABANDONED
 **Worker chat:** <chat id or pending>
+**Registered Linx task ID:** <task id>
+**Registered Worker task ID:** <task id>
+**Registered role:** WORKER
+**Dispatch ID:** dsp-<uuid>
+**Packet SHA-256:** <64 hex>
+**Completion receipt:** <repository-relative path>
 **Required model profile:** `<task-class profile from model-policy-v3.md>`
 **Base tool model id:** `<host-supported identifier>`
 **Required thinking:** `<selected effort>`
@@ -260,8 +266,12 @@ If `DEPLOY_APPROVED:<sha>` is missing, deploy is blocked.
    attestation protocol.
 15. Update `STATUS.md`, `LEDGER.md`, and `HANDOFFS.md`.
 16. Report `CLAIMED_PASS`, `PARTIAL`, or `BLOCKED`.
-17. Final chat message must include `HANDOFF_WRITTEN`, status, `STATUS.md`,
-    and the handoff path.
+17. Write the Worker-owned completion receipt and immutable event.
+18. Send one identity-checked `EVENT_READY` callback to the same registered
+    Linx task. Retry direct delivery at most three times; on failure write
+    `MANAGER_WAKE_FAILED`. Never create recurring pickup.
+19. Final chat message must include `HANDOFF_WRITTEN`, status, `STATUS.md`,
+    handoff path, callback status, and callback attempt count.
 
 ## Proof Required
 
@@ -296,6 +306,8 @@ Return:
 - Owner question checked against ANSWERED_DECISIONS: yes/no
 - Tool lessons checked/updated: yes/no
 - Ready for manager verification: yes/no
+- Linx callback: ACKNOWLEDGED | DELIVERY_UNCONFIRMED | MANAGER_WAKE_FAILED
+- Callback attempts: <n>
 ```
 
 ## CONTRACT.md
@@ -502,26 +514,51 @@ Rules:
 - If proof is missing, report PARTIAL or BLOCKED, not PASS.
 - Before final BLOCKED on a high-risk/long-running lane, use SIDE or record why
   SIDE was unsafe/unavailable.
-- Before final response, update `STATUS.md` and `HANDOFFS.md`.
+- Before final response, update `STATUS.md`, `HANDOFFS.md`, and the
+  Worker-owned receipt; then send `EVENT_READY` to the same registered Linx
+  task.
+- Recurring 15/19-minute pickup is forbidden. Never create a heartbeat/monitor
+  as callback fallback.
 - Follow `PERMISSION_MODE`. Do not ask the owner to approve safe local work or
   repeat a manager-verified network preflight. Abandon redundant approval
   popups, record `TOOL_FAILED`, and continue through the safe fallback.
 
 First response: 5-line plan, missing evidence, and exact files expected to change.
-Final response: `HANDOFF_WRITTEN`, status, status path, handoff path, and manager action requested.
+Final response: `HANDOFF_WRITTEN`, status, status path, handoff path, manager action requested, callback status, and attempt count.
 ```
 
 
-## X9-V5 Identity Addendum
+## X9-V5 Identity And Callback Addendum
 
 Every active packet must use packet schema X9-V5 and include:
 
-- immutable Codex task ID and registered role WORKER;
+- immutable registered Linx task ID;
+- immutable Worker task ID and registered role `WORKER`;
 - one dispatch ID for the exact packet;
 - packet SHA-256;
 - claimed resources;
-- Worker-owned completion receipt path and SHA-256.
+- Worker-owned completion receipt path and SHA-256;
+- callback event type and expected Linx acknowledgement.
 
-Linx checks ROLE_REGISTRY.json before delivery and DISPATCH_LEDGER.jsonl before
-retry. A changed packet gets a new dispatch ID. Completion is stale unless task
-ID, dispatch ID, role, packet hash, and receipt owner all match.
+Linx checks `ROLE_REGISTRY.json` before delivery and
+`DISPATCH_LEDGER.jsonl` before retry. A changed packet gets a new dispatch ID.
+Completion is stale unless task ID, dispatch ID, role, packet hash, and receipt
+owner all match.
+
+After durable completion state is written, Worker sends:
+
+```text
+EVENT_READY
+LINX_TASK_ID: <registered Linx task id>
+SOURCE_TASK_ID: <registered Worker task id>
+SOURCE_ROLE: WORKER
+DISPATCH_ID: <dispatch id>
+PACKET_SHA256: <packet hash>
+EVENT_TYPE: HANDOFF_READY | BLOCKED | FAILED
+RECEIPT_PATH: <Worker-owned receipt path>
+RECEIPT_SHA256: <receipt hash>
+```
+
+Retry unchanged direct delivery at most three times. Exact acknowledgement
+stops. After failure write `MANAGER_WAKE_FAILED` and report manual pickup.
+Recurring 15/19-minute pickup is forbidden.

@@ -67,6 +67,19 @@ Read `references/model-policy-v3.md`.
 Large historical manager files remain evidence. Do not reread them on every
 pass or rewrite them during v5 migration.
 
+## Linx Continuation Duty
+
+Preparation and validation do not consume the bounded action. Truth refresh,
+hash correction, receipt checking, and packet validation are prerequisites.
+When the exact safe next action is known and needs no owner decision, Linx must
+perform or dispatch it in the same pass before reporting.
+
+Ending with only `Next: <safe action>` is `NEXT_ONLY_FORBIDDEN`. Linx may
+report a next action without executing it only when an exact safety stop,
+resource conflict, active lock, unavailable transport after bounded attempts,
+or real owner decision prevents action. The pass note must name that blocker
+and the callback/manual pickup state.
+
 ## Linx History Barrier
 
 Linx reads the newest owner message and its attachments once. It writes an
@@ -100,6 +113,11 @@ Worker completion is valid only when task ID, dispatch ID, registered Worker
 role, packet hash, and Worker-owned receipt all match. Old/wrong-task handoffs
 cannot complete current work.
 
+Normal continuation uses `references/direct-event-callback.md`. After durable
+state is written, Worker or Thinx sends `EVENT_READY` to the same registered
+Linx task. Recurring 15/19-minute pickup is forbidden. Callback failure becomes
+`MANAGER_WAKE_FAILED`, never recurring polling.
+
 ## Scheduling
 
 | Pool | Limit |
@@ -126,6 +144,8 @@ Read `references/non-chat-top-manager.md` and the verified-read policy.
 - Use durable inputs and current proof only.
 - Reuse the owner-locked Thinx task. Replacement requires owner approval.
 - Write one decision or `MISSING_MD:<lane>:<fact>`.
+- After writing the decision receipt, send one identity-checked `EVENT_READY`
+  callback to the same registered Linx task.
 
 A hidden Reader inside the same Thinx task may mechanically condense long
 inputs. Reader extracts only; Thinx owns judgment and verifies receipts.
@@ -153,9 +173,12 @@ as `IMPLEMENT`, `REJECTED`, `PAUSED`, or `UNKNOWN`, creates the replacement
 in `PLAN_ONLY`, and reviews its durable plan. Only a validated
 `LINX_ACTIVATION_OK` transfers authority.
 
-The old 19-minute automation must be disabled before v5 activation. New
-monitoring is bounded, event-change driven, and optional. Files do not wake a
-Codex task by themselves.
+Any old 15/19-minute pickup automation must be paused before v5 activation.
+Use `PAUSE_NOT_DELETE`: preserve/archive its definition and original location.
+Files do not wake a Codex task by themselves. The activated Linx continues by
+verified direct Worker/Thinx callbacks to the same registered Linx task; an
+owner-requested one-shot fallback is allowed only for a delayed owner decision
+or an external condition that cannot callback.
 
 ## Safety Stops
 

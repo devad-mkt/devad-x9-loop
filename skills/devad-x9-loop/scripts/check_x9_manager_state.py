@@ -156,6 +156,8 @@ def heartbeat_state(path: Path) -> dict[str, Any]:
     max_wakes_raw = parse_field(text, "Max wakes")
     wakes_used_raw = parse_field(text, "Wakes used")
     warnings: list[str] = []
+    if status.upper() == "ACTIVE":
+        warnings.append("recurring heartbeat active; v5 requires direct EVENT_READY callback")
 
     expiry = parse_datetime(expires)
     expired = bool(expiry and datetime.now(expiry.tzinfo) > expiry)

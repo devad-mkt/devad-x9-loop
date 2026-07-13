@@ -1,6 +1,6 @@
 # Orchestrator State Model
 
-Use durable files for manager state. Chat memory is not authority after long runs, context compaction, or heartbeat resumes.
+Use durable files for manager state. Chat memory is not authority after long runs, context compaction, or callback resumes.
 
 ## State Locations
 
@@ -18,8 +18,8 @@ Use durable files for manager state. Chat memory is not authority after long run
 | Queue | `.devad/manager/QUEUE.md` | Ordered lane queue with owner, status, next action, and blocker. |
 | Limits | `.devad/manager/LIMITS.md` | Focus, runtime, proof-failure, chat-read, and watchdog budgets. |
 | Owner wait | `.devad/manager/OWNER_WAIT.md` | One-hour owner decision window and default safe verdict. |
-| Handoff monitor | `.devad/manager/HANDOFF_MONITOR.md` | Bounded pickup monitor scope, cadence, expiry, and stop rule. |
-| Heartbeat state | `.devad/manager/HEARTBEAT.md` | Optional, versioned, expiring monitoring state. |
+| Legacy handoff monitor | `.devad/manager/HANDOFF_MONITOR.md` | Retained historical state only; recurring pickup is forbidden. |
+| Legacy heartbeat | `.devad/manager/HEARTBEAT.md` | OFF by default; only an owner-requested one-shot fallback may use a timer. |
 | Handoff index | `.devad/manager/HANDOFF_INDEX.md` | Compact manager pickup queue from worker handoffs. |
 | Deploy gate | `.devad/manager/DEPLOY_GATE.md` or worker `DEPLOY_GATE.md` | Exact-SHA deploy approval and blockers. |
 | Decisions | `.devad/manager/DECISIONS.md` | User decisions, waivers, merge approvals, branch choices. |
@@ -75,7 +75,7 @@ Use durable files for manager state. Chat memory is not authority after long run
 
 ## Chat-Only State
 
-Keep only temporary reasoning, short user-facing status, and one next approved action in chat. Do not keep worker ownership, branch/base SHA, proof status, merge order, heartbeat instructions, or acceptance criteria only in chat.
+Keep only temporary reasoning, short user-facing status, and one next approved action in chat. Do not keep worker ownership, branch/base SHA, proof status, merge order, callback identity, or acceptance criteria only in chat.
 
 Do not keep model choice only in chat. X9 model policy belongs in
 `.devad/manager/MODEL_POLICY.md` and requires the role matrix from

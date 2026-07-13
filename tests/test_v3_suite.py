@@ -158,7 +158,8 @@ class X9SuiteTests(unittest.TestCase):
             self.assertIn(required, reference)
             self.assertIn(required, state)
 
-        self.assertIn("19 minutes", reference)
+        self.assertIn("EVENT_READY", reference)
+        self.assertIn("Recurring 15/19-minute pickup is forbidden", reference)
         self.assertIn("LINX_ACTIVATION_OK", heartbeat)
         self.assertIn("SKIP_ACTIVE_MANAGER_PASS", heartbeat)
 
@@ -196,10 +197,10 @@ class X9SuiteTests(unittest.TestCase):
 **Handover SHA-256:** {digest_a}
 **Plan SHA-256:** {digest_b}
 **Old Linx retired:** YES
-## Heartbeat
-**Target:** {thread_id}
-**Cadence:** 19 minutes
-**Max wakes:** 76
+## Continuation
+**Callback target:** {thread_id}
+**Mode:** DIRECT_EVENT_CALLBACK
+**Recurring pickup:** FORBIDDEN
 **Pass lock:** SKIP_ACTIVE_MANAGER_PASS
 """
         invalid = valid.replace("**Coverage:** PASS", "**Coverage:** PARTIAL")

@@ -74,7 +74,7 @@ def main() -> int:
 - proof before PASS
 - separate source push, deploy readiness, and live deploy gates
 - no deploy without DEPLOY_GATE.md and DEPLOY_APPROVED for the exact SHA
-- newest user instruction overrides old heartbeat
+- newest user instruction overrides old callback or legacy heartbeat
 - no merge without manager verification
 - no secrets in artifacts
 - local-only work must be classified in LOCAL_WORK_LEDGER.md before push, deploy, or done claims
@@ -339,25 +339,14 @@ watchdog check, or user decision. Do not keep routing from tired context.
 
     write_if_missing(
         manager / "HANDOFF_MONITOR.md",
-        """# Handoff Monitor
+        """# Handoff Monitor (Legacy)
 
-**Status:** OFF
-**Created:** none
-**Expires:** none
-**Cadence:** none
-**Max wakes:** 0
-**Wakes used:** 0
+**Status:** RETIRED
+**Recurring pickup:** FORBIDDEN
+**Replacement:** manager/loop/DISPATCH_LEDGER.jsonl plus EVENT_CURSOR.json
 
-## Scope
-
-| Lane | Status | Allowed action |
-| --- | --- | --- |
-| none | - | - |
-
-## Stop Rule
-
-Stop when no actionable handoffs remain, max wakes are reached, or newest owner
-message changes the mission.
+Normal continuation uses a verified EVENT_READY callback to the same registered
+Linx task. This file is retained only so older projects are not deleted.
 """,
         args.force,
         changed,
@@ -366,14 +355,12 @@ message changes the mission.
 
     write_if_missing(
         manager / "HEARTBEAT.md",
-        """# Manager Heartbeat
+        """# Manager Heartbeat (Legacy)
 
 **Status:** OFF
-**Version:** none
-**Created:** none
-**Expires:** none
-**Max wakes:** 0
-**Wakes used:** 0
+**Recurring pickup:** FORBIDDEN
+**One-shot fallback:** OWNER_REQUEST_ONLY
+**Replacement:** verified EVENT_READY direct callback
 """,
         args.force,
         changed,

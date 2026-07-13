@@ -30,16 +30,18 @@ older prompts compatible through v5.
 
 ## How Linx Wakes
 
-Files do not wake Linx. After Linx dispatches Thinx or a Worker, unattended
-pickup needs one bounded Codex app automation aimed at the same Linx task ID.
+Files do not wake Linx. After Linx dispatches Thinx or a Worker, the receiver
+writes its durable receipt and sends one `EVENT_READY` signal. It targets the
+same Linx task ID. Linx verifies role, dispatch ID, packet hash, receipt path/hash,
+unseen event, and manager lock before one new pass.
 
-The monitor reads only unseen events and the exact receipt, checks the manager
-lock, and performs at most one allowed action. A no-change wake returns
-`DONT_NOTIFY`. After the expected valid receipt or terminal state, stop or delete the monitor. Use expiry and a wake limit; there is no infinite polling.
+Recurring 15/19-minute pickup is forbidden. It wastes no-change turns and can
+overlap owner work. An owner-requested one-shot fallback is allowed only for a
+delayed owner decision or an external condition that cannot callback.
 
-This was verified in the Linx v3 flow: the scoped automation resumed Linx after
-Thinx completed. The durable files carried truth, while the automation supplied
-the wake.
+This keeps the useful X7 idea - deterministic inbox/outbox and durable handoff
+state - while removing timer polling. Files remain truth; direct task messaging
+supplies the wake.
 
 <details>
 <summary>Existing X9 Worker features</summary>
@@ -59,7 +61,7 @@ the wake.
 - Linx owner message/attachment hashing and collaborative handover.
 - Manager mutex, answered decisions, tool lessons, and one execution authority.
 - Secret-safe Reader context plus GLM/Kimi challenge before hard blockers.
-- Model benchmarks, automatic Ultra return, and bounded handoff monitoring.
+- Model benchmarks, automatic Ultra return, and verified direct callback pickup.
 
 </details>
 

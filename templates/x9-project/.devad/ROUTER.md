@@ -13,7 +13,7 @@ Read this file first. Then read only the smallest linked file needed.
 | Answered owner decisions | manager/ANSWERED_DECISIONS.md | Linx |
 | Known tool lessons | manager/TOOL_LESSONS.md | Linx |
 | Current role model/effort | manager/MODEL_STATE.md | Linx |
-| Manager pass concurrency | manager/MANAGER_PASS_LOCK.md | Linx/heartbeat |
+| Manager pass concurrency | manager/MANAGER_PASS_LOCK.md | Linx callback/owner turn |
 | Linx replacement transition | manager/LINX_HANDOVER_STATE.md | Old/new Linx by phase |
 | Exact owner messages and attachments | manager/owner-input/INDEX.md | Linx |
 | Worker handoff changes | manager/HANDOFF_INDEX.md | Linx/generated |
@@ -29,7 +29,7 @@ Read this file first. Then read only the smallest linked file needed.
 - Follow relative links from the selected router.
 - Git/runtime evidence beats stale durable text; update or block on the stale file.
 - Missing required truth is MISSING_MD, not permission to read old chats.
-- One manager pass at a time. A heartbeat never overlaps an owner turn.
+- One manager pass at a time. A callback pass never overlaps an owner turn.
 - A new Linx has no execution authority before validated `LINX_ACTIVATION_OK`.
 
 ## Loop v5 Fast Route
@@ -46,4 +46,5 @@ Read this file first. Then read only the smallest linked file needed.
 | Owner/Thinx gates | manager/loop/DECISION_GATES.json |
 
 Role comes from task ID, never title. Before retry, check the exact dispatch ID,
-packet hash, attempt count, and Worker acknowledgement.
+packet hash, attempt count, Worker acknowledgement, and exact callback receipt.
+Recurring 15/19-minute pickup is forbidden.

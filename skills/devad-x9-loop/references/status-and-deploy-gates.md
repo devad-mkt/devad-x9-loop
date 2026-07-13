@@ -142,14 +142,16 @@ automation, n8n callbacks, provider fetch, or any server-side URL handling:
 
 If this review is missing, deploy readiness is `BLOCKED`.
 
-## Heartbeat Gate
+## Callback Gate
 
-Heartbeat may monitor and notify by default. It must not push, deploy, merge,
-route new implementation work, or mark PASS unless the current status block and
-the exact gate file authorize that action.
+A direct `EVENT_READY` callback may signal a durable receipt. It does not
+authorize push, deploy, merge, new scope, or PASS. Linx still validates the
+current status block and exact gate file.
 
-If a heartbeat sees stale or missing `STATUS.md`, it must stop with:
+If callback pickup sees stale or missing `STATUS.md`, stop with:
 
 ```text
 BLOCKED_STALE_STATUS:<lane>
 ```
+
+Recurring 15/19-minute pickup is forbidden.

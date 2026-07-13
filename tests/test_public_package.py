@@ -49,14 +49,14 @@ class PublicPackageTests(unittest.TestCase):
             for marker in PRIVATE_MARKERS:
                 self.assertNotIn(marker, text, f"private marker in {path.relative_to(ROOT)}")
 
-    def test_readme_defines_bounded_linx_wake(self) -> None:
+    def test_readme_defines_direct_linx_callback(self) -> None:
         text = (ROOT / "README.md").read_text(encoding="utf-8-sig")
         for phrase in (
             "Files do not wake Linx",
             "same Linx task ID",
-            "DONT_NOTIFY",
-            "stop or delete the monitor",
-            "no infinite polling",
+            "EVENT_READY",
+            "Recurring 15/19-minute pickup is forbidden",
+            "owner-requested one-shot fallback",
         ):
             self.assertIn(phrase, text)
 

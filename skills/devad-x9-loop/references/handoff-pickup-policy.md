@@ -1,21 +1,23 @@
 # Handoff Pickup Policy
 
-Use handoffs as the default worker completion mechanism. Do not rely on heartbeat to notice normal worker completion.
+Use handoffs as the default Worker completion truth. Files do not wake Linx.
+After writing durable state, Worker or Thinx sends `EVENT_READY` to the same
+registered Linx task using `references/direct-event-callback.md`. Always target the
+same registered Linx task.
 
-Handoff files are passive. They do not wake Sub Manager by themselves. Pickup
-happens only when a user message, bounded heartbeat/automation, or manual
-manager pass runs the pickup script.
+Recurring 15/19-minute pickup is forbidden.
 
 ## Rule
 
-Workers never stop with only a chat message. A worker final message is valid only when it points to a durable handoff:
+Workers never stop with only a chat message. A Worker final state is valid only
+when it writes:
 
 ```text
 .devad/manager/workers/<lane>/STATUS.md
 .devad/manager/workers/<lane>/HANDOFFS.md
 ```
 
-The final chat message should be short:
+and an identity-matching completion receipt. The final chat message is compact:
 
 ```text
 HANDOFF_WRITTEN
@@ -26,17 +28,28 @@ Path: .devad/manager/workers/<lane>/HANDOFFS.md
 Manager action requested: review | correct | merge-review | user-decision
 ```
 
-If no `STATUS.md` or handoff exists, the manager treats the worker as
-`UNVERIFIED`, even if the chat says done.
+Then send one callback:
 
-For Top Manager, missing `STATUS.md` or `HANDOFFS.md` is not a reason to read
-the worker chat. It must output `MISSING_MD:<lane>:STATUS.md` or
-`MISSING_MD:<lane>:HANDOFFS.md` and ask Sub Manager to collect or write the
-durable files.
+```text
+EVENT_READY
+LINX_TASK_ID: <registered Linx task id>
+SOURCE_TASK_ID: <registered Worker task id>
+SOURCE_ROLE: WORKER
+DISPATCH_ID: <dispatch id>
+PACKET_SHA256: <packet hash>
+EVENT_TYPE: HANDOFF_READY | BLOCKED | FAILED
+RECEIPT_PATH: <Worker-owned receipt>
+RECEIPT_SHA256: <receipt hash>
+```
+
+If direct callback delivery fails after at most three recorded attempts, write
+`MANAGER_WAKE_FAILED` and report manual pickup. Do not create recurring polling.
+
+For Thinx, use `SOURCE_ROLE: THINX` and `EVENT_TYPE: DECISION_READY`.
 
 ## Manager Pickup
 
-The manager starts with:
+On a valid callback, Linx acquires the manager pass lock and runs:
 
 ```powershell
 $skill = Join-Path $HOME '.codex\skills\devad-x9-loop'
@@ -45,51 +58,13 @@ $py = Join-Path $HOME '.cache\codex-runtimes\codex-primary-runtime\dependencies\
 & $py "$skill\scripts\collect_worker_handoffs.py" --repo $repo --write-index
 ```
 
-This creates or refreshes a queue from `STATUS.md` plus the top
-`CURRENT_STATUS` block in `HANDOFFS.md`:
+Linx reads only the signaled lane/event, validates identity and current state,
+performs one bounded next action, acknowledges the callback, saves state, and
+releases the lock. Old or wrong-task handoffs cannot complete current work.
 
-```text
-.devad/manager/HANDOFF_INDEX.md
-```
-
-Then the manager validates only the lanes that have new or actionable handoffs:
-
-```powershell
-& $py "$skill\scripts\validate_worker_packet.py" --packet "$repo\.devad\manager\workers\<lane>" --worktree "<worktree-root>\<lane>"
-```
-
-## Why This Replaces Most Heartbeats
-
-Heartbeat is useful for checking whether active workers are blocked or drifting. It is not needed to catch normal completion when workers write handoffs. Handoff pickup is cheaper because the manager reads a small queue instead of repeatedly polling active workers.
-
-If the user asks the manager to keep work moving, prefer:
-
-```text
-queue update -> worker packet -> durable STATUS.md + HANDOFFS.md -> one-shot pickup
-```
-
-Do not use:
-
-```text
-recurring heartbeat -> repeated thread reads -> advice-only next steps
-```
-
-Use heartbeat only when:
-
-- the user needs unattended progress checks,
-- the owner expects Sub Manager to wake after worker handoff files change,
-- the owner asked for a delayed one-hour decision window,
-- a worker is long-running and likely to block,
-- external proof or deploy waits need timed checks,
-- the heartbeat has an expiry and max wake count.
-
-If the user says workers should hand off and Sub Manager should continue
-without another user message, write or create a bounded handoff monitor. If no
-monitor is created, say:
-
-```text
-No auto-wake. Manual pickup needed.
-```
+A user message or manual pass may still trigger pickup. An owner-requested
+one-shot fallback is allowed only for a delayed owner deadline or an external
+condition that cannot callback.
 
 ## Worker Handoff Requirements
 

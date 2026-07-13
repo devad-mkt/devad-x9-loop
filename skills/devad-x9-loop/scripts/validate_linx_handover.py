@@ -69,19 +69,15 @@ def validate(path: Path) -> list[str]:
     if field(activation, "Old Linx retired") != "YES":
         errors.append("old Linx is not retired")
 
-    heartbeat = section(text, "Heartbeat")
-    if field(heartbeat, "Target") != new_thread:
-        errors.append("heartbeat target is not the new Linx")
-    if field(heartbeat, "Cadence") != "19 minutes":
-        errors.append("heartbeat cadence is not 19 minutes")
-    if field(heartbeat, "Pass lock") != "SKIP_ACTIVE_MANAGER_PASS":
-        errors.append("heartbeat pass-lock rule is missing")
-    try:
-        max_wakes = int(field(heartbeat, "Max wakes"))
-        if not 1 <= max_wakes <= 76:
-            errors.append("heartbeat max wakes must be between 1 and 76")
-    except ValueError:
-        errors.append("heartbeat max wakes is invalid")
+    continuation = section(text, "Continuation")
+    if field(continuation, "Callback target") != new_thread:
+        errors.append("callback target is not the new Linx")
+    if field(continuation, "Mode") != "DIRECT_EVENT_CALLBACK":
+        errors.append("continuation mode is not DIRECT_EVENT_CALLBACK")
+    if field(continuation, "Recurring pickup") != "FORBIDDEN":
+        errors.append("recurring pickup is not FORBIDDEN")
+    if field(continuation, "Pass lock") != "SKIP_ACTIVE_MANAGER_PASS":
+        errors.append("continuation pass-lock rule is missing")
 
     return errors
 

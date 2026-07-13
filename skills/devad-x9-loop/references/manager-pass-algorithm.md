@@ -22,8 +22,9 @@ Linx requires `gpt-5.6 high`; normal Workers use `gpt-5.6 high` and xhigh when
 the owner explicitly asks extra high; Thinx uses `gpt-5.6 xhigh` for normal
 planning/review and ultra for one very-hard pass, then returns to xhigh.
 1a. Acquire `.devad/manager/MANAGER_PASS_LOCK.md`. If another unexpired pass
-    exists, return `SKIP_ACTIVE_MANAGER_PASS`. A heartbeat stops when a newer
-    owner turn exists. Release the lock before final chat.
+    exists, return `SKIP_ACTIVE_MANAGER_PASS`. A callback pass stops when a
+    newer owner turn changes scope. Release the lock before receiver execution
+    and before final chat.
 2. Read the newest user message and attachments. Before summarizing, follow
    `references/owner-context-and-attachments.md`: preserve the exact message,
    stabilize/hash attachments, inspect required images/screenshots, and update
@@ -76,7 +77,7 @@ $py = Join-Path $HOME '.cache\codex-runtimes\codex-primary-runtime\dependencies\
 
 7. Compare git truth with `CENTRAL_FACTS.md`, `MISSION_LOCK.md`,
    `LOCAL_WORK_LEDGER.md`, `.devad/ACTIVE.md`,
-   `.devad/manager/TRUTH_LOCK.md`, `HANDOFF_INDEX.md`, heartbeat state,
+   `.devad/manager/TRUTH_LOCK.md`, `HANDOFF_INDEX.md`, callback/event state,
    worker `STATUS.md`, and worker packets. For `Top Manager`,
    compare only the `.md` files already on disk and stop with `MISSING_MD` if a
    fact is absent.
@@ -189,10 +190,16 @@ git -C <worktree> diff --check
     Top Manager file-only review, SIDE packet-only review, local docs/source
     search, read-only process/proof check, or smaller worker proof. Do not ask
     the owner until the blocker is `HARD_BLOCKER` or `OWNER_DECISION`.
-25. If a Worker was sent, continued, or is expected to write a handoff later,
-    ensure `.devad/manager/HANDOFF_MONITOR.md` is `ACTIVE` and a real app
-    heartbeat exists. Otherwise record `NO_AUTO_WAKE:<reason>`.
-26. Verify claims from primary evidence:
+25. Preparation and validation do not consume the bounded action. If current
+    truth proves one exact safe continuation and it needs no owner decision,
+    perform or dispatch it before final chat. A report containing only
+    `Next: <safe action>` is `NEXT_ONLY_FORBIDDEN`. Stop only for an exact
+    safety/identity/resource/lock/transport blocker or real owner decision.
+26. If a Worker or Thinx was dispatched, record exact callback identity and
+    require the receiver to write its durable receipt, then send `EVENT_READY`
+    to the same registered Linx task. Recurring 15/19-minute pickup is
+    forbidden. On bounded delivery failure record `MANAGER_WAKE_FAILED`.
+27. Verify claims from primary evidence:
 
 | Claim | Authority |
 | --- | --- |
@@ -213,14 +220,15 @@ git -C <worktree> diff --check
 29. Send a correction only for blocker, completion, drift, unsafe overlap, missing proof, stale state, or a direct user decision.
 30. If safe work exists, save or update central facts, mission lock, local work
     ledger, the queue,
-    worker packet, handoff index, top-manager plan, owner wait file, handoff
-    monitor, or blocker. Do not end with advice only.
+    worker packet, handoff index, top-manager plan, owner wait file, callback
+    receipt, or blocker. Do not end with advice only.
 31. If handover triggers are present, run
     `references/collaborative-linx-handover.md`: freeze implementation,
     collect status-only Worker inventories, build the owner scope matrix,
     obtain a plan-only replacement plan, review coverage, and transfer with
     `LINX_ACTIVATION_OK`. Only the activated new Linx may restart bounded
-    routing and the guarded 19-minute heartbeat.
+    routing. Receiver callbacks continue work; recurring pickup remains
+    forbidden.
 32. Approve only one next action:
 
 ```text
@@ -230,7 +238,7 @@ REQUEST_LOCAL_WORK_LEDGER:<lane>
 CLASSIFY_LOCAL_WORK:<lane>
 REQUEST_ANSWERED_DECISION:<field>
 REQUEST_TOOL_LESSON:<tool>
-START_HANDOFF_MONITOR:<scope>:<cadence>:<max_wakes>
+ARM_DIRECT_CALLBACK:<target_task_id>:<dispatch_id>:<packet_sha256>
 OWNER_WAIT_START:<deadline>:<default_verdict>
 OWNER_WAIT_EXPIRED:<decision>
 APPROVE_WORKER_CONTINUE:<lane>:<slice>
@@ -261,9 +269,9 @@ NO_ACTION
 Every pass with active or just-routed Workers must also record one final state:
 
 ```text
-MONITOR_ACTIVE
+CALLBACK_ARMED
 OWNER_WAIT_ACTIVE
-WORKER_SENT_AND_MONITORED
+WORKER_SENT_CALLBACK_ARMED
 HARD_BLOCKED
 OWNER_DECISION_REQUIRED
 NO_ACTION_VERIFIED
@@ -279,8 +287,8 @@ NO_ACTION_VERIFIED
 | `SOFT_BLOCKER` | Progress paused, but safe fallback checks still exist. Do not ask owner yet. |
 | `HARD_BLOCKER` | No safe fallback remains without owner, secret, permission, destructive action, or data/deploy risk. |
 | `OWNER_DECISION` | More than one safe path exists and owner must choose risk, scope, money, deploy, or priority. |
-| `MONITOR_ACTIVE` | A real app heartbeat is watching scoped handoff files. |
-| `WORKER_SENT_AND_MONITORED` | Worker got orders and handoff pickup is active. |
+| `CALLBACK_ARMED` | Receiver has exact identity for one direct callback to Linx. |
+| `WORKER_SENT_CALLBACK_ARMED` | Worker got orders and verified direct pickup is armed. |
 | `MANAGER_DRIFTING` | Manager skipped truth lock, accepted unverified PASS, or only summarized without next action. |
 | `WORKER_DRIFTING` | Worker deviated from allowed files, source evidence, branch/base, or task. |
 | `HANDOVER_REQUIRED` | Manager state is too broad, stale, long-running, or high-risk for further routing in the same chat. |
