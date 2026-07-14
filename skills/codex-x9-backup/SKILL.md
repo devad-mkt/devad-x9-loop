@@ -38,7 +38,7 @@ auth tokens, cookies, install caches, or runtime payloads.
 - Restore stays `PARTIAL` until Codex shows restored tasks and project roots.
 - Never print raw secrets, auth JSON, cookies, provider keys, or full matches.
 - Project `.devad` remains source-controlled in its private project repo.
-- Verify the X9 Loop README, source manifest, and benchmark ledger before
+- Verify the X9 Loop Lite v6 README, source manifest, and benchmark ledger before
   calling an X9 profile backup complete.
 
 ## Status

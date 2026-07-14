@@ -195,10 +195,13 @@ class CallbackPickupPolicyTests(unittest.TestCase):
         pickup = (
             SKILLS / "devad-x9-loop" / "references" / "handoff-pickup-policy.md"
         ).read_text(encoding="utf-8")
-        for text in (skill, heartbeat, pickup):
+        for text in (heartbeat, pickup):
             self.assertIn("EVENT_READY", text)
             self.assertIn("same registered Linx task", text)
             self.assertIn("Recurring 15/19-minute pickup is forbidden", text)
+        self.assertIn("direct event callback", skill)
+        self.assertIn("same registered Linx", skill)
+        self.assertIn("No recurring heartbeat", skill)
         self.assertIn("PAUSE_NOT_DELETE", heartbeat)
 
     def test_callback_contract_has_identity_receipt_and_bounded_delivery(self):
@@ -238,10 +241,11 @@ class CallbackPickupPolicyTests(unittest.TestCase):
         algorithm = (
             SKILLS / "devad-x9-loop" / "references" / "manager-pass-algorithm.md"
         ).read_text(encoding="utf-8")
-        for text in (skill, algorithm):
-            self.assertIn("NEXT_ONLY_FORBIDDEN", text)
-            self.assertIn("Preparation and validation do not consume", text)
-            self.assertIn("no owner decision", text)
+        self.assertIn("does not stop with\nonly `Next`", skill)
+        self.assertIn("ACTION.json", skill)
+        self.assertIn("NEXT_ONLY_FORBIDDEN", algorithm)
+        self.assertIn("Preparation and validation do not consume", algorithm)
+        self.assertIn("no owner decision", algorithm)
 
 
 class MigrationSafetyTests(unittest.TestCase):

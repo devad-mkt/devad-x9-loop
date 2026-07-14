@@ -10,10 +10,10 @@ description: "Use for Devad X9 durable memory work: searching or updating `.deva
 Default memory root:
 
 ```text
-<project-root>\.devad\memory
+<repo>\.devad\memory
 ```
 
-If the user gives a different memory root, use the user-provided root.
+Resolve <repo> from the current Git worktree. If the user gives a different memory root, use the user-provided root.
 
 Before any memory search or update, read only these startup files:
 
@@ -100,8 +100,11 @@ After memory edits:
 4. Run or adapt the verification script from `X9-SESSION-EXTRACTION-SKILL.md`.
 5. Report only the extracted TLDR, session folders, topics, copied markdown, known gaps, and verification result.
 
-## X9 Loop v5 Boundary
+## X9 Loop Lite v6 Boundary
 
-Files under .devad/manager/loop are active routing state and outrank memory.
+`.devad/manager/loop-lite/SNAPSHOT.json` is active routing recovery truth and
+outranks memory. Files under `.devad/manager/loop/` are historical evidence in
+v6; memory may index them but cannot restore their old routing authority.
+
 Memory may explain history but cannot assign a role, acknowledge a dispatch,
 complete a task, release a resource, or open a deploy gate.

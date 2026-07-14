@@ -11,7 +11,7 @@ Status meanings:
 | RETAINED | Same owner and purpose |
 | MOVED | Preserved under a new path or owner |
 | ADAPTED | Preserved and strengthened |
-| NEW | Introduced in v5 |
+| NEW | Introduced by the current v6 package |
 | RETIRED | Intentionally rejected with reason and replacement |
 
 scripts/validate_suite.py fails when one legacy ID lacks exactly one

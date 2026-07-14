@@ -23,6 +23,31 @@ function Assert-SourceExists {
     }
 }
 
+function Assert-NoReparsePath {
+    param([string]$Path, [string]$ExpectedRoot)
+    $full = [System.IO.Path]::GetFullPath($Path).TrimEnd('\')
+    $root = [System.IO.Path]::GetFullPath($ExpectedRoot).TrimEnd('\')
+    $prefix = $root + '\'
+    if ($full -ne $root -and -not $full.StartsWith($prefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw "Path escapes approved root: $full"
+    }
+    $cursor = $full
+    while ($true) {
+        if (Test-Path -LiteralPath $cursor) {
+            $item = Get-Item -LiteralPath $cursor -Force
+            if (($item.Attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0) {
+                throw "Reparse path is forbidden for mirror operations: $cursor"
+            }
+        }
+        if ($cursor -eq $root) { break }
+        $parent = [System.IO.Directory]::GetParent($cursor)
+        if ($null -eq $parent) { throw "Cannot prove mirror path boundary: $full" }
+        $cursor = $parent.FullName.TrimEnd('\')
+        if ($cursor.Length -lt $root.Length) { throw "Cannot prove mirror path boundary: $full" }
+    }
+    return $full
+}
+
 function Assert-CodexStopped {
     $running = Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -in @('Codex', 'codex') }
     if ($running) {
@@ -34,6 +59,8 @@ function Assert-CodexStopped {
 function Invoke-RobocopyRestore {
     param([string]$Source, [string]$Destination)
     Assert-SourceExists $Source
+    [void](Assert-NoReparsePath -Path $Source -ExpectedRoot $snapshot)
+    [void](Assert-NoReparsePath -Path $Destination -ExpectedRoot $TargetProfile)
     if ($DryRun) {
         $files = Get-ChildItem -LiteralPath $Source -Recurse -File -Force -ErrorAction SilentlyContinue
         $bytes = ($files | Measure-Object Length -Sum).Sum
@@ -43,6 +70,7 @@ function Invoke-RobocopyRestore {
     if (-not (Test-Path -LiteralPath $Destination)) {
         New-Item -ItemType Directory -Path $Destination -Force | Out-Null
     }
+    [void](Assert-NoReparsePath -Path $Destination -ExpectedRoot $TargetProfile)
     & robocopy $Source $Destination /MIR /R:2 /W:1 /COPY:DAT /DCOPY:DAT /FFT /XJ | Out-Host
     if ($LASTEXITCODE -gt 7) {
         throw "robocopy restore failed from $Source to $Destination with exit code $LASTEXITCODE"
@@ -59,6 +87,10 @@ if ($Apply) {
 $targetCodex = Join-Path $TargetProfile '.codex'
 $targetAgents = Join-Path $TargetProfile '.agents'
 $targetOpenCode = Join-Path $TargetProfile '.config\opencode'
+[void](Assert-NoReparsePath -Path $snapshot -ExpectedRoot $RepoPath)
+[void](Assert-NoReparsePath -Path $targetCodex -ExpectedRoot $TargetProfile)
+[void](Assert-NoReparsePath -Path $targetAgents -ExpectedRoot $TargetProfile)
+[void](Assert-NoReparsePath -Path $targetOpenCode -ExpectedRoot $TargetProfile)
 
 $pairs = @(
     @((Join-Path $snapshot 'dot-codex\sessions'), (Join-Path $targetCodex 'sessions')),

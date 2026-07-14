@@ -13,7 +13,7 @@ def main() -> int:
     lines: list[str] = []
     for path in sorted(item for item in ROOT.rglob("*") if item.is_file()):
         relative = path.relative_to(ROOT).as_posix()
-        if relative in EXCLUDE or ".git" in path.parts or "__pycache__" in path.parts or path.suffix == ".pyc":
+        if relative in EXCLUDE or relative.startswith(".git/") or "__pycache__" in path.parts or path.suffix == ".pyc":
             continue
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
         lines.append(f"{digest}  {relative}")

@@ -406,7 +406,7 @@ Linx task. This file is retained only so older projects are not deleted.
 | Tool/route | Status | Use when | Do first | Do not repeat | Evidence | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
 | Chrome authenticated proof | UNKNOWN | devad.io auth proof | Check exposed Chrome/Codex browser tool or owner-approved existing profile/CDP/Windows UI route. | Do not treat fresh Playwright login redirect as auth proof. | none | {now} |
-| OpenCode SIDE | UNKNOWN | GLM/Kimi packet review | Use saved packet only; prefer devad-assistant, then one direct OpenCode fallback if available. | Do not loop wrapper failures. | none | {now} |
+| OpenCode SIDE | UNKNOWN | GLM/Kimi packet review | Use strict JSON through the X9 safe wrapper only. | Never bypass the doctor or loop failures. | none | {now} |
 """,
         args.force,
         changed,

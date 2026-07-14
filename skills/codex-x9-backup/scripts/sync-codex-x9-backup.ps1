@@ -94,11 +94,37 @@ manifests/secret-scan-latest.json
 
 function Assert-InRepoSnapshot {
     param([string]$Path)
-    $full = [System.IO.Path]::GetFullPath($Path)
-    $snapshot = [System.IO.Path]::GetFullPath((Join-Path $RepoPath 'snapshot'))
-    if (-not $full.StartsWith($snapshot, [System.StringComparison]::OrdinalIgnoreCase)) {
+    $full = [System.IO.Path]::GetFullPath($Path).TrimEnd('\')
+    $snapshot = [System.IO.Path]::GetFullPath((Join-Path $RepoPath 'snapshot')).TrimEnd('\')
+    $prefix = $snapshot + '\'
+    if ($full -ne $snapshot -and -not $full.StartsWith($prefix, [System.StringComparison]::OrdinalIgnoreCase)) {
         throw "Refusing to mirror outside snapshot: $full"
     }
+}
+
+function Assert-NoReparsePath {
+    param([string]$Path, [string]$ExpectedRoot)
+    $full = [System.IO.Path]::GetFullPath($Path).TrimEnd('\')
+    $root = [System.IO.Path]::GetFullPath($ExpectedRoot).TrimEnd('\')
+    $prefix = $root + '\'
+    if ($full -ne $root -and -not $full.StartsWith($prefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw "Path escapes approved root: $full"
+    }
+    $cursor = $full
+    while ($true) {
+        if (Test-Path -LiteralPath $cursor) {
+            $item = Get-Item -LiteralPath $cursor -Force
+            if (($item.Attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0) {
+                throw "Reparse path is forbidden for mirror operations: $cursor"
+            }
+        }
+        if ($cursor -eq $root) { break }
+        $parent = [System.IO.Directory]::GetParent($cursor)
+        if ($null -eq $parent) { throw "Cannot prove mirror path boundary: $full" }
+        $cursor = $parent.FullName.TrimEnd('\')
+        if ($cursor.Length -lt $root.Length) { throw "Cannot prove mirror path boundary: $full" }
+    }
+    return $full
 }
 
 function Invoke-RobocopyMirror {
@@ -108,9 +134,12 @@ function Invoke-RobocopyMirror {
         return
     }
     Assert-InRepoSnapshot $Destination
+    [void](Assert-NoReparsePath -Path $Source -ExpectedRoot $ProfileRoot)
+    [void](Assert-NoReparsePath -Path $Destination -ExpectedRoot $RepoPath)
     if (-not (Test-Path -LiteralPath $Destination)) {
         New-Item -ItemType Directory -Path $Destination -Force | Out-Null
     }
+    [void](Assert-NoReparsePath -Path $Destination -ExpectedRoot $RepoPath)
     $excludeDirs = @('.git', 'node_modules', 'cache', '.cache', 'tmp', '.tmp', '.sandbox', '.sandbox-bin', '.sandbox-secrets', 'packages', '.plugin-appserver', '__pycache__')
     $excludeFiles = @('auth.json', 'cap_sid', '*.sqlite-wal', '*.sqlite-shm', 'logs_*.sqlite', '*.log', '.env', '.env.*', '*cookie*', '*cookies*', '*.pyc')
     $args = @($Source, $Destination, '/MIR', '/R:2', '/W:1', '/COPY:DAT', '/DCOPY:DAT', '/FFT', '/XJ', '/XD') + $excludeDirs + @('/XF') + $excludeFiles

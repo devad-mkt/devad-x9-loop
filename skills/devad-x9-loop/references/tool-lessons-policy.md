@@ -36,7 +36,7 @@ Before repeating a failed or fragile tool route:
 | Tool/route | Status | Use when | Do first | Do not repeat | Evidence | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
 | Chrome authenticated proof | FALLBACK | devad.io auth proof | Prefer exposed Chrome/Codex browser tool or owner-approved existing profile/CDP/Windows UI route. | Do not treat fresh Playwright Chrome redirected to login as auth proof. | <path> | YYYY-MM-DD |
-| OpenCode SIDE | FALLBACK | GLM/Kimi packet review | Use saved packet only; prefer `$devad-assistant`; if wrapper fails, try direct OpenCode route once. | Do not loop wrapper failures. | <path> | YYYY-MM-DD |
+| OpenCode SIDE | FALLBACK | GLM/Kimi packet review | Use strict JSON through the X9 safe wrapper. | Never bypass the doctor or loop failures. | <path> | YYYY-MM-DD |
 ```
 
 ## Chrome Auth Proof Rule
@@ -57,8 +57,8 @@ Before repeating a failed or fragile tool route:
 - Known SIDE uses:
   - `opencode-go/kimi-k2.7-code`: strict migration decision, blocker challenge.
   - `opencode-go/glm-5.2`: test matrix, acceptance checklist, architecture critique.
-- If the wrapper route fails, record `TOOL_FAILED:opencode-wrapper` and try one
-  direct OpenCode route only when available.
+- If the wrapper route fails, record TOOL_UNAVAILABLE once and continue with
+  local proof. Never bypass the doctor with a direct command.
 - Save packet, model output, and manager decision under `.devad/manager/sidecar/`.
 - SIDE advice is evidence, not truth.
 

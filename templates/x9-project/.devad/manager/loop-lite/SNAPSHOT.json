@@ -1,0 +1,19 @@
+{
+  "schema": "x9-loop-lite-snapshot-v1",
+  "generation": 0,
+  "tables": {
+    "actors": [],
+    "worktrees": [],
+    "tasks": [],
+    "claims": [],
+    "resources": [],
+    "dispatches": [],
+    "deliveries": [],
+    "events": [],
+    "gates": [],
+    "outbox": [],
+    "metrics": [
+      {"key": "token_telemetry", "value": "Unknown"}
+    ]
+  }
+}

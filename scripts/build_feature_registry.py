@@ -48,6 +48,15 @@ NEW_FEATURES = [
     ("loop-two-worker-promotion", "devad-x9-loop", "Measured concurrency promotion"),
     ("loop-manager-compat-shim", "devad-x9-manager", "Temporary v3 prompt redirect"),
 ]
+V6_FEATURES = [
+    ("loop-lite-controller", "devad-x9-loop", "skills/devad-x9-loop/scripts/loopctl.py", "Transactional Loop Lite v6 controller and one-action reconciliation boundary", "tests/test_loop_lite_v6.py"),
+    ("loop-lite-recovery-snapshot", "devad-x9-loop", "templates/x9-project/.devad/manager/loop-lite/SNAPSHOT.json", "Tracked compact recovery truth independent of disposable SQLite runtime state", "tests/test_loop_lite_package.py::LoopLitePackageTests"),
+    ("loop-lite-machine-contracts", "devad-x9-loop", "templates/x9-project/.devad/manager/loop-lite/contracts", "Versioned JSON contracts for owner packets, tasks, actions, and results", "tests/test_loop_lite_package.py::LoopLitePackageTests"),
+    ("loop-lite-scope-claims", "devad-x9-loop", "skills/devad-x9-loop/references/loop-lite-v6-contract.md", "Claim-bound completion and scope-breach rejection across all Git surfaces", "tests/test_loop_lite_v6.py"),
+    ("loop-lite-direct-callback", "devad-x9-loop", "skills/devad-x9-loop/references/loop-lite-v6-contract.md", "Identity-checked direct callback without a recurring manager heartbeat", "tests/test_loop_lite_v6.py"),
+    ("loop-lite-sidecar-doctor", "devad-x9-loop", "skills/devad-x9-loop/scripts/opencode_doctor.py", "Secret-safe bounded OpenCode doctor and advisory request gate", "tests/test_loop_lite_package.py::OpenCodeDoctorTests"),
+    ("loop-lite-generated-human-views", "devad-x9-loop", "skills/devad-x9-loop/references/loop-lite-v6-contract.md", "Bounded generated status and handoff views that are never parser authority", "tests/test_loop_lite_v6.py"),
+]
 RETIRED_FEATURES = [
     ("retired-x7-broad-polling", "X7 broad polling"),
     ("retired-title-role-routing", "Role inference from task title"),
@@ -193,6 +202,18 @@ def build(source: Path) -> tuple[dict[str, Any], dict[str, Any]]:
                 "required_test": "tests/test_v5_contract.py",
             }
         )
+    for feature_id, owner, source, purpose, required_test in V6_FEATURES:
+        features.append(
+            {
+                "id": feature_id,
+                "kind": "feature",
+                "owner": owner,
+                "source": source,
+                "status": "NEW",
+                "purpose": purpose,
+                "required_test": required_test,
+            }
+        )
     for feature_id, purpose in RETIRED_FEATURES:
         features.append(
             {
@@ -230,10 +251,10 @@ def main() -> int:
     print(f"registry_features={len(registry['features'])}")
     if args.write:
         (ROOT / "legacy.inventory.json").write_text(
-            json.dumps(legacy, indent=2, ensure_ascii=True) + "\n", encoding="utf-8"
+            json.dumps(legacy, indent=2, ensure_ascii=True) + "\n", encoding="utf-8", newline="\n"
         )
         (ROOT / "features.registry.json").write_text(
-            json.dumps(registry, indent=2, ensure_ascii=True) + "\n", encoding="utf-8"
+            json.dumps(registry, indent=2, ensure_ascii=True) + "\n", encoding="utf-8", newline="\n"
         )
     return 0
 

@@ -1,209 +1,189 @@
 ---
 name: devad-x9-loop
-description: Use when coordinating long Devad X9 work across Linx, Thinx, Worker, Reader, CHUNK, or SIDE roles; when task identity, delivery retries, handoffs, local work, event pickup, owner context, manager focus, blockers, concurrency, or model cost must remain correct across many passes.
+description: Use when coordinating long Devad X9 work across Linx, Thinx, Worker, Reader, CHUNK, or SIDE roles; when deterministic task identity, dispatch, callbacks, local work, ownership, gates, concurrency, recovery, or model cost must remain correct without heartbeat polling or chat-history routing.
 ---
 
-# Devad X9 Loop v5
+# Devad X9 Loop Lite v6
 
 ## Load First
 
 Read `../devad-x9/references/x9-shared-contract.md`, then
-`references/loop-v5-contract.md`. The shared contract owns repository truth,
-security, commits, proof, push/deploy gates, destructive safety, and durable
-documentation. This skill owns orchestration identity and state.
+`references/loop-lite-v6-contract.md`. The shared contract owns Git truth,
+security, commits, proof, push/deploy gates, durable documentation, and
+destructive safety. This skill owns deterministic orchestration.
 
-Read only the role reference needed for the current pass. Compact chat never
-means weak reasoning or proof.
+Compact chat does not reduce reasoning, tests, or proof. Read only the exact
+role packet and smallest linked rule needed.
 
 ## Roles
 
-| Role | Job | Code? | Chat history? |
+| Role | Job | Code? | Authority |
 | --- | --- | --- | --- |
-| Linx | Owner bridge and execution routing | No | New owner turn once |
-| Thinx | File-only strategy/review | No | Never |
-| Worker | One bounded implementation packet | Yes | Own task only |
-| Reader | Hidden exact extraction | No | Exact input only |
-| CHUNK | Small scoped helper | Assigned files only | Packet only |
-| SIDE | Independent challenge | No mutation by default | Packet only |
+| Linx | Owner bridge and exact transport | No | `ACTION.json` only |
+| Thinx | File-only strategy/review | No | One verified decision |
+| Worker | One bounded implementation | Yes | Exact `TASK.json` |
+| Reader | Mechanical extraction | No | Manifested inputs |
+| CHUNK | Small assigned files | Scoped | Exact subtask |
+| SIDE | Independent challenge | No by default | Secret-safe packet |
 
-Task role comes only from `.devad/manager/loop/ROLE_REGISTRY.json`. Titles are
-display text. On conflict emit:
+Role comes from immutable task ID in loop-lite state. Titles are display text.
+Emit `TITLE_ROLE_MISMATCH:<task_id>:<role>:<title>` on conflict. Never route by
+nickname, title, chat position, or remembered identity.
 
-`TITLE_ROLE_MISMATCH:<task_id>:<registered_role>:<title>`
+## Models
 
-Never route by title, nickname, chat position, or remembered role.
+- Linx: `gpt-5.6-sol high`.
+- Thinx: `gpt-5.6-sol xhigh` normally.
+- Thinx: `gpt-5.6-sol Ultra` for one explicit high-risk decision, then return to
+  xhigh whether the pass succeeds, fails, or pauses.
+- Worker: `gpt-5.6-terra high`; use xhigh only when the owner asks.
+- Reader/CHUNK/SIDE: cheapest proven model for the bounded extraction or
+  challenge. They do not own judgment.
 
-## Model Policy
+Record a model-setting tool gap honestly. Never create a second Thinx merely
+to change effort.
 
-Read `references/model-policy-v3.md`.
+## Linx Fast Pass
 
-- Linx: `gpt-5.6 high` only.
-- Thinx normal: `gpt-5.6 xhigh`.
-- Thinx very-hard gated pass: `gpt-5.6 ultra`; return to xhigh immediately
-  after the pass, whether it succeeds, fails, or pauses.
-- Worker: `gpt-5.6 high`; use xhigh only when owner explicitly asks.
-- A model-setting tool gap is recorded, never hidden.
+Linx reads the newest owner message and attachments once and saves an immutable
+OWNER_PACKET.json. Raw owner text and copied attachments are local sensitive
+state ignored by project Git; tracked recovery state keeps only hashes and
+paths. Old chat is never routing authority.
 
-## Start Every Pass
+For each owner turn or verified callback:
 
-1. Resolve repository, manager branch/HEAD, dirty state, and worktrees from
-   current Git. Do not infer them from chat.
-2. Acquire `.devad/manager/MANAGER_PASS_LOCK.md`. An unexpired owner blocks
-   this pass with `SKIP_ACTIVE_MANAGER_PASS`.
-3. Read `.devad/ROUTER.md`, then the compact files below in order:
-   - `manager/loop/PASS_CAPSULE.json` (must be below 8 KB)
-   - `manager/loop/ROLE_REGISTRY.json`
-   - `manager/loop/WORKTREE_INDEX.json`
-   - `manager/loop/EVENT_CURSOR.json`
-   - `manager/loop/TASK_GRAPH.json`
-   - `manager/loop/RESOURCE_CLAIMS.json`
-   - `manager/loop/DECISION_GATES.json`
-   - exact active Worker packet
-4. Run `scripts/validate_loop_state.py --repo <repo>`.
-5. If the capsule or local-work index is stale, rebuild it before routing.
-6. Process only unseen immutable events. Choose one bounded next action.
-7. Save state, release the pass lock, then write at most a short chat status.
+1. Run scripts/loopctl.py reconcile for the exact repository and event.
+2. Read only .devad/manager/loop-lite/runtime/ACTION.json.
+3. Perform that one exact Codex transport action.
+4. Run scripts/loopctl.py record-delivery with the real result.
+5. Report short status, proof, blocker, and one next action.
 
-Large historical manager files remain evidence. Do not reread them on every
-pass or rewrite them during v5 migration.
+Linx never reviews code, edits product files, judges architecture, manually
+patches orchestration state, or rereads manager history. It does not stop with
+only `Next` when ACTION.json authorizes a safe transport.
 
-## Linx Continuation Duty
+No recurring heartbeat, 15/19-minute poll, sleep loop, or model-written pass
+lock is allowed. Files alone do not wake a Codex task. Worker or Thinx writes
+its receipt, then sends one direct event callback to the same registered Linx.
+Callback failure gets one same-event retry, then CALLBACK_FAILED and a manual
+one-shot pickup.
 
-Preparation and validation do not consume the bounded action. Truth refresh,
-hash correction, receipt checking, and packet validation are prerequisites.
-When the exact safe next action is known and needs no owner decision, Linx must
-perform or dispatch it in the same pass before reporting.
+## Controller
 
-Ending with only `Next: <safe action>` is `NEXT_ONLY_FORBIDDEN`. Linx may
-report a next action without executing it only when an exact safety stop,
-resource conflict, active lock, unavailable transport after bounded attempts,
-or real owner decision prevents action. The pass note must name that blocker
-and the callback/manual pickup state.
+Use scripts/loopctl.py:
 
-## Linx History Barrier
+    python scripts/loopctl.py --repo <repo> init --import-v5
+    python scripts/loopctl.py --repo <repo> register --file <registration.json>
+    python scripts/loopctl.py --repo <repo> reconcile --task <task-id>
+    python scripts/loopctl.py --repo <repo> prepare-dispatch --task <task-id> --sender <linx-id>
+    python scripts/loopctl.py --repo <repo> record-delivery --dispatch <id> --phase DISPATCH --method codex-thread --result accepted
+    python scripts/loopctl.py --repo <repo> consume-event --file <event.json>
+    python scripts/loopctl.py --repo <repo> doctor
+    python scripts/loopctl.py --repo <repo> rebuild
 
-Linx reads the newest owner message and its attachments once. It writes an
-immutable owner packet with exact text, hashes, visual context, and receipt.
-After that, route from durable state only. Old chat is never authority.
+Tracked SNAPSHOT.json is recovery truth and stays below 8 KB. Ignored loop.db
+is disposable SQLite. Generated ACTION.json stays below 4 KB. STATUS.md and
+HANDOFFS.md are generated human views, never parser authority. Existing v5
+files remain historical evidence.
 
-This is a behavioral barrier. The Codex app may still retain earlier turns.
-Linx must ignore them unless a durable packet explicitly links one.
+If snapshot export fails or database generation is newer, stop routing with
+SNAPSHOT_STALE and reconcile. Never guess or manually patch the state.
 
-Corrections, screenshots, acceptance disputes, architecture, security, money,
-and conflicting facts go to the locked Thinx. Linx never codes or takes over a
-Worker.
+## Dispatch And Completion
 
-## Identity And Delivery
+Each immutable packet gets one dsp-<uuid>. Same task and packet reuse the
+unresolved dispatch. A changed packet creates a new dispatch with supersedes.
 
-Every exact order gets one `dsp-<uuid>` `DISPATCH_ID`. Record sender/target
-task IDs, immutable target role, packet SHA-256, attempt number/time, method,
-transport result, acknowledgement, and receipt hash in
-`DISPATCH_LEDGER.jsonl`.
+- Accepted transport without exact acknowledgement: DELIVERY_UNCONFIRMED.
+- Never claim sent once without one attempt plus exact acknowledgement.
+- Duplicate callback: idempotent DUPLICATE_EVENT.
+- Wrong task, actor, role, dispatch, packet, path, or hash: STALE_COMPLETION.
+- Two failed callback attempts: CALLBACK_FAILED, manual one-shot pickup.
 
-- Exact acknowledgement: `SKIP_ALREADY_DELIVERED`.
-- Transport accepted without acknowledgement: check receipt once; do not
-  resend blindly.
-- Failed transport: retry the same dispatch ID and increment attempt count.
-- Changed packet: new dispatch ID with `supersedes`.
-- Never say `sent once` unless attempts are exactly one and the registered
-  Worker acknowledged the exact dispatch and packet hash.
-- Otherwise report `DELIVERY_UNCONFIRMED:<attempts>`.
+Worker completion requires a Worker-owned RESULT.json and matching current Git
+scope. Historical or wrong-lane handoffs cannot complete current work.
 
-Worker completion is valid only when task ID, dispatch ID, registered Worker
-role, packet hash, and Worker-owned receipt all match. Old/wrong-task handoffs
-cannot complete current work.
+## Worktrees And Claims
 
-Normal continuation uses `references/direct-event-callback.md`. After durable
-state is written, Worker or Thinx sends `EVENT_READY` to the same registered
-Linx task. Recurring 15/19-minute pickup is forbidden. Callback failure becomes
-`MANAGER_WAKE_FAILED`, never recurring polling.
+Preserve every checkout. A worktree does not imply an active Worker. Use
+canonical repository-relative file/directory claims; no ambiguous globs.
+Normalize Windows case and separators before overlap checks.
 
-## Scheduling
+Completion checks staged, unstaged, untracked, and committed paths. An
+unclaimed path is SCOPE_BREACH and cannot integrate. Ask
+CLAIM_EXPANSION_REQUEST before editing a needed new path.
 
-| Pool | Limit |
+Serialize database/migrations, shared runtime, browser profile, integration
+branch, deployment, and live proof. Dirty core-x9 is never integration.
+
+Rollout:
+
+| Clean dispatches | Coding Workers |
 | --- | ---: |
-| Coding Workers | 2 |
-| Read-only helpers | 2 |
-| Shared runtime/browser proof | 1 |
-| Deploy/integration | 1 |
+| 0-2 | 1 |
+| 3-9 | 2 |
+| 10+ | 3 |
 
-Run only dependency-ready tasks with non-conflicting claims. A worktree does
-not imply an active Worker. Promote coding to three only after three calendar
-days and ten dispatches with zero lost-work, role/delivery, resource, and
-critical truth/safety errors, plus at most one orchestration retry.
-
-After three failed attempts, pause only that dispatch and request Thinx review.
-Do not kill the Worker or call the feature blocked automatically.
+Any lost work, duplicate delivery, stale completion, scope breach, parser
+failure, orphan lock, false PASS, or context compaction returns the limit to
+one until reviewed. Parallel tasks need satisfied dependencies and disjoint
+path/resource claims.
 
 ## Thinx
 
-Read `references/non-chat-top-manager.md` and the verified-read policy.
+Reuse the owner-locked Thinx task. Thinx reads durable manifested files only,
+never chat. It does not code, commit, push, deploy, browse interactively, or
+manage Workers. It writes one decision or MISSING_MD:<lane>:<fact>, then one
+identity-checked direct callback.
 
-- Never read chats, code, commit, push, deploy, browse interactively, or manage
-  Workers directly.
-- Use durable inputs and current proof only.
-- Reuse the owner-locked Thinx task. Replacement requires owner approval.
-- Write one decision or `MISSING_MD:<lane>:<fact>`.
-- After writing the decision receipt, send one identity-checked `EVENT_READY`
-  callback to the same registered Linx task.
+A hidden Reader in the same Thinx task may condense long inputs mechanically.
+Thinx verifies the receipt and owns the judgment. Replacement requires owner
+approval; effort changes do not require a new task.
 
-A hidden Reader inside the same Thinx task may mechanically condense long
-inputs. Reader extracts only; Thinx owns judgment and verifies receipts.
+## Worker
 
-## Worker Routing
+Use devad-x9 for code, tests, security, commits, docs, proof, push, and deploy
+gates. Every Worker receives TASK.json, owner packet hash, exact worktree/base
+SHA, dependencies, claims, resources, finish line, and forbidden scope.
 
-Every packet includes one mission, finish line, allowed/forbidden scope,
-feature/run IDs, branch/base SHA/worktree, owner input and attachment hashes,
-resource claims, security/proof gates, dispatch ID, packet hash, next action,
-and stop rules. Use `references/worker-packet-template.md`.
+Before completion:
 
-Workers keep current `STATUS.md` and `HANDOFFS.md` under 120 lines and 12 KB.
-Detail belongs in `runs/<run-id>/`. A pass ends with durable state, not a long
-chat response.
+1. Run focused tests and full security gate.
+2. Create source C1 from exact staged files.
+3. Write .devad/docs/commits/<C1>.md and create attestation C2.
+4. Write RESULT.json with changed files and proof.
+5. Send one direct callback after the result is durable.
 
-Before a hard blocker claim, the Worker uses the secret-safe Reader bridge and
-asks both GLM 5.2 and Kimi 2.7 Code when available. Advice is untrusted until
-the Worker verifies it.
+Do not use git add ., cleanup, reset, stash, worktree removal, destructive
+database/app operations, or deployment without exact current gates.
 
-## Handover
+## Sidecars
 
-Use `references/collaborative-linx-handover.md`. Old Linx gathers status and
-uncommitted work from every active/recent/unresolved Worker, merges owner scope
-as `IMPLEMENT`, `REJECTED`, `PAUSED`, or `UNKNOWN`, creates the replacement
-in `PLAN_ONLY`, and reviews its durable plan. Only a validated
-`LINX_ACTIVATION_OK` transfers authority.
+Run scripts/opencode_doctor.py doctor first. Use one secret-safe request each
+for configured GLM 5.2 and Kimi 2.7 Code only when plan challenge or blocker
+review adds value. The doctor copies strict JSON into a temporary no-repository
+directory, disables external plugins and every model tool, and passes only an
+environment allowlist. Never invoke a direct sidecar command.
 
-Any old 15/19-minute pickup automation must be paused before v5 activation.
-Use `PAUSE_NOT_DELETE`: preserve/archive its definition and original location.
-Files do not wake a Codex task by themselves. The activated Linx continues by
-verified direct Worker/Thinx callbacks to the same registered Linx task; an
-owner-requested one-shot fallback is allowed only for a delayed owner decision
-or an external condition that cannot callback.
+The packet contains the requirement, exact claims, relevant diff/proof,
+failure, and one question, never full chats or unrelated logs.
 
-## Safety Stops
+`TOOL_UNAVAILABLE` is recorded once and does not block the Worker. Sidecar
+advice remains untrusted until locally verified. Kimi 2.6 is not configured.
 
-Stop mutation/routing for stale capsule or local-work truth, active pass lock,
-unknown role, unresolved role/title mismatch, unclassified local work,
-branch-role conflict, resource collision, invalid dispatch identity, missing
-owner attachment, failed security/commit/push/deploy/live-proof gate, secret
-exposure, destructive final action, or real owner decision.
+## Safety
 
-Do not stop for a solvable soft blocker.
+All existing X9 safety remains mandatory: current Git/runtime truth, owner and
+attachment identity, local-work preservation, full security before C1, C1/C2
+attestation, separate source/push/deploy/live-proof gates, exact release state,
+and owner-run destructive final actions.
 
-## Required Commands
-
-```powershell
-python scripts/validate_loop_state.py --repo <repo>
-python scripts/check_x9_manager_state.py --repo <repo>
-python scripts/build_local_work_ledger.py --repo <repo> --write
-python scripts/collect_worker_handoffs.py --repo <repo> --write-index --write-workers
-python scripts/validate_worker_packet.py --packet <packet> --worktree <repo>
-python scripts/validate_thinx_read_receipt.py --request <request> --decision <pass>
-python scripts/validate_linx_handover.py --state <state>
-```
+Do not stop for a solvable soft blocker. After three failed Worker attempts,
+pause only that task and request Thinx review; do not declare the feature
+blocked automatically.
 
 ## Output
 
-Use short visible chat: TLDR, status, proof, blocker, one next action. Put full
-technical detail in durable files. Never claim delivery, PASS, deployment, or
-completion without exact current evidence.
+Use compact visible chat. Put detailed proof in durable files. Unknown token
+telemetry stays `Unknown`; never use fallback lifetime totals. Never claim
+delivery, PASS, deployment, or completion without exact current evidence.

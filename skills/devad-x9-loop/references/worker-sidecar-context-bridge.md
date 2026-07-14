@@ -7,7 +7,8 @@ Use this inside the Worker task. It does not create visible Codex tasks.
     Worker durable task context
       -> hidden gpt-5.6-luna medium Reader
       -> runs/<run-id>/SIDE_INPUT.md
-      -> opencode-go/glm-5.2 and opencode-go/kimi-k2.7-code
+      -> strict sidecar/<review>.json
+      -> safe wrapper: `opencode-go/glm-5.2` and `opencode-go/kimi-k2.7-code`
       -> runs/<run-id>/SIDE_REVIEWS.md
       -> Worker verifies and decides
 
@@ -34,8 +35,8 @@ money, deploy, or expected to run longer than 30 minutes.
 1. Worker lists the exact questions and candidate plan.
 2. Hidden gpt-5.6-luna medium builds SIDE_INPUT.md from full durable task
    context with a read receipt and omitted-secret statement.
-3. Ask both opencode-go/glm-5.2 and opencode-go/kimi-k2.7-code to challenge the
-   plan, missing risks, proof, and smallest safe sequence.
+3. Convert SIDE_INPUT.md into strict x9-sidecar-packet-v1 JSON, then ask both
+   configured models through the safe wrapper to challenge the plan.
 4. Worker writes SIDE_REVIEWS.md with advice, local verification, accepted
    points, rejected points, and final plan delta.
 
@@ -63,7 +64,7 @@ The Worker must verify suggestions locally. Sidecar agreement is not proof.
 - One BLOCKER_CHALLENGE per blocker claim.
 - One attempt per sidecar route; record SIDECAR_UNAVAILABLE and continue with
   the safe local fallback.
-- Reuse SIDE_INPUT.md; append a compact delta instead of rebuilding context.
+- Reuse SIDE_INPUT.md; emit a new content-bounded JSON packet for each delta.
 - No polling and no repeated multi-model debate.
 
 ## Required SIDE_INPUT.md

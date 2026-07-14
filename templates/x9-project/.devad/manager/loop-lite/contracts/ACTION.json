@@ -1,0 +1,34 @@
+{
+  "schema": "x9-loop-lite-action-v1",
+  "action_id": "act-<uuid>",
+  "action": "SEND_DISPATCH",
+  "dispatch_id": "dsp-<uuid>",
+  "task_id": "task-<uuid>",
+  "target_actor_id": "<registered Worker task ID>",
+  "target_role": "WORKER",
+  "packet_sha256": "<64 lowercase hex>",
+  "packet": {
+    "schema": "x9-loop-lite-dispatch-v1",
+    "task_id": "task-<uuid>",
+    "sender_id": "<registered Linx task ID>",
+    "target_actor_id": "<registered Worker task ID>",
+    "worktree_id": "<registered worktree ID>",
+    "worktree_path": "<absolute worktree path>",
+    "base_sha": "<exact Git SHA>",
+    "owner_packet_path": ".devad/manager/owner-packets/<packet_sha256>.json",
+    "owner_packet_sha256": "<64 lowercase hex of exact owner packet bytes>",
+    "local_work": {
+      "staged": [],
+      "unstaged": [],
+      "untracked": [],
+      "committed": []
+    },
+    "dependencies": [],
+    "claims": [],
+    "resources": [],
+    "gates": [],
+    "finish_line": "<one verifiable result>"
+  },
+  "attempt": 1,
+  "must_record_transport": true
+}

@@ -1,0 +1,23 @@
+{
+  "schema": "x9-loop-lite-task-v1",
+  "task_id": "task-<uuid>",
+  "worker_id": "<registered Worker task ID>",
+  "worktree_id": "<registered worktree ID>",
+  "base_sha": "<exact Git SHA>",
+  "owner_packet_path": ".devad/manager/owner-packets/<packet_sha256>.json",
+  "owner_packet_sha256": "<64 lowercase hex of exact owner packet bytes>",
+  "dependencies": [],
+  "claims": [
+    {
+      "path": "repository/relative/path",
+      "kind": "file"
+    }
+  ],
+  "resources": [],
+  "gates": [],
+  "finish_line": "<one verifiable result>",
+  "forbidden": [
+    "unclaimed paths",
+    "destructive final actions"
+  ]
+}

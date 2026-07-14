@@ -8911,6 +8911,69 @@
       "required_test": "tests/test_v5_contract.py::CallbackPickupPolicyTests",
       "replacement": "Verified direct EVENT_READY callback with owner-requested one-shot fallback",
       "reason": "No-change polling burns tokens, delays pickup, and can overlap owner passes."
+    },
+    {
+      "id": "loop-lite-controller",
+      "kind": "feature",
+      "owner": "devad-x9-loop",
+      "source": "skills/devad-x9-loop/scripts/loopctl.py",
+      "status": "NEW",
+      "purpose": "Transactional Loop Lite v6 controller and one-action reconciliation boundary",
+      "required_test": "tests/test_loop_lite_v6.py"
+    },
+    {
+      "id": "loop-lite-recovery-snapshot",
+      "kind": "feature",
+      "owner": "devad-x9-loop",
+      "source": "templates/x9-project/.devad/manager/loop-lite/SNAPSHOT.json",
+      "status": "NEW",
+      "purpose": "Tracked compact recovery truth independent of disposable SQLite runtime state",
+      "required_test": "tests/test_loop_lite_package.py::LoopLitePackageTests"
+    },
+    {
+      "id": "loop-lite-machine-contracts",
+      "kind": "feature",
+      "owner": "devad-x9-loop",
+      "source": "templates/x9-project/.devad/manager/loop-lite/contracts",
+      "status": "NEW",
+      "purpose": "Versioned JSON contracts for owner packets, tasks, actions, and results",
+      "required_test": "tests/test_loop_lite_package.py::LoopLitePackageTests"
+    },
+    {
+      "id": "loop-lite-scope-claims",
+      "kind": "feature",
+      "owner": "devad-x9-loop",
+      "source": "skills/devad-x9-loop/references/loop-lite-v6-contract.md",
+      "status": "NEW",
+      "purpose": "Claim-bound completion and scope-breach rejection across all Git surfaces",
+      "required_test": "tests/test_loop_lite_v6.py"
+    },
+    {
+      "id": "loop-lite-direct-callback",
+      "kind": "feature",
+      "owner": "devad-x9-loop",
+      "source": "skills/devad-x9-loop/references/loop-lite-v6-contract.md",
+      "status": "NEW",
+      "purpose": "Identity-checked direct callback without a recurring manager heartbeat",
+      "required_test": "tests/test_loop_lite_v6.py"
+    },
+    {
+      "id": "loop-lite-sidecar-doctor",
+      "kind": "feature",
+      "owner": "devad-x9-loop",
+      "source": "skills/devad-x9-loop/scripts/opencode_doctor.py",
+      "status": "NEW",
+      "purpose": "Secret-safe bounded OpenCode doctor and advisory request gate",
+      "required_test": "tests/test_loop_lite_package.py::OpenCodeDoctorTests"
+    },
+    {
+      "id": "loop-lite-generated-human-views",
+      "kind": "feature",
+      "owner": "devad-x9-loop",
+      "source": "skills/devad-x9-loop/references/loop-lite-v6-contract.md",
+      "status": "NEW",
+      "purpose": "Bounded generated status and handoff views that are never parser authority",
+      "required_test": "tests/test_loop_lite_v6.py"
     }
   ]
 }

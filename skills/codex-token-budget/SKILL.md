@@ -1,159 +1,152 @@
 ---
 name: codex-token-budget
-description: Use when tracking or diagnosing Codex token usage, token burn, context bloat, manager or worker thread cost, weekly or 5-hour usage limits, task budget percentage, long-run /goal loops, orchestration overhead, heartbeat/polling cost, repeated tool-output cost, or when the user asks why Codex work is consuming many tokens.
+description: Use when tracking or diagnosing Codex token usage, token burn, context bloat, manager or worker task cost, weekly or 5-hour usage limits, task budget percentage, long-run goals, orchestration overhead, heartbeat/polling cost, retries, repeated tool-output cost, or when the user asks which model solves work most cheaply after proof.
 ---
 
 # Codex Token Budget
 
-Use this skill as a token-burn diagnostic, not only as a hard budget tracker. It should work for any Codex task: coding, planning, manager/worker orchestration, browser proof, `/goal`, repair loops, or thread audits.
+Use this skill for any Codex task: coding, planning, orchestration, browser
+proof, repair loops, model benchmarks, or task audits. Optimize total cost to a
+verified result, not the cheapest first turn.
 
 ## Source Of Truth
 
-- Official remaining percentages come from `https://chatgpt.com/codex/cloud/settings/analytics#usage` or interactive `/status`.
-- Local estimates come from `<codex-usage-lite>` only when
-  it supports the current telemetry schema.
-- Current Codex logs may use `codex_core::session::turn` with cumulative
-  `total_usage_tokens`. A tracker that reads only old `response.completed`
-  rows can incorrectly report zero.
-- Local thread totals from Codex state are fallback/lifetime signals and can look huge. Do not treat them as live burn without checking response-event windows.
-- Do not claim exact official tokens unless the official UI or API exposes them.
-
-## Fast Commands
-
-Run the local tracker:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File <codex-usage-lite>\run.ps1
-```
-
-Set a baseline before a task or audit:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File <codex-usage-lite>\run.ps1 --set-baseline
-```
-
-Track a task cap:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File <codex-usage-lite>\run.ps1 --task-weekly-percent 1
-```
+- Official remaining percentages come from the Codex usage UI or interactive
+  `/status` when available.
+- Local trackers are estimates and must support the current event schema.
+- Current logs may expose cumulative `total_usage_tokens`; calculate a bounded
+  response/task delta, not the whole task lifetime.
+- Exact token data that is not exposed is `Unknown`.
+- Fallback lifetime totals are forbidden for X9 v6 decisions. They can be
+  misleading after compaction, retries, imports, and long-running tasks.
+- Never claim exact official tokens from a local estimate.
 
 ## Audit Workflow
 
-1. Classify the request:
-   - `budget`: stay under a known cap.
-   - `burn audit`: explain where tokens are going.
-   - `manager audit`: inspect manager/worker thread overhead.
-   - `watch`: take a baseline, wait or schedule a later sample, then compare.
-2. Run the tracker and record:
-   - response-event tokens counted,
-   - rolling 5h/7d/month windows,
-   - task delta since baseline,
-   - top thread lifetime/fallback totals,
-   - report path.
-3. If threads are involved, inspect only metadata first: title, cwd, status, preview, updated time, and whether the thread is active. Read full thread turns only when needed to explain a specific burn source.
-4. For manager/worker orchestration, classify burn by cause:
-   - broad old-chat or transcript reads,
-   - full skill/reference loading when a narrow reference would do,
-   - polling/heartbeat loops,
-   - too many active workers,
-   - repeated repo truth scans,
-   - repeated browser/proof loops,
-   - large tool outputs copied into context,
-   - workers ending in chat instead of durable handoffs,
-   - manager revalidating all lanes instead of only changed handoffs,
-   - `/goal` or repair loops with weak stop criteria.
-5. Report fixes as recommendations only unless the user explicitly asks to change orchestration, packets, code, automations, or threads.
+1. Choose one mode: `budget`, `burn audit`, `manager audit`, `watch`, or
+   `model benchmark`.
+2. Set one baseline before the measured task when real telemetry exists.
+3. Record only the measured window:
+   - official percentage delta, if visible;
+   - response/task token delta, if exposed;
+   - wall time and active model time;
+   - prompt bytes, files read, and state writes;
+   - transport and callback retries;
+   - context compactions;
+   - first-pass success and final proof result.
+4. Read task metadata first. Read full turns only to explain one specific burn
+   source that metadata cannot prove.
+5. Keep missing fields `Unknown`; never backfill them from lifetime totals.
 
-## Model Benchmark Mode
+## Burn Classes
 
-Use this mode when selecting a model or thinking level for X9.
+- broad old-chat, transcript, or manager-history reads;
+- full skill/reference loading instead of one linked rule;
+- heartbeat, sleep, or no-change polling loops;
+- model work used for hashes, roles, claims, dependencies, or delivery state;
+- too many active Workers or conflicting worktrees;
+- repeated Git/runtime scans with no changed event;
+- large tool output copied into model context;
+- repeated browser/full-suite proof without a changed surface;
+- cheap model retries that cost more than one stronger first pass;
+- Worker ending in long chat instead of a compact durable result.
 
-1. Define one task class. Do not average routine routing with architecture,
-   security, deploy judgment, or broad coding.
-2. Use fresh context, the same packet, and a hidden proof for every candidate.
-3. Record first-pass score before corrections.
-4. Count every retry until independent proof passes.
-5. Compare total verified-result tokens, active time, retries, pass rate, and
-   critical truth/safety errors.
-6. Require at least five real samples before permanent promotion.
+## Model Benchmark
 
-If the X9 suite benchmark exists, update its MODEL_LEDGER.md and add a dated
-result folder. Keep raw logs out of Git; store compact evidence, hashes, and
-meaning.
+Compare candidates only on the same task class and packet.
 
-Selection rule: choose the lowest profile that scores at least 90/100, has no
-critical safety error, passes independent proof, and minimizes total
-verified-result tokens. A cheap first turn that needs repeated repair loses.
+1. Use fresh context, the same immutable input, hidden expected facts, and the
+   same stop rule.
+2. Record first-pass score before correction.
+3. Count every retry until independent proof passes.
+4. Compare total verified-result tokens, wall time, retries, first-pass rate,
+   and critical truth/safety errors.
+5. Require at least five real samples before permanent model promotion.
 
-## Manager Thread Rules
+Choose the lowest profile that scores at least 90/100, has no critical safety
+error, passes independent proof, and minimizes total verified-result cost. A
+cheap model that needs repeated repair loses.
 
-- Prefer durable handoff pickup over heartbeat polling.
-- Keep active implementation workers to two or fewer until token burn is understood.
-- Manager reads compact `.devad/manager/HANDOFF_INDEX.md` first, not every worker transcript.
-- Manager reads `.devad/ROUTER.md` and current files, not full historical
-  STATUS.md/HANDOFFS.md. Flag either file above 120 lines or 12 KB as context
-  bloat.
-- Worker final messages should be short and point to `HANDOFFS.md`.
-- Manager validation should target changed or claimed lanes only.
-- Old X7-style inbox/outbox, registry, leases, broad observe loops, and multi-model fan-out are high-risk token multipliers.
+## X9 Loop Lite v6 Audit
+
+Read only:
+
+- `.devad/manager/loop-lite/SNAPSHOT.json`;
+- the latest generated `runtime/ACTION.json`, when present;
+- the exact task/result and controller metric output;
+- current Codex transport metadata for that event.
+
+Do not read old `manager/loop/` files or chats unless investigating one named
+historical incident.
+
+Measure per event:
+
+| Metric | Expected |
+| --- | --- |
+| Deterministic reconcile wall time | under 5 seconds |
+| Routine Linx callback | median under 60 seconds; p95 under 2 minutes |
+| Linx model turns | at most 1 |
+| State transactions | at most 1 |
+| Manual state writes | 0 |
+| Prompt bytes | measured |
+| Files read / state writes | measured |
+| Delivery/callback retries | measured |
+| Context compactions | 0 |
+| First-pass success | measured |
+| Real token telemetry | exact value or `Unknown` |
+
+Flag burn when Linx reads outside `ACTION.json`, reviews code, manually edits
+state, processes no new event, resends an accepted packet, or performs work the
+controller can do deterministically.
 
 ## Watch Mode
 
-For a short watch such as 30 minutes:
+For a time-bounded watch:
 
-1. Run the tracker now.
-2. Record active/recent manager and worker thread metadata.
-3. Use a thread heartbeat or a manual second sample at the requested time.
-4. Rerun the tracker.
-5. Compare response-event delta first, then thread lifetime/fallback changes.
-6. Produce a report only unless fixes were explicitly requested.
+1. Capture one baseline.
+2. Record active task IDs, models, and current event/dispatch IDs.
+3. Use a manual or supported one-shot later sample.
+4. Compare only the measured window.
+5. Produce a report unless the user explicitly asks for fixes.
 
-Do not create a watch loop with frequent polling unless the user asks for it. One baseline plus one later sample is usually enough for a 30-minute diagnosis.
+Do not create frequent polling or recurring model wakeups for measurement.
 
-## Stop And Ask Lines
+## Quality Guard
 
-- If task cap used reaches 70%, switch to low-token mode: narrow reads, no broad logs, no old chats, no full-suite reruns unless needed.
-- If task cap used reaches 90%, stop and ask before continuing expensive work.
-- If a manager audit requires reading large thread histories or raw rollout logs, explain why and ask before doing broad reads.
+- Do not lower reasoning for security, money, architecture, destructive risk,
+  or conflicting proof merely to save tokens.
+- Prefer deterministic controller work, smaller packets, exact file claims,
+  and one independent proof over weaker reasoning.
+- A higher-cost first pass is cheaper when it avoids several failed repairs.
+- If a task cap reaches 70%, narrow reads and proof scope without weakening the
+  finish line.
+- At 90%, stop before optional expensive work and report the exact remaining
+  required proof.
 
-## Report Shape
+## Report
 
 ```md
 TLDR: <main burn source and safest quality-preserving fix>
 
 | Field | Value |
 | --- | --- |
-| Mode | budget | burn audit | manager audit | watch |
-| Official source | checked | not checked |
-| Local tracker | <summary> |
-| Baseline delta | <tokens/unknown> |
-| Response-event burn | <tokens/window> |
-| Thread fallback signal | <top relevant threads, with caveat> |
-| Risk | LOW | MEDIUM | HIGH |
+| Mode | budget / burn / manager / watch / benchmark |
+| Official source | checked / not exposed |
+| Measured window | <start/end or task/event> |
+| Token delta | <exact or Unknown> |
+| Wall time | <duration> |
+| Prompt bytes | <count> |
+| Reads / writes | <count> |
+| Retries / compactions | <count> |
+| First-pass proof | PASS / FAIL / Unknown |
+| Risk | LOW / MEDIUM / HIGH |
 
 ## Findings
-- <evidence-backed token burn source>
+- <evidence-backed cause>
 
 ## Quality-Preserving Fixes
-- <recommendation only unless user asked to implement>
+- <recommendation or implemented change>
 
-## What Not To Do
-- <changes that save tokens but lower quality too much>
+## Do Not Do
+- <cheap change that would lower correctness>
 ```
-
-## X9 Loop v5 Audit
-
-For Linx/Thinx/Worker cost, read PASS_CAPSULE.json, EVENT_CURSOR.json,
-TASK_GRAPH.json, and DISPATCH_LEDGER.jsonl before any chat logs.
-
-Measure:
-- model tokens per acknowledged dispatch and accepted completion;
-- no-change passes and duplicate receipt checks;
-- attempts per dispatch and orchestration-caused retries;
-- capsule size, unseen event count, and files read per manager pass;
-- first-pass proof rate and critical truth/safety errors.
-
-Flag token burn when a pass rereads historical manager files, processes no new
-event, resends an accepted dispatch, or uses model work for deterministic role,
-hash, dependency, resource, or delivery checks.

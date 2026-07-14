@@ -1,27 +1,50 @@
 # Codex X9 Restore Checklist
 
-## Dry Run
+Use this checklist after a PC format or when validating a backup.
+
+## Restore Dry Run
+
+Run:
 
 ```powershell
-& "$HOME\.codex\skills\codex-x9-backup\scripts\restore-codex-x9-backup.ps1" `
-  -RepoPath "<private-backup-clone>" -TargetProfile "$HOME" -DryRun
+& "<backup-clone>\scripts\restore-codex-x9-backup.ps1" -TargetProfile "$HOME" -DryRun
 ```
 
-Confirm the snapshot contains sessions, index/database state, global state,
-skills, memories, and `.agents`.
+Check that the dry run sees:
 
-## Apply
+- `snapshot/dot-codex/sessions`
+- `snapshot/dot-codex/session_index.jsonl`
+- `snapshot/dot-codex/state_5.sqlite`
+- `snapshot/dot-codex/.codex-global-state.json`
+- `snapshot/dot-codex/skills`
+- `snapshot/dot-codex/memories`
+- `snapshot/dot-agents`
 
-Fully exit `Codex.exe` and `codex.exe`, preserve any newer local profile state,
-then run:
+## Apply Restore
+
+Before applying:
+
+- Fully exit `Codex.exe` and `codex.exe`.
+- Keep a copy of the current local profile if there is anything to preserve.
+- Confirm the target profile path is the current Windows user profile.
+
+Apply:
 
 ```powershell
-& "$HOME\.codex\skills\codex-x9-backup\scripts\restore-codex-x9-backup.ps1" `
-  -RepoPath "<private-backup-clone>" -TargetProfile "$HOME" -Apply
+& "<backup-clone>\scripts\restore-codex-x9-backup.ps1" -TargetProfile "$HOME" -Apply
 ```
 
 ## Proof
 
-Disk files alone are not `PASS`. Confirm restored index/database/global state,
-then verify task and project visibility in the Codex app. Otherwise report
-`PARTIAL`.
+Do not call restore `PASS` from disk files alone.
+
+Proof requires:
+
+- restored `session_index.jsonl`
+- restored `state_5.sqlite`
+- restored `.codex-global-state.json`
+- Codex app-layer thread visibility through `list_threads`
+- Codex app-layer project/sidebar visibility through `list_projects`
+
+If sessions are present but old chats or project roots are not visible in the
+live Codex app, report `PARTIAL`, not `PASS`.

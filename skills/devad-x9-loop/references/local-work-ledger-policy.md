@@ -23,7 +23,7 @@ Build or refresh with:
 ```powershell
 $py = Join-Path $HOME '.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe'
 $skill = Join-Path $HOME '.codex\skills\devad-x9-loop'
-& $py (Join-Path $skill 'scripts\build_local_work_ledger.py') --repo '<project-root>' --write
+& $py (Join-Path $skill 'scripts\build_local_work_ledger.py') --repo '<repo>' --write
 ```
 
 ## Release States

@@ -1,0 +1,28 @@
+{
+  "schema": "x9-loop-lite-result-v1",
+  "event_id": "evt-<uuid>",
+  "task_id": "task-<uuid>",
+  "dispatch_id": "dsp-<uuid>",
+  "worker_id": "<registered Worker task ID>",
+  "role": "WORKER",
+  "packet_sha256": "<64 lowercase hex>",
+  "outcome": "COMPLETE",
+  "changed_files": [
+    "repository/relative/path"
+  ],
+  "proof": [
+    {
+      "kind": "security",
+      "path": ".devad/workers/<worker_id>/proof/<event_id>/security.json",
+      "sha256": "<64 lowercase hex of exact proof JSON bytes>"
+    },
+    {
+      "kind": "tests",
+      "path": ".devad/workers/<worker_id>/proof/<event_id>/tests.json",
+      "sha256": "<64 lowercase hex of exact proof JSON bytes>"
+    }
+  ],
+  "c1": "<exact source commit SHA>",
+  "c2": "<exact attestation commit SHA for C1>",
+  "blocker": null
+}

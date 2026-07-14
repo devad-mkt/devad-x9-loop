@@ -1,8 +1,9 @@
-# Devad X9 Loop Codex Kit v5
+# Devad X9 Loop Lite v6 Codex Kit
 
-Public, file-first orchestration for long Codex projects. The kit keeps X9
-execution safety, identifies every task by durable ID, and resumes work through
-bounded events instead of chat history or constant polling.
+Production-oriented orchestration for long Codex work. A standard-library
+controller owns identity, claims, dispatches, callbacks, and recovery. Models
+still reason and code, but Linx no longer rewrites orchestration files or reads
+history on every pass.
 
 ## Quick Install
 
@@ -11,115 +12,160 @@ bounded events instead of chat history or constant polling.
 .\scripts\install-suite.ps1 -CodexHome "$HOME\.codex" -Apply
 ```
 
-The first command is a dry run. The second backs up current folders, validates
-all six skills, swaps them, and rolls back if validation fails.
+The first command is a dry run. Apply stages and validates all six skills,
+backs up current folders, swaps them, and rolls back on failure.
 
 ## Roles
 
-| Role | Default model | Job |
+| Role | Model | One job |
 | --- | --- | --- |
-| Linx | `gpt-5.6 high` | Owner bridge and routing |
-| Thinx | `gpt-5.6 xhigh` | File-only planning and review |
-| Thinx high-risk | `gpt-5.6 ultra` | One hard security, money, architecture, or conflict pass |
-| Worker | `gpt-5.6 high` | One bounded implementation packet |
-| Worker xhigh | `gpt-5.6 xhigh` | Owner-requested hard implementation |
-| Reader/CHUNK/SIDE | Bounded | Extract, split, or challenge exact context |
+| Linx | `gpt-5.6-sol high` | Reconcile, read one action, transport, record result |
+| Thinx | `gpt-5.6-sol xhigh` | File-only strategy or review |
+| Thinx high-risk | `gpt-5.6-sol Ultra` | One hard decision, then return to xhigh |
+| Worker | `gpt-5.6-terra high` | One exact task in one worktree |
+| Worker xhigh | `gpt-5.6-terra xhigh` | Owner-requested hard implementation |
+| Reader/CHUNK/SIDE | Bounded | Extract, split, or challenge; no authority |
 
-The manager skill is `devad-x9-loop`. The small `devad-x9-manager` skill keeps
-older prompts compatible through v5.
+The real manager skill is `devad-x9-loop`. Temporary `devad-x9-manager`
+redirects old prompts. The existing Thinx task is reused.
 
-## How Linx Wakes
+## Fast Loop
 
-Files do not wake Linx. After Linx dispatches Thinx or a Worker, the receiver
-writes its durable receipt and sends one `EVENT_READY` signal. It targets the
-same Linx task ID. Linx verifies role, dispatch ID, packet hash, receipt path/hash,
-unseen event, and manager lock before one new pass.
+```text
+Owner/callback
+  -> loopctl reconcile
+  -> Linx reads ACTION.json
+  -> one real transport
+  -> loopctl record-delivery
+  -> Worker event-scoped receipt + direct callback
+```
 
-Recurring 15/19-minute pickup is forbidden. It wastes no-change turns and can
-overlap owner work. An owner-requested one-shot fallback is allowed only for a
-delayed owner decision or an external condition that cannot callback.
+No recurring heartbeat or frequent polling. A callback gets one retry, then
+`CALLBACK_FAILED` and manual one-shot pickup. Existing v5 state stays as
+historical evidence.
 
-This keeps the useful X7 idea - deterministic inbox/outbox and durable handoff
-state - while removing timer polling. Files remain truth; direct task messaging
-supplies the wake.
+## Rollout
+
+| Clean dispatches | Coding Workers | Rule |
+| --- | ---: | --- |
+| 0-2 | 1 | Shadow and first live passes |
+| 3-9 | 2 | Exact non-overlapping claims |
+| 10+ | 3 | Zero safety, identity, scope, or context incidents |
+
+Three coding Workers are the maximum. Database, browser, runtime, integration,
+deployment, and live proof remain serialized.
+
+## Performance Gates
+
+- Deterministic reconciliation: under five seconds.
+- Routine Linx callback: median under 60 seconds, p95 under two minutes.
+- At most one Linx model turn and one state transaction per event.
+- No manual manager-state patches.
+- Track wall time, prompt bytes, reads, writes, retries, compactions, and
+  first-pass success.
+- Real token telemetry only. Missing telemetry is `Unknown`; fallback lifetime
+  totals are forbidden.
 
 <details>
 <summary>Existing X9 Worker features</summary>
 
-- Truth and mission locks; current Git/runtime evidence wins.
-- Local-work ledger, release states, worktree preservation, and exact staging.
-- Full security gate before C1; C2 records C1 without recursive attestation.
-- Separate push, deploy-readiness, deployment, and live-proof gates.
-- Destructive-action guard, compact Worker state, feature catalog, and proof.
+- Current Git/runtime truth and mission lock.
+- Local-work ledger, release states, worktree preservation, exact staging.
+- Full security before C1; C2 attests C1 without recursive documentation.
+- Separate source push, deploy readiness, deployment, and live-proof gates.
+- Destructive-action guard, feature catalog, compact lane state, durable proof.
 
 </details>
 
 <details>
 <summary>Existing X9 Manager features</summary>
 
-- Thinx file-only verified-read receipts and locked task reuse.
-- Linx owner message/attachment hashing and collaborative handover.
-- Manager mutex, answered decisions, tool lessons, and one execution authority.
-- Secret-safe Reader context plus GLM/Kimi challenge before hard blockers.
-- Model benchmarks, automatic Ultra return, and verified direct callback pickup.
+- Immutable owner text and attachment hashes.
+- Locked, file-only Thinx with verified read receipts.
+- Answered decisions, tool lessons, central facts, and collaborative handover.
+- Role identity by task ID, honest delivery receipts, and local-work checks.
+- Secret-safe Reader plus bounded GLM/Kimi challenge before hard blockers.
 
 </details>
 
 <details>
-<summary>New Loop v5 features</summary>
+<summary>New Loop v5 features retained</summary>
 
-- History-free Linx routing from one compact capsule and unseen events.
-- Immutable task-ID roles; task titles are display text only.
-- `TITLE_ROLE_MISMATCH` when a title conflicts with the registered role.
-- One `dsp-<uuid>` per packet, SHA-256 identity, attempts, and receipts.
-- Task graph, resource claims, event cursor, decision gates, scoped completion.
-- Two coding Workers by default; promotion to three needs measured proof.
-- Three-failure circuit breaker pauses one dispatch for Thinx review.
+- Task and dispatch identity, packet SHA-256, dependency graph, decision gates.
+- Role/title mismatch warning and worker-owned completion receipt.
+- Direct event callback instead of recurring pickup.
+- Worktree and resource ownership plus stale-completion rejection.
+
+</details>
+
+<details>
+<summary>New Loop Lite v6 features</summary>
+
+- `loopctl.py` standard-library controller with disposable SQLite cache.
+- Tracked `SNAPSHOT.json` recovery truth below 8 KB.
+- Generated `ACTION.json` below 4 KB: the only action Linx performs.
+- Exact file/directory ownership and actual Git scope verification.
+- One, two, then three Worker promotion based on clean dispatch evidence.
+- Generated Markdown views; no Markdown parser authority or orphan locks.
+- Content-addressed local-only owner packets/artifacts, bounded local-work packet, immutable event receipts, security/tests C1/C2 proof, and three-failure Thinx review.
 
 </details>
 
 <details>
 <summary>Safety and deployment gates</summary>
 
-Security precedes C1. C2 contains only the C1 attestation. Push, deploy
-readiness, live deploy, and live proof are separate gates. Final destructive
-actions remain owner-run.
+The X9 shared contract remains authority. Security precedes source commit C1.
+C2 contains only C1 attestation. Source push, deploy readiness, live deploy,
+and live proof are separate. Final destructive actions remain owner-run.
 
 </details>
 
 <details>
 <summary>Supporting skills</summary>
 
-- `codex-x9-backup`: configurable private profile backup and secret scan.
-- `codex-token-budget`: model, task, heartbeat, and loop cost diagnosis.
+- `codex-x9-backup`: private profile backup, secret scan, restore proof.
+- `codex-token-budget`: model, task, callback, and orchestration cost diagnosis.
 - `devad-memory`: historical retrieval, never active routing truth.
+- `devad-x9`: Worker coding, Git, security, proof, commit, and release gates.
 
 </details>
 
 <details>
 <summary>Retired and rejected mechanisms</summary>
 
-- No broad X7 polling, role inference from titles, or blind resend.
-- No Orca runtime/database truth, four-Worker default, two-second model polling,
-  automatic Worker kill, or age-only worktree moves.
+- No X7 broad polling, 15/19-minute heartbeat, sleep loop, or blind resend.
+- No role inference from titles or completion from old handoffs.
+- No Orca runtime, message bus, terminal groups, global reset, or database truth.
+- No automatic Worker kill, worktree cleanup, or four-Worker default.
 
 </details>
 
 <details>
 <summary>Migration and rollback</summary>
 
-Run `scripts/migrate_project.py` without `--apply` first. It creates only
-missing routing/loop state, preserves old manager evidence, and never moves a
-worktree. See `docs/MIGRATION.md` and `docs/ROLLBACK.md`.
+Run `scripts/migrate_project.py` without `--apply` first. Migration creates a
+new `manager/loop-lite/` overlay and preserves all old manager files and
+worktrees. Validate shadow reconciliation before activating a fresh Linx v6.
+Reuse Thinx. Retire old Linx only after snapshot acknowledgement. See
+`docs/MIGRATION.md` and `docs/ROLLBACK.md`.
 
 </details>
 
+`features.registry.json` classifies every inherited and new feature. Validation
+fails if an old feature disappears without a migration status and test.
+## How Linx Wakes
+
+Files do not wake Linx. Worker or Thinx writes the durable event receipt, then
+sends one EVENT_READY callback to the same Linx task ID. Linx verifies task,
+role, dispatch, packet, event, and receipt identity before one new pass.
+
+Recurring 15/19-minute pickup is forbidden. An owner-requested one-shot fallback
+is allowed only when direct callback delivery fails or an external condition
+cannot callback.
+
 ## Public Distribution
 
-This repository intentionally omits private rollback archives, project commit
-records, security evidence, local model-result runs, credentials, and
-machine-specific paths. The benchmark harness and blank ledger remain so each
-installation can collect its own results.
-
-`features.registry.json` classifies retained, moved, adapted, new, and retired
-features. Validation fails when an old feature has no migration classification.
+This repository intentionally omits private rollback archives, project
+commit/security evidence, local model-result runs, credentials, private backup
+remotes, and machine-specific paths. Configure CODEX_X9_BACKUP_REMOTE or pass
+-RepoUrl for your own private backup repository.

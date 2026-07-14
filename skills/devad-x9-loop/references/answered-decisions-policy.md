@@ -39,7 +39,7 @@ Before asking the owner:
 
 | Key | Answer | Scope | Status | Source | Updated |
 | --- | --- | --- | --- | --- | --- |
-| deploy-branch | Use `<deployment-branch>` for live v105 deploy proof. | ai-blog | ACTIVE | owner/manager pass | YYYY-MM-DD |
+| deploy-branch | Use `feature/post-v105-native-migration-2026-06-18` for live v105 deploy proof. | ai-blog | ACTIVE | owner/manager pass | YYYY-MM-DD |
 ```
 
 ## Status Values

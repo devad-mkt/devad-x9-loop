@@ -27,6 +27,10 @@ class PublicPackageTests(unittest.TestCase):
         actual = {path.name for path in (ROOT / "skills").iterdir() if path.is_dir()}
         self.assertEqual(actual, REQUIRED_SKILLS)
 
+    def test_source_manifest_excludes_git_metadata(self) -> None:
+        lines = (ROOT / "SOURCE_MANIFEST.sha256").read_text(encoding="utf-8-sig").splitlines()
+        self.assertFalse(any("  .git/" in line for line in lines))
+
     def test_public_manifest_marks_distribution(self) -> None:
         manifest = json.loads((ROOT / "kit.manifest.json").read_text(encoding="utf-8-sig"))
         self.assertEqual(manifest["distribution"], "public")

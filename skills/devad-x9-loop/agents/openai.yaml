@@ -1,4 +1,4 @@
 interface:
-  display_name: "Devad X9 Loop"
-  short_description: "Route X9 tasks with durable identity and receipts"
-  default_prompt: "Use $devad-x9-loop as Linx. Read compact loop state, validate task and dispatch identity, then route one bounded next action."
+  display_name: "Devad X9 Loop Lite"
+  short_description: "Route one deterministic X9 action with exact receipts"
+  default_prompt: "Use $devad-x9-loop as Linx. Run loopctl reconcile, read only loop-lite runtime/ACTION.json, perform that one transport action, and record the real result."

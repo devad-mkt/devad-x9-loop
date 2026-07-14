@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
+import stat
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -12,415 +14,329 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = ROOT / "templates" / "x9-project" / ".devad"
-LOOP_FILES = (
-    "ROLE_REGISTRY.json",
-    "PASS_CAPSULE.json",
-    "WORKTREE_INDEX.json",
-    "TASK_GRAPH.json",
-    "RESOURCE_CLAIMS.json",
-    "EVENT_CURSOR.json",
-    "DISPATCH_LEDGER.jsonl",
-    "DECISION_GATES.json",
+ACTIVATION_NAME = "2026-07-13-x9-loop-lite-v6-activation.md"
+OLD_REPORT_NAME = "2026-07-13-x9-loop-lite-v6-old-migration-report.md"
+TASK_ID_RE = re.compile(
+    r"\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-"
+    r"[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b"
 )
-TASK_ID = re.compile(r"\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b", re.I)
+ROLES = ("LINX", "THINX", "WORKER", "READER", "CHUNK", "SIDE")
 
 
 def now() -> str:
-    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
-def run_git(repo: Path, *args: str) -> str:
-    result = subprocess.run(
-        ["git", "-C", str(repo), *args],
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
-        check=False,
-    )
-    return result.stdout.strip() if result.returncode == 0 else ""
+def run_git(repo: Path, *args: str) -> tuple[bool, str]:
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(repo), *args],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=False,
+        )
+    except OSError:
+        return False, ""
+    return result.returncode == 0, result.stdout.strip()
 
 
 def git_fact(repo: Path) -> dict[str, Any]:
-    branch = run_git(repo, "branch", "--show-current") or "DETACHED_OR_UNKNOWN"
-    head = run_git(repo, "rev-parse", "HEAD") or None
-    status = run_git(repo, "status", "--short")
+    branch_ok, branch = run_git(repo, "branch", "--show-current")
+    head_ok, head = run_git(repo, "rev-parse", "HEAD")
+    status_ok, status = run_git(repo, "status", "--short")
     return {
-        "repo": str(repo),
-        "branch": branch,
-        "head": head,
-        "dirty": bool(status),
-        "local_change_count": len(status.splitlines()) if status else 0,
+        "path": str(repo),
+        "branch": branch if branch_ok and branch else "UNKNOWN",
+        "head": head if head_ok else None,
+        "git_status": "KNOWN" if status_ok else "UNKNOWN",
+        "dirty": bool(status) if status_ok else None,
+        "local_change_count": len(status.splitlines()) if status_ok and status else 0,
+        "preservation": "PRESERVE",
     }
 
 
-def parse_current_roles(repo: Path) -> dict[str, dict[str, Any]]:
-    workers = repo / ".devad" / "manager" / "WORKERS.md"
-    if not workers.is_file():
-        return {}
-    text = workers.read_text(encoding="utf-8-sig", errors="replace")
-    tasks: dict[str, dict[str, Any]] = {}
-    for line in text.splitlines():
-        ids = TASK_ID.findall(line)
-        if not ids or not line.lstrip().startswith("|"):
-            continue
-        cells = [cell.strip().strip(chr(96)) for cell in line.strip().strip("|").split("|")]
-        label = cells[0] if cells else "Unknown"
-        lowered = label.lower()
-        if "linx" in lowered or "sub manager" in lowered:
-            role = "LINX"
-        elif "thinx" in lowered or "top manager" in lowered:
-            role = "THINX"
-        else:
-            role = "WORKER"
-        task_id = ids[0].lower()
-        tasks.setdefault(
-            task_id,
-            {
-                "role": role,
-                "title": "",
-                "lane_label": label,
-                "immutable": True,
-                "source": ".devad/manager/WORKERS.md",
-                "registered_at": now(),
-            },
-        )
-    lock = repo / ".devad" / "manager" / "MANAGER_PASS_LOCK.md"
-    if lock.is_file():
-        lock_text = lock.read_text(encoding="utf-8-sig", errors="replace")
-        explicit_roles = (
-            (r"Replacement Linx:\s*[^0-9a-f]*(" + TASK_ID.pattern + r")", "LINX", "Replacement Linx"),
-            (r"Locked THINX:\s*[^0-9a-f]*(" + TASK_ID.pattern + r")", "THINX", "Locked THINX"),
-        )
-        for pattern, role, title in explicit_roles:
-            match = re.search(pattern, lock_text, re.I)
+def _role_from_label(label: str) -> str | None:
+    upper = label.upper()
+    for role in ROLES:
+        if re.search(rf"(?<![A-Z0-9]){role}(?![A-Z0-9])", upper):
+            return role
+    return None
+
+
+def parse_current_roles(repo: Path) -> dict[str, dict[str, str]]:
+    """Read current task identity from durable v5 files without trusting titles."""
+    manager = repo / ".devad" / "manager"
+    roles: dict[str, dict[str, str]] = {}
+
+    registry = manager / "loop" / "ROLE_REGISTRY.json"
+    if registry.is_file():
+        try:
+            payload = json.loads(registry.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            payload = {}
+        tasks = payload.get("tasks", {}) if isinstance(payload, dict) else {}
+        if isinstance(tasks, dict):
+            for task_id, row in tasks.items():
+                if not TASK_ID_RE.fullmatch(str(task_id)) or not isinstance(row, dict):
+                    continue
+                role = str(row.get("role", "")).upper()
+                if role not in ROLES:
+                    continue
+                roles[str(task_id)] = {
+                    "role": role,
+                    "title": str(row.get("title", "")),
+                    "lane_label": str(row.get("lane_label", "")),
+                }
+
+    workers = manager / "WORKERS.md"
+    if workers.is_file():
+        for line in workers.read_text(encoding="utf-8", errors="replace").splitlines():
+            match = TASK_ID_RE.search(line)
             if not match:
                 continue
-            task_id = match.group(1).lower()
-            tasks[task_id] = {
-                "role": role,
-                "title": "",
-                "lane_label": title,
-                "immutable": True,
-                "source": ".devad/manager/MANAGER_PASS_LOCK.md",
-                "registered_at": now(),
-            }
-    return tasks
+            cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+            label = next((cell for cell in cells if cell and not TASK_ID_RE.search(cell)), "")
+            role = _role_from_label(label)
+            if role:
+                roles.setdefault(
+                    match.group(0),
+                    {"role": role, "title": "", "lane_label": label},
+                )
 
-
-def worktree_records(repositories: list[Path], current_text: str) -> list[dict[str, Any]]:
-    seen: set[str] = set()
-    records: list[dict[str, Any]] = []
-    lowered_current = current_text.lower()
-    explicit = {str(path.resolve()).lower() for path in repositories}
-    for repository in repositories:
-        raw = run_git(repository, "worktree", "list", "--porcelain")
-        blocks = [block for block in raw.split("\n\n") if block.strip()]
-        if not blocks and (repository / ".git").exists():
-            blocks = [f"worktree {repository}\nHEAD {run_git(repository, 'rev-parse', 'HEAD')}"]
-        for block in blocks:
-            fields: dict[str, str] = {}
-            for line in block.splitlines():
-                key, _, value = line.partition(" ")
-                fields[key] = value
-            path_text = fields.get("worktree")
-            if not path_text:
+    lock = manager / "MANAGER_PASS_LOCK.md"
+    if lock.is_file():
+        for line in lock.read_text(encoding="utf-8", errors="replace").splitlines():
+            match = TASK_ID_RE.search(line)
+            if not match:
                 continue
-            path = Path(path_text).resolve()
-            key = str(path).lower()
+            label = line[: match.start()].strip().lstrip("-*").strip().rstrip(":").strip()
+            role = _role_from_label(label)
+            if not role:
+                continue
+            previous = roles.get(match.group(0), {})
+            roles[match.group(0)] = {
+                "role": role,
+                "title": previous.get("title", ""),
+                "lane_label": label,
+            }
+
+    return roles
+
+
+def discovered_worktrees(repositories: list[Path]) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for repository in repositories:
+        ok, output = run_git(repository, "worktree", "list", "--porcelain")
+        paths: list[Path] = []
+        if ok:
+            for line in output.splitlines():
+                if line.startswith("worktree "):
+                    paths.append(Path(line.removeprefix("worktree ")).resolve())
+        if not paths:
+            paths.append(repository.resolve())
+        for path in paths:
+            key = str(path).replace("\\", "/").casefold()
             if key in seen:
                 continue
             seen.add(key)
             fact = git_fact(path)
-            branch = fields.get("branch", "").removeprefix("refs/heads/") or fact["branch"]
-            if key == str(repositories[0].resolve()).lower():
-                state, reason = "ACTIVE", "manager and implementation repository"
-            elif key in explicit:
-                state, reason = "ACTIVE", "explicit independent repository input"
-            elif key in lowered_current:
-                location = lowered_current.find(key)
-                nearby = lowered_current[max(0, location - 120): location + len(key) + 120]
-                paused = any(word in nearby for word in ("paused", "idle", "not_loaded", "historical", "canceled"))
-                state = "PAUSED" if paused else "ACTIVE"
-                reason = "current durable manager text references this checkout"
-            else:
-                state, reason = "UNKNOWN", "no current durable classification; age not used"
-            records.append(
-                {
-                    "path": str(path),
-                    "repository_common_dir": run_git(path, "rev-parse", "--git-common-dir") or None,
-                    "branch": branch,
-                    "head": fields.get("HEAD") or fact["head"],
-                    "dirty": fact["dirty"],
-                    "local_change_count": fact["local_change_count"],
-                    "activity_state": state,
-                    "classification_reason": reason,
-                    "preservation": "PRESERVE",
-                }
-            )
+            fact["classification"] = "UNKNOWN"
+            fact["reason"] = "Migration preserves checkout; age alone is not authority"
+            records.append(fact)
     return records
 
 
-def read_current_text(repo: Path) -> str:
-    parts: list[str] = []
-    for relative in (
-        ".devad/manager/CURRENT.md",
-        ".devad/manager/WORKERS.md",
-        ".devad/manager/LOCAL_WORK_LEDGER.md",
-        ".devad/manager/MANAGER_PASS_LOCK.md",
-        ".devad/manager/HEARTBEAT.md",
-    ):
-        path = repo / relative
-        if path.is_file():
-            parts.append(path.read_text(encoding="utf-8-sig", errors="replace"))
-    return "\n".join(parts)
+def template_files() -> list[tuple[Path, Path]]:
+    sources = [TEMPLATE / "ROUTER.md"]
+    for state_name in ("loop-lite", "owner-packets"):
+        state_root = TEMPLATE / "manager" / state_name
+        sources.extend(
+            path for path in state_root.rglob("*") if path.is_file()
+        )
+    pairs: list[tuple[Path, Path]] = []
+    for source in sources:
+        pairs.append((source, source.relative_to(TEMPLATE)))
+    return sorted(pairs, key=lambda pair: pair[1].as_posix())
 
 
-def lock_is_free(repo: Path) -> bool:
-    path = repo / ".devad" / "manager" / "MANAGER_PASS_LOCK.md"
-    if not path.is_file():
-        return False
-    text = path.read_text(encoding="utf-8-sig", errors="replace").upper()
-    return any(token in text for token in ("STATUS: RELEASED", "RELEASED_", "EXPIRED", "FREE"))
+def activation_packet(repo: Path) -> str:
+    return f"""# X9 Loop Lite v6 Activation Packet
 
+Generated: {now()}
+Repository: {repo}
 
-def old_automation_disabled(repo: Path) -> bool:
-    path = repo / ".devad" / "manager" / "HEARTBEAT.md"
-    if not path.is_file():
-        return True
-    text = path.read_text(encoding="utf-8-sig", errors="replace").upper()
-    active = "ACTIVE" in text and "19 MIN" in text
-    disabled = any(token in text for token in ("DISABLED", "DELETED", "INACTIVE"))
-    return disabled and not active
+Do not send automatically. Do not message the current Linx during shadow
+validation.
 
+1. Run read-only shadow reconciliation and verify all existing local work is
+   preserved and classified.
+2. Always reuse the existing Thinx task; do not create a replacement merely to change
+   model effort.
+3. Create one fresh Linx v6 only after package, snapshot, identity, ownership,
+   callback, and recovery tests pass.
+4. Fresh Linx v6 runs `loopctl.py reconcile`, reads only
+   `manager/loop-lite/runtime/ACTION.json`, performs one transport action, and
+   records the real delivery result.
+5. Retire old Linx only after the new Linx acknowledges the exact snapshot.
 
-def build_state(repo: Path, extra_repos: list[Path]) -> dict[str, Any]:
-    repositories = [repo, *extra_repos]
-    current_text = read_current_text(repo)
-    registry = {
-        "schema": "x9-loop-role-registry-v1",
-        "updated_at": now(),
-        "tasks": parse_current_roles(repo),
-    }
-    worktrees = worktree_records(repositories, current_text)
-    facts = [git_fact(item) for item in repositories]
-    local_only = any(item["dirty"] for item in worktrees)
-    worker_tasks = [
-        {
-            "id": task_id,
-            "role": entry["role"],
-            "status": "CUTOVER_PAUSED",
-            "pool": "CODING" if entry["role"] == "WORKER" else "READ_ONLY",
-            "dependencies": [],
-            "worktree": None,
-            "base_sha": None,
-            "next_action": "Validate exact packet before activation",
-        }
-        for task_id, entry in registry["tasks"].items()
-    ]
-    deployment = facts[1] if len(facts) > 1 else {
-        "repo": None,
-        "branch": "UNKNOWN",
-        "head": None,
-        "dirty": None,
-        "local_change_count": None,
-    }
-    capsule = {
-        "schema": "x9-loop-pass-capsule-v1",
-        "updated_at": now(),
-        "status": "CUTOVER_BLOCKED" if not old_automation_disabled(repo) else "READY_FOR_OWNER_REVIEW",
-        "owner_input_id": None,
-        "mission": "Preserve current X9 work and activate deterministic identity routing",
-        "manager_state": facts[0],
-        "implementation": facts[0],
-        "deployment": deployment,
-        "active_task_ids": [],
-        "verified_facts": [
-            "roles keyed by durable task ID",
-            "existing manager files preserved as history",
-            "all discovered worktrees marked PRESERVE",
-        ],
-        "local_work": "LOCAL_ONLY_WORK" if local_only else "CLEAN_OR_REMOTE_ONLY",
-        "next_action": "Owner disables old automation, then validates activation packet",
-        "must_not": [
-            "message existing Linx",
-            "route from task title",
-            "move, delete, clean, reset, stash, or overwrite worktrees",
-        ],
-    }
-    return {
-        "ROLE_REGISTRY.json": registry,
-        "PASS_CAPSULE.json": capsule,
-        "WORKTREE_INDEX.json": {
-            "schema": "x9-loop-worktree-index-v1",
-            "updated_at": now(),
-            "repositories": facts,
-            "worktrees": worktrees,
-        },
-        "TASK_GRAPH.json": {
-            "schema": "x9-loop-task-graph-v1",
-            "updated_at": now(),
-            "pool_limits": {"CODING": 2, "READ_ONLY": 2, "RUNTIME_PROOF": 1, "DEPLOY": 1},
-            "promotion": {
-                "coding_limit": 2,
-                "eligible": False,
-                "required": {
-                    "calendar_days": 3,
-                    "dispatches": 10,
-                    "lost_work": 0,
-                    "identity_errors": 0,
-                    "resource_conflicts": 0,
-                    "critical_errors": 0,
-                    "max_orchestration_retries": 1,
-                },
-            },
-            "tasks": worker_tasks,
-        },
-        "RESOURCE_CLAIMS.json": {
-            "schema": "x9-loop-resource-claims-v1",
-            "updated_at": now(),
-            "claims": [],
-        },
-        "EVENT_CURSOR.json": {
-            "schema": "x9-loop-event-cursor-v1",
-            "updated_at": now(),
-            "processed_event_ids": [],
-            "last_event_at": None,
-        },
-        "DISPATCH_LEDGER.jsonl": "",
-        "DECISION_GATES.json": {
-            "schema": "x9-loop-decision-gates-v1",
-            "updated_at": now(),
-            "gates": [
-                {
-                    "id": "disable-old-19-minute-automation",
-                    "status": "PASS" if old_automation_disabled(repo) else "BLOCKED",
-                    "evidence": ".devad/manager/HEARTBEAT.md",
-                },
-                {
-                    "id": "manager-pass-lock-free",
-                    "status": "PASS" if lock_is_free(repo) else "BLOCKED",
-                    "evidence": ".devad/manager/MANAGER_PASS_LOCK.md",
-                },
-            ],
-        },
-    }
-
-
-def activation_packet(repo: Path, state: dict[str, Any]) -> str:
-    capsule = state["PASS_CAPSULE.json"]
-    gates = state["DECISION_GATES.json"]["gates"]
-    gate_lines = "\n".join(f"- {gate['id']}: {gate['status']}" for gate in gates)
-    return f"""# X9 Loop v5 Activation Packet
-
-Do not send automatically. Paste into a new task only after every gate is PASS.
-
-Use $devad-x9-loop as Linx and $devad-x9 as repository router.
-
-ROLE: LINX
-MODEL: gpt-5.6 high
-REPOSITORY: {repo}
-PASS_CAPSULE: .devad/manager/loop/PASS_CAPSULE.json
-ROLE_REGISTRY: .devad/manager/loop/ROLE_REGISTRY.json
-TASK_GRAPH: .devad/manager/loop/TASK_GRAPH.json
-DELIVERY_LEDGER: .devad/manager/loop/DISPATCH_LEDGER.jsonl
-
-Gates:
-{gate_lines}
-
-Rules:
-- Do not read old chat as authority.
-- Do not message a Worker until task ID, role, dispatch ID, and packet hash are durable.
-- Do not resend accepted transport without checking the exact receipt once.
-- Preserve all worktrees. Route one bounded action only.
-- Current local-work state: {capsule['local_work']}.
+No product code, worktree move, cleanup, reset, stash, deploy, or recurring
+heartbeat is authorized by this packet.
 """
 
 
-def old_report(state: dict[str, Any]) -> str:
+def old_report(repositories: list[Path]) -> str:
     rows = []
-    for item in state["WORKTREE_INDEX.json"]["worktrees"]:
+    for item in discovered_worktrees(repositories):
+        dirty = "UNKNOWN" if item["dirty"] is None else ("DIRTY" if item["dirty"] else "CLEAN")
         rows.append(
-            f"| {item['path']} | {item['activity_state']} | "
-            f"{'DIRTY' if item['dirty'] else 'CLEAN'} | {item['classification_reason']} | PRESERVE |"
+            f"| {item['path']} | {item['branch']} | {dirty} | UNKNOWN | PRESERVE |"
         )
-    return """# OLD Migration Report
+    return """# X9 Loop Lite v6 OLD Migration Report
 
-Planning report only. No checkout was moved, deleted, cleaned, reset, or stashed.
-Age alone was not used.
+Planning evidence only. No checkout was moved, deleted, cleaned, reset, or
+stashed. Age was not used.
 
-| Checkout | State | Local | Reason | Action |
+| Checkout | Branch | Local | Classification | Action |
 | --- | --- | --- | --- | --- |
 """ + "\n".join(rows) + "\n"
 
 
-def planned_paths(repo: Path) -> list[Path]:
-    loop = repo / ".devad" / "manager" / "loop"
-    paths = [repo / ".devad" / "ROUTER.md"]
-    paths.extend(loop / name for name in LOOP_FILES)
+def planned(repo: Path) -> list[Path]:
+    paths = [repo / ".devad" / relative for _, relative in template_files()]
     passes = repo / ".devad" / "manager" / "passes"
-    paths.extend(
-        (
-            passes / "2026-07-13-x9-loop-v5-activation.md",
-            passes / "2026-07-13-x9-loop-v5-old-migration-report.md",
-        )
-    )
+    paths.extend((passes / ACTIVATION_NAME, passes / OLD_REPORT_NAME))
     return paths
 
 
-def write_new(path: Path, content: str | bytes) -> str:
-    if path.exists():
-        return f"PRESERVE_EXISTING:{path}"
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if isinstance(content, bytes):
-        path.write_bytes(content)
-    else:
-        path.write_text(content, encoding="utf-8", newline="\n")
-    return f"CREATED:{path}"
+class UnsafeMigrationPathError(RuntimeError):
+    pass
 
 
-def apply_overlay(repo: Path, state: dict[str, Any]) -> list[str]:
+def canonical_lexical_path(path: Path) -> Path:
+    return Path(os.path.abspath(path))
+
+
+def is_reparse_point(path: Path) -> bool:
+    try:
+        metadata = os.lstat(path)
+    except FileNotFoundError:
+        return False
+    except OSError as exc:
+        raise UnsafeMigrationPathError(f"cannot inspect {path}: {exc}") from exc
+
+    attributes = getattr(metadata, "st_file_attributes", 0)
+    if attributes & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0):
+        return True
+    is_junction = getattr(os.path, "isjunction", None)
+    return path.is_symlink() or bool(is_junction and is_junction(path))
+
+
+def safe_destination(repo: Path, path: Path) -> Path:
+    root = canonical_lexical_path(repo)
+    destination = canonical_lexical_path(path)
+    try:
+        relative = destination.relative_to(root)
+    except ValueError as exc:
+        raise UnsafeMigrationPathError(f"outside repository: {destination}") from exc
+
+    current = root
+    for component in relative.parts:
+        current /= component
+        if is_reparse_point(current):
+            raise UnsafeMigrationPathError(f"linked component: {current}")
+    return destination
+
+
+def create_safe_parents(repo: Path, destination: Path) -> None:
+    root = canonical_lexical_path(repo)
+    relative_parent = destination.parent.relative_to(root)
+    current = root
+    for component in relative_parent.parts:
+        current /= component
+        if is_reparse_point(current):
+            raise UnsafeMigrationPathError(f"linked component: {current}")
+        if current.exists():
+            if not current.is_dir():
+                raise UnsafeMigrationPathError(f"non-directory parent: {current}")
+            continue
+        current.mkdir()
+        if is_reparse_point(current):
+            raise UnsafeMigrationPathError(f"linked component: {current}")
+
+def write_new(repo: Path, path: Path, content: bytes) -> str:
+    destination = safe_destination(repo, path)
+    if destination.exists():
+        return f"PRESERVE_EXISTING:{destination}"
+    create_safe_parents(repo, destination)
+
+    flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_BINARY", 0)
+    flags |= getattr(os, "O_NOFOLLOW", 0)
+    try:
+        descriptor = os.open(destination, flags, 0o666)
+    except FileExistsError:
+        return f"PRESERVE_EXISTING:{destination}"
+    except OSError as exc:
+        raise UnsafeMigrationPathError(f"cannot create {destination}: {exc}") from exc
+    with os.fdopen(descriptor, "wb") as handle:
+        handle.write(content)
+    return f"CREATED:{destination}"
+
+
+def apply_overlay(repo: Path, extra_repos: list[Path]) -> list[str]:
+    targets = planned(repo)
+    for target in targets:
+        safe_destination(repo, target)
+
     results: list[str] = []
-    router = repo / ".devad" / "ROUTER.md"
-    results.append(write_new(router, (TEMPLATE / "ROUTER.md").read_bytes()))
-    loop = repo / ".devad" / "manager" / "loop"
-    for name in LOOP_FILES:
-        value = state[name]
-        text = value if isinstance(value, str) else json.dumps(value, indent=2, ensure_ascii=True) + "\n"
-        results.append(write_new(loop / name, text))
+    for source, relative in template_files():
+        results.append(write_new(repo, repo / ".devad" / relative, source.read_bytes()))
     passes = repo / ".devad" / "manager" / "passes"
-    results.append(write_new(passes / "2026-07-13-x9-loop-v5-activation.md", activation_packet(repo, state)))
-    results.append(write_new(passes / "2026-07-13-x9-loop-v5-old-migration-report.md", old_report(state)))
+    results.append(
+        write_new(repo, passes / ACTIVATION_NAME, activation_packet(repo).encode("utf-8"))
+    )
+    results.append(
+        write_new(
+            repo,
+            passes / OLD_REPORT_NAME,
+            old_report([repo, *extra_repos]).encode("utf-8"),
+        )
+    )
     return results
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Non-destructive X9 Loop v5 overlay")
+    parser = argparse.ArgumentParser(description="Non-destructive X9 Loop Lite v6 overlay")
     parser.add_argument("--repo", required=True, type=Path)
     parser.add_argument("--extra-repo", action="append", default=[], type=Path)
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args()
 
     repo = args.repo.resolve()
-    extra = [path.resolve() for path in args.extra_repo]
+    extras = [path.resolve() for path in args.extra_repo]
     if not (repo / ".devad").is_dir():
         print(f"ERROR: missing .devad: {repo}", file=sys.stderr)
         return 2
 
-    paths = planned_paths(repo)
     if not args.apply:
         print("DRY_RUN: no files changed")
-        for path in paths:
+        for path in planned(repo):
             action = "PRESERVE_EXISTING" if path.exists() else "WOULD_CREATE"
             print(f"{action}:{path}")
         return 0
 
-    state = build_state(repo, extra)
-    for result in apply_overlay(repo, state):
+    try:
+        results = apply_overlay(repo, extras)
+    except UnsafeMigrationPathError as exc:
+        print(f"ERROR: unsafe migration path: {exc}", file=sys.stderr)
+        return 2
+    for result in results:
         print(result)
     print("ACTIVATION_NOT_SENT")
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

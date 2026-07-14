@@ -1,0 +1,7 @@
+loop.db
+loop.db-shm
+loop.db-wal
+runtime/
+*.corrupt-*
+*.failed-*
+*.rebuild-*

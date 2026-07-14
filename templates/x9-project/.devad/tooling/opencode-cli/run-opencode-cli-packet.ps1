@@ -1,49 +1,45 @@
 param(
-    [string] $RepoRoot = (Get-Location).Path,
+    [string] $RepoRoot = '.',
     [Parameter(Mandatory = $true)]
     [string] $Packet,
-    [ValidateSet('opencode-go/glm-5.2', 'opencode-go/kimi-k2.7-code', 'opencode/deepseek-v4-flash-free', 'opencode/mimo-v2.5-free')]
+    [ValidateSet('opencode-go/glm-5.2', 'opencode-go/kimi-k2.7-code')]
     [string] $Model = 'opencode-go/glm-5.2',
     [string] $Output = '',
-    [string] $Prompt = 'Read the attached packet. Return concise markdown only. PLAN/REVIEW ONLY. Do not run commands. Do not edit files.'
+    [ValidateRange(1, 600)]
+    [int] $Timeout = 120
 )
 
 $ErrorActionPreference = 'Stop'
 
-if ($Model -like 'openrouter/*') {
-    throw 'OpenRouter models are not allowed for Devad sidecars.'
-}
-
 $repo = (Resolve-Path -LiteralPath $RepoRoot).Path
 $packetPath = (Resolve-Path -LiteralPath $Packet).Path
+$doctor = Join-Path $HOME '.codex\skills\devad-x9-loop\scripts\opencode_doctor.py'
+if (-not (Test-Path -LiteralPath $doctor -PathType Leaf)) {
+    throw "Missing installed X9 sidecar doctor: $doctor"
+}
 
-$args = @(
-    'run',
+if (-not $Output) {
+    $modelSlug = ($Model -split '/')[-1]
+    $Output = Join-Path (Split-Path -Parent $packetPath) (
+        '{0}-{1}.md' -f [IO.Path]::GetFileNameWithoutExtension($packetPath), $modelSlug
+    )
+} elseif (-not [IO.Path]::IsPathRooted($Output)) {
+    $Output = Join-Path (Split-Path -Parent $packetPath) $Output
+}
+
+$arguments = @(
+    $doctor,
+    'request',
+    '--repo', $repo,
+    '--packet', $packetPath,
     '--model', $Model,
-    '--dir', $repo,
-    '--file', $packetPath,
-    '--title', "Devad sidecar $Model",
-    $Prompt
+    '--output', $Output,
+    '--timeout', [string]$Timeout
 )
-
-$result = & opencode @args 2>&1
+$result = & python @arguments 2>&1
 $exitCode = $LASTEXITCODE
 $text = ($result | Out-String).TrimEnd()
-
-if ($Output) {
-    $outputPath = if ([System.IO.Path]::IsPathRooted($Output)) {
-        $Output
-    } else {
-        Join-Path (Get-Location).Path $Output
-    }
-    $parent = Split-Path -Parent $outputPath
-    New-Item -ItemType Directory -Force -Path $parent | Out-Null
-    $utf8NoBom = New-Object System.Text.UTF8Encoding -ArgumentList $false
-    [System.IO.File]::WriteAllText($outputPath, $text, $utf8NoBom)
-}
-
 if ($exitCode -ne 0) {
-    throw "opencode run failed with exit code $exitCode`n$text"
+    throw ("X9 sidecar request stopped with exit code {0}{1}{2}" -f $exitCode, [Environment]::NewLine, $text)
 }
-
 $text

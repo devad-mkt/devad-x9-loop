@@ -111,8 +111,8 @@ class X9SuiteTests(unittest.TestCase):
         self.assertIn("Linx never takes over a stalled Worker", policy)
 
         manager = (ROOT / "skills/devad-x9-loop/SKILL.md").read_text(encoding="utf-8")
-        self.assertIn("SKIP_ACTIVE_MANAGER_PASS", manager)
-        self.assertIn("Linx never codes", manager)
+        self.assertIn("runtime/ACTION.json", manager)
+        self.assertIn("Linx never reviews code", manager)
 
     def test_manager_pass_mutex_and_handover_gates_exist(self) -> None:
         contract = (
@@ -124,11 +124,12 @@ class X9SuiteTests(unittest.TestCase):
         handover = (
             ROOT / "skills/devad-x9-loop/references/manager-handover-policy.md"
         ).read_text(encoding="utf-8")
-        lock = (
-            ROOT / "templates/x9-project/.devad/manager/MANAGER_PASS_LOCK.md"
+        router = (
+            ROOT / "templates/x9-project/.devad/ROUTER.md"
         ).read_text(encoding="utf-8")
-        for text in (contract, heartbeat, lock):
-            self.assertIn("SKIP_ACTIVE_MANAGER_PASS", text)
+        for text in (contract, router):
+            self.assertIn("loop-lite", text.lower())
+        self.assertIn("ACTION.json", router)
         self.assertIn("newer owner message", heartbeat)
         self.assertIn("incorrect owner-facing truth", handover)
         self.assertIn("HANDOVER_REQUIRED", handover)
@@ -220,10 +221,10 @@ class X9SuiteTests(unittest.TestCase):
         ).read_text(encoding="utf-8")
         for required in (
             "Worktree Discipline",
-            "one active implementation worktree per feature ID",
-            "PARALLEL_WORKTREE_OK",
-            "ARCHIVED_SAFE",
-            "Codex never removes a worktree",
+            "Codex never removes, cleans, resets, stashes, or relocates a worktree",
+            "SCOPE_BREACH",
+            "CLAIM_EXPANSION_REQUEST",
+            "worktree",
         ):
             self.assertIn(required, contract)
         self.assertIn("One active implementation worktree per feature ID", registry)

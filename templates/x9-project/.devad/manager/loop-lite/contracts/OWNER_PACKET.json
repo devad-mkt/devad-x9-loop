@@ -1,0 +1,14 @@
+{
+  "schema": "x9-owner-packet-v1",
+  "owner_packet_id": "own-<uuid>",
+  "created_at": "<UTC timestamp>",
+  "source_task_id": "<Linx task ID>",
+  "owner_text": "<exact newest owner text>",
+  "attachments": [
+    {
+      "path": ".devad/manager/owner-packets/artifacts/<attachment_sha256>.txt",
+      "sha256": "<64 lowercase hex>",
+      "meaning": "<short visual or file meaning>"
+    }
+  ]
+}

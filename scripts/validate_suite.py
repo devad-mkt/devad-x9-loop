@@ -27,6 +27,15 @@ LOOP_FILES = {
     "DISPATCH_LEDGER.jsonl",
     "DECISION_GATES.json",
 }
+LOOP_LITE_FILES = {".gitignore", "README.md", "SNAPSHOT.json", "contracts"}
+OWNER_PACKET_FILES = {".gitignore", "README.md"}
+LOOP_LITE_CONTRACTS = {"OWNER_PACKET.json", "TASK.json", "ACTION.json", "RESULT.json"}
+LOOP_LITE_TABLES = {
+    "actors", "worktrees", "tasks", "claims", "resources", "dispatches",
+    "deliveries", "events", "gates", "outbox", "metrics",
+}
+LOOP_LITE_IGNORES = {"loop.db", "loop.db-shm", "loop.db-wal", "runtime/", "*.corrupt-*", "*.failed-*", "*.rebuild-*"}
+LOOP_LITE_CONTROLLER = "skills/devad-x9-loop/scripts/loopctl.py"
 ALLOWED_STATUS = {"RETAINED", "MOVED", "ADAPTED", "NEW", "RETIRED"}
 
 
@@ -42,6 +51,9 @@ def validate_manifest(errors: list[str]) -> None:
             digest, relative = line.split("  ", 1)
         except ValueError:
             errors.append("invalid source manifest line")
+            continue
+        if relative == ".git" or relative.startswith(".git/"):
+            errors.append(f"manifest includes Git metadata: {relative}")
             continue
         path = ROOT / relative
         if not path.is_file():
@@ -137,17 +149,116 @@ def validate_template(errors: list[str]) -> None:
                 errors.append(f"broken template link: {path.relative_to(ROOT)} -> {target}")
 
 
-def validate_no_generated_cache(errors: list[str]) -> None:
-    manifest = ROOT / "SOURCE_MANIFEST.sha256"
-    if not manifest.is_file():
+def validate_loop_lite(errors: list[str]) -> None:
+    loop_lite = ROOT / "templates" / "x9-project" / ".devad" / "manager" / "loop-lite"
+    if not loop_lite.is_dir():
+        errors.append("missing loop-lite template")
         return
-    for line in manifest.read_text(encoding="utf-8-sig").splitlines():
-        if not line.strip() or "  " not in line:
-            continue
-        relative = line.split("  ", 1)[1]
-        parts = Path(relative).parts
-        if "__pycache__" in parts or Path(relative).suffix == ".pyc":
-            errors.append(f"generated cache included in source manifest: {relative}")
+    missing = sorted(name for name in LOOP_LITE_FILES if not (loop_lite / name).exists())
+    if missing:
+        if "SNAPSHOT.json" in missing:
+            errors.append("missing loop-lite recovery snapshot")
+        errors.extend(f"missing loop-lite artifact: {name}" for name in missing if name != "SNAPSHOT.json")
+        return
+    controller = ROOT / LOOP_LITE_CONTROLLER
+    if not controller.is_file():
+        errors.append("missing loop-lite controller")
+    owner_store = loop_lite.parent / "owner-packets"
+    owner_files = (
+        {path.name for path in owner_store.iterdir() if path.is_file()}
+        if owner_store.is_dir()
+        else set()
+    )
+    if owner_files != OWNER_PACKET_FILES:
+        errors.append(f"owner-packet template mismatch: {sorted(owner_files)}")
+    else:
+        owner_ignores = set(
+            (owner_store / ".gitignore")
+            .read_text(encoding="utf-8-sig")
+            .splitlines()
+        )
+        if not {"*", "!.gitignore", "!README.md"}.issubset(owner_ignores):
+            errors.append("owner-packet local-only ignore is incomplete")
+        owner_readme = (owner_store / "README.md").read_text(
+            encoding="utf-8-sig"
+        )
+        if "local sensitive state" not in owner_readme:
+            errors.append("owner-packet privacy policy is missing")
+    ignored = set((loop_lite / ".gitignore").read_text(encoding="utf-8-sig").splitlines())
+    missing_ignores = sorted(LOOP_LITE_IGNORES - ignored)
+    if missing_ignores:
+        errors.append(f"loop-lite gitignore incomplete: {missing_ignores}")
+    snapshot = loop_lite / "SNAPSHOT.json"
+    if snapshot.stat().st_size >= 8192:
+        errors.append("loop-lite recovery snapshot is not below 8 KB")
+    try:
+        payload = json.loads(snapshot.read_text(encoding="utf-8-sig"))
+    except json.JSONDecodeError:
+        return
+    tables = payload.get("tables")
+    if not isinstance(tables, dict) or set(tables) != LOOP_LITE_TABLES:
+        errors.append("loop-lite snapshot tables do not match controller contract")
+    contracts = loop_lite / "contracts"
+    actual_contracts = {path.name for path in contracts.glob("*.json")}
+    if actual_contracts != LOOP_LITE_CONTRACTS:
+        errors.append(f"loop-lite contract mismatch: {sorted(actual_contracts)}")
+    for path in contracts.glob("*.json"):
+        if path.stat().st_size >= 4096:
+            errors.append(f"loop-lite contract over compact cap: {path.relative_to(ROOT)}")
+    try:
+        action_payload = json.loads((contracts / "ACTION.json").read_text(encoding="utf-8-sig"))
+        task_payload = json.loads((contracts / "TASK.json").read_text(encoding="utf-8-sig"))
+        owner_payload = json.loads((contracts / "OWNER_PACKET.json").read_text(encoding="utf-8-sig"))
+        result_payload = json.loads((contracts / "RESULT.json").read_text(encoding="utf-8-sig"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return
+    packet = action_payload.get("packet")
+    required_packet_fields = {
+        "schema", "task_id", "sender_id", "target_actor_id", "worktree_id",
+        "worktree_path", "base_sha", "owner_packet_path", "owner_packet_sha256",
+        "local_work", "dependencies", "claims", "resources", "gates", "finish_line",
+    }
+    if "packet_path" in action_payload or not isinstance(packet, dict) or not required_packet_fields.issubset(packet) or packet.get("owner_packet_path") != ".devad/manager/owner-packets/<packet_sha256>.json":
+        errors.append("loop-lite action contract missing immutable packet fields")
+    if not {"owner_packet_path", "owner_packet_sha256"}.issubset(task_payload) or task_payload.get("owner_packet_path") != ".devad/manager/owner-packets/<packet_sha256>.json":
+        errors.append("loop-lite task contract missing content-addressed owner packet")
+    attachments = owner_payload.get("attachments")
+    if owner_payload.get("schema") != "x9-owner-packet-v1" or "packet_sha256" in owner_payload or not isinstance(attachments, list) or not attachments or attachments[0].get("path") != ".devad/manager/owner-packets/artifacts/<attachment_sha256>.txt":
+        errors.append("loop-lite owner packet contract is not controller-compatible")
+    proof = result_payload.get("proof")
+    expected_proof_paths = {
+        "security": ".devad/workers/<worker_id>/proof/<event_id>/security.json",
+        "tests": ".devad/workers/<worker_id>/proof/<event_id>/tests.json",
+    }
+    proof_is_structured = isinstance(proof, list) and bool(proof) and all(
+        isinstance(item, dict) and {"kind", "path", "sha256"}.issubset(item)
+        for item in proof
+    ) and {item["kind"] for item in proof} == {"security", "tests"} and {item["kind"]: item["path"] for item in proof} == expected_proof_paths
+    if result_payload.get("outcome") != "COMPLETE" or not proof_is_structured or not isinstance(result_payload.get("c1"), str) or not isinstance(result_payload.get("c2"), str):
+        errors.append("loop-lite result contract missing security/tests C1/C2 proof")
+
+
+def validate_metadata(errors: list[str]) -> None:
+    try:
+        kit = json.loads((ROOT / "kit.manifest.json").read_text(encoding="utf-8-sig"))
+        index = json.loads((ROOT / "skills.index.json").read_text(encoding="utf-8-sig"))
+    except (FileNotFoundError, json.JSONDecodeError) as exc:
+        errors.append(f"package metadata load failed: {exc}")
+        return
+    if kit.get("version") != 6 or kit.get("runtime_truth_root") != ".devad/manager/loop-lite":
+        errors.append("kit manifest does not name Loop Lite v6 runtime truth")
+    if kit.get("schema") != "devad-x9-loop-codex-kit-v6" or index.get("schema") != "devad-x9-loop-kit-v6":
+        errors.append("package metadata schema is not v6")
+
+
+def validate_no_generated_cache(errors: list[str]) -> None:
+    for root_name in ("skills", "scripts", "templates"):
+        for path in (ROOT / root_name).rglob("*"):
+            if "__pycache__" in path.parts or path.suffix == ".pyc":
+                errors.append(f"generated cache included: {path.relative_to(ROOT)}")
+            if path.is_file() and "loop-lite" in path.parts and (path.name in {"loop.db", "loop.db-shm", "loop.db-wal"} or "runtime" in path.parts):
+                errors.append(f"generated loop-lite runtime included: {path.relative_to(ROOT)}")
+
 
 def main() -> int:
     errors: list[str] = []
@@ -155,11 +266,13 @@ def main() -> int:
     validate_skills(errors)
     validate_registry(errors)
     validate_template(errors)
+    validate_loop_lite(errors)
+    validate_metadata(errors)
     validate_no_generated_cache(errors)
     if errors:
         print("\n".join(f"ERROR: {error}" for error in errors))
         return 1
-    print("PASS: X9 Loop v5 skills, registry, manifest, compact template, JSON, and links")
+    print("PASS: X9 Loop Lite v6 skills, registry, manifest, compact template, JSON, and links")
     return 0
 
 
