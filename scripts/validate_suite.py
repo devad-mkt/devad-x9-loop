@@ -59,7 +59,16 @@ def validate_manifest(errors: list[str]) -> None:
         if not path.is_file():
             errors.append(f"manifest missing file: {relative}")
             continue
-        if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+        data = path.read_bytes()
+        if b"\r\n" in data and b"\0" not in data:
+            try:
+                data.decode("utf-8")
+            except UnicodeDecodeError:
+                pass
+            else:
+                errors.append(f"manifest includes CRLF UTF-8 text: {relative}")
+                continue
+        if hashlib.sha256(data).hexdigest() != digest:
             errors.append(f"manifest mismatch: {relative}")
 
 

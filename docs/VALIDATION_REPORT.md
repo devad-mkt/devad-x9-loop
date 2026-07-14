@@ -2,13 +2,14 @@
 
 | Gate | Result |
 | --- | --- |
-| Full unittest discovery | PASS, 151 tests in 109.814 seconds |
-| Retained v3/v5 behavior | PASS inside the same 151-test run |
+| Full unittest discovery | PASS, 153 tests in 118.583 seconds |
+| Retained v3/v5 behavior | PASS inside the same 153-test run |
 | Official skill validator | PASS, 6/6 skills |
 | Python AST | PASS, 41 active Python files |
 | PowerShell AST | PASS, 5 active scripts |
 | Package validator | PASS, manifest, registry, compact template, JSON, and links |
 | Source manifest | PASS, 231 public files before C1 |
+| Manifest line-ending guard | PASS; CRLF UTF-8 text is rejected before hashing |
 | Secret scan | PASS, 232 text files and 0 findings |
 | Public privacy tests | PASS, 6/6; no personal paths or private backup remote |
 | Private evidence exclusion | PASS; no archives, commit evidence, security evidence, or local benchmark results |

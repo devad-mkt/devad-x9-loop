@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import json
 import os
@@ -47,6 +48,59 @@ class LoopLitePackageTests(unittest.TestCase):
             capture_output=True,
             text=True,
         )
+
+    def test_manifest_excludes_and_rejects_git_metadata(self):
+        with tempfile.TemporaryDirectory() as directory:
+            package = self.make_package_copy(directory)
+            git_config = package / ".git" / "config"
+            git_config.parent.mkdir()
+            git_config.write_text("[remote]\nurl = private\n", encoding="utf-8")
+            self.rebuild_manifest(package)
+            manifest = package / "SOURCE_MANIFEST.sha256"
+            lines = manifest.read_text(encoding="utf-8-sig").splitlines()
+            self.assertFalse(any("  .git/" in line for line in lines))
+            manifest.write_text(
+                manifest.read_text(encoding="utf-8")
+                + f"{'0' * 64}  .git/config\n",
+                encoding="utf-8",
+            )
+            result = subprocess.run(
+                [sys.executable, str(package / "scripts" / "validate_suite.py")],
+                cwd=package,
+                capture_output=True,
+                text=True,
+            )
+        self.assertNotEqual(0, result.returncode)
+        self.assertIn("manifest includes Git metadata", result.stdout)
+
+    def test_manifest_rejects_crlf_utf8_text(self):
+        with tempfile.TemporaryDirectory() as directory:
+            package = self.make_package_copy(directory)
+            bad = package / "crlf.txt"
+            data = b"one\r\ntwo\r\n"
+            bad.write_bytes(data)
+            build = subprocess.run(
+                [sys.executable, str(package / "scripts" / "build_source_manifest.py")],
+                cwd=package,
+                capture_output=True,
+                text=True,
+            )
+            self.assertNotEqual(0, build.returncode)
+            self.assertIn("UTF-8 text must use LF", build.stderr + build.stdout)
+            manifest = package / "SOURCE_MANIFEST.sha256"
+            manifest.write_text(
+                manifest.read_text(encoding="utf-8")
+                + f"{hashlib.sha256(data).hexdigest()}  crlf.txt\n",
+                encoding="utf-8",
+            )
+            result = subprocess.run(
+                [sys.executable, str(package / "scripts" / "validate_suite.py")],
+                cwd=package,
+                capture_output=True,
+                text=True,
+            )
+        self.assertNotEqual(0, result.returncode)
+        self.assertIn("manifest includes CRLF UTF-8 text", result.stdout)
 
     def test_validator_requires_loop_lite_recovery_snapshot(self):
         with tempfile.TemporaryDirectory() as directory:

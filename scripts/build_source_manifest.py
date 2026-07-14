@@ -15,7 +15,15 @@ def main() -> int:
         relative = path.relative_to(ROOT).as_posix()
         if relative in EXCLUDE or relative.startswith(".git/") or "__pycache__" in path.parts or path.suffix == ".pyc":
             continue
-        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        data = path.read_bytes()
+        if b"\r\n" in data and b"\0" not in data:
+            try:
+                data.decode("utf-8")
+            except UnicodeDecodeError:
+                pass
+            else:
+                raise SystemExit(f"UTF-8 text must use LF before manifest build: {relative}")
+        digest = hashlib.sha256(data).hexdigest()
         lines.append(f"{digest}  {relative}")
     OUTPUT.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
     print(f"wrote {OUTPUT} with {len(lines)} files")
